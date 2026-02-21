@@ -183,6 +183,14 @@ def load_data(
         geo_coords_df["Accession #"].astype(str)
     )
 
+    # Longitude values in the coordinate sheets are inconsistently stored:
+    # most Spanish sites use positive values (e.g. 3.47 instead of -3.47)
+    # while some sites (e.g. Vila Nova de São Pedro) are already negative.
+    # All sites are in the Iberian Peninsula (west of the prime meridian),
+    # so force all longitudes to negative with -abs() to normalise both cases.
+    geo_coords_df["Longitude"] = geo_coords_df["Longitude"].abs() * -1
+    arch_coords_df["Longitude"] = arch_coords_df["Longitude"].abs() * -1
+
     return artefact_df, geology_df, geo_coords_df, arch_coords_df
 
 
@@ -796,14 +804,21 @@ def display_scatter_plot(results_df: pd.DataFrame) -> None:
     st.plotly_chart(fig, use_container_width=True)
 
 
+
 def _aitch_to_marker_color(val: float) -> str:
-    """Map Aitchison distance value to a marker color."""
-    if val < AITCH_VERY_STRONG:
-        return "green"
-    if val < AITCH_STRONG:
+    """Map Aitchison distance value to a marker color (0.5-step bands)."""
+    if val < 0.5:
+        return "lightskyblue"
+    if val < 1.0:
+        return "steelblue"
+    if val < 1.5:
         return "limegreen"
-    if val < AITCH_MODERATE:
+    if val < 2.0:
+        return "gold"
+    if val < 2.5:
         return "orange"
+    if val < 3.0:
+        return "tomato"
     return "darkred"
 
 
@@ -864,17 +879,6 @@ def display_results_map(
 
     fig = go.Figure()
 
-    # Query point (red, larger)
-    if query_coords:
-        fig.add_trace(go.Scattermapbox(
-            lat=[query_coords[0]],
-            lon=[query_coords[1]],
-            mode="markers",
-            marker={"size": 15, "color": "red"},
-            name=query_label,
-            text=[query_label],
-        ))
-
     # Match points colored by Aitchison distance
     if map_points:
         map_df = pd.DataFrame(map_points)
@@ -888,24 +892,31 @@ def display_results_map(
             axis=1,
         )
 
-        # One trace per color group for legend entries
-        color_labels = {
-            "green": (
-                f"< {AITCH_VERY_STRONG} (very strong)"
-            ),
-            "limegreen": (
-                f"{AITCH_VERY_STRONG}-"
-                f"{AITCH_STRONG} (strong)"
-            ),
-            "orange": (
-                f"{AITCH_STRONG}-"
-                f"{AITCH_MODERATE} (moderate)"
-            ),
-            "darkred": (
-                f"> {AITCH_MODERATE} (weak)"
-            ),
-        }
-        for color, label in color_labels.items():
+        # Black shadow trace behind all match points — simulates borders
+        # (Scattermapbox marker.line is not supported)
+        fig.add_trace(go.Scattermapbox(
+            lat=map_df["lat"].tolist(),
+            lon=map_df["lon"].tolist(),
+            mode="markers",
+            marker={"size": 16, "color": "black"},
+            showlegend=False,
+            hoverinfo="skip",
+        ))
+
+        # One trace per color group for legend entries.
+        # Add traces worst-first so that better matches render
+        # on top when multiple samples share the same coordinates.
+        # legendrank keeps the legend ordered best-first.
+        color_labels = [
+            ("lightskyblue", 1, "< 0.5 (very strong)"),
+            ("steelblue",   2, "0.5–1.0 (very strong)"),
+            ("limegreen", 3, "1.0–1.5 (strong)"),
+            ("gold",      4, "1.5–2.0 (strong)"),
+            ("orange",    5, "2.0–2.5 (moderate)"),
+            ("tomato",    6, "2.5–3.0 (moderate)"),
+            ("darkred",   7, "> 3.0 (weak)"),
+        ]
+        for color, rank, label in reversed(color_labels):
             subset = map_df[
                 map_df["marker_color"] == color
             ]
@@ -918,27 +929,108 @@ def display_results_map(
                 marker={"size": 12, "color": color},
                 name=label,
                 text=subset["hover_text"],
+                legendrank=rank,
             ))
 
+    # Query point — added last so it always renders on top.
+    # White halo then black fill so it is distinct from match markers.
     if query_coords:
-        center_lat = query_coords[0]
-        center_lon = query_coords[1]
-    else:
-        # map_points guaranteed non-empty (early return above)
-        map_df_fallback = pd.DataFrame(map_points)
-        center_lat = map_df_fallback["lat"].mean()
-        center_lon = map_df_fallback["lon"].mean()
+        fig.add_trace(go.Scattermapbox(
+            lat=[query_coords[0]],
+            lon=[query_coords[1]],
+            mode="markers",
+            marker={"size": 21, "color": "white"},
+            showlegend=False,
+            hoverinfo="skip",
+        ))
+        fig.add_trace(go.Scattermapbox(
+            lat=[query_coords[0]],
+            lon=[query_coords[1]],
+            mode="markers",
+            marker={"size": 15, "color": "black"},
+            name=query_label,
+            text=[query_label],
+            legendrank=0,
+        ))
 
+    # Scale bar — ArcGIS-style alternating bar 0-50-100-200 km
+    # Bottom-left corner of map, Atlantic Ocean west of Strait of Gibraltar
+    # At 35.1°N: 111.32 × cos(35.1°) ≈ 91.1 km/° lon
+    _sb_lat    = 35.1
+    _sb_lon0   = -9.7
+    _sb_dlon   = 50 / 91.1          # ≈ 0.549° per 50 km
+    _sb_lon50  = _sb_lon0 + _sb_dlon
+    _sb_lon100 = _sb_lon0 + 2 * _sb_dlon
+    _sb_lon200 = _sb_lon0 + 4 * _sb_dlon
+    _sb_lw     = 10   # bar thickness in screen pixels
+
+    # Black base bar (0 → 200 km)
+    fig.add_trace(go.Scattermapbox(
+        lat=[_sb_lat, _sb_lat], lon=[_sb_lon0, _sb_lon200],
+        mode="lines", line={"width": _sb_lw, "color": "#000000"},
+        showlegend=False, hoverinfo="skip",
+    ))
+    # White cutout for 50-100 km segment — slightly narrower to preserve black outline
+    fig.add_trace(go.Scattermapbox(
+        lat=[_sb_lat, _sb_lat], lon=[_sb_lon50, _sb_lon100],
+        mode="lines", line={"width": _sb_lw - 4, "color": "#ffffff"},
+        showlegend=False, hoverinfo="skip",
+    ))
+    # Distance labels — layout annotations always render on top of map tiles
+    # Paper x: linear lon→(lon-west)/(east-west), west=-9.8, east=1.5 (range=11.3)
+    _lon_to_x = lambda lon: (lon + 9.8) / 11.3
+    _sb_lbl_y = 0.04   # paper y for km numbers (just above bar)
+    _sb_km_y  = 0.07   # paper y for "Kilometers"
+    for _km, _llon in [(0, _sb_lon0), (50, _sb_lon50),
+                       (100, _sb_lon100), (200, _sb_lon200)]:
+        fig.add_annotation(
+            x=_lon_to_x(_llon), y=_sb_lbl_y,
+            xref="paper", yref="paper",
+            text=str(_km), showarrow=False,
+            font={"size": 11, "color": "black"},
+            xanchor="center", yanchor="bottom",
+        )
+    fig.add_annotation(
+        x=_lon_to_x((_sb_lon0 + _sb_lon200) / 2), y=_sb_km_y,
+        xref="paper", yref="paper",
+        text="Kilometers", showarrow=False,
+        font={"size": 11, "color": "black"},
+        xanchor="center", yanchor="bottom",
+    )
+
+    # Map extent: southern Iberia focus matching ArcGIS layout
+    # East stops at Spanish coast (no Balearics), Morocco clearly visible below
+    _MAP_BOUNDS = {
+        "west":  -9.8,   # Portugal's Atlantic coast with small ocean gap
+        "east":   1.5,   # southeastern Spanish coast (~0-1°E)
+        "south": 33.5,   # Morocco well south of Melilla
+        "north": 41.5,   # just past Madrid (~40.4°N)
+    }
     fig.update_layout(
         mapbox={
-            "style": "open-street-map",
-            "center": {
-                "lat": center_lat, "lon": center_lon,
-            },
-            "zoom": 5,
+            "style": "white-bg",
+            "layers": [
+                {
+                    "below": "traces",
+                    "sourcetype": "raster",
+                    "source": [
+                        "https://server.arcgisonline.com/ArcGIS/rest/"
+                        "services/NatGeo_World_Map/MapServer/tile"
+                        "/{z}/{y}/{x}"
+                    ],
+                    "sourceattribution": (
+                        "Tiles © Esri — National Geographic, Esri,"
+                        " DeLorme, NAVTEQ, USGS, NRCAN, GEBCO, NOAA"
+                    ),
+                }
+            ],
+            "bounds": _MAP_BOUNDS,
+            "center": {"lat": 37.5, "lon": -4.15},  # fallback
+            "zoom": 6,                               # fallback
         },
         margin={"l": 0, "r": 0, "t": 30, "b": 0},
         title="Geographical Distribution of Matches",
+        height=750,
     )
     st.plotly_chart(fig, use_container_width=True)
 
