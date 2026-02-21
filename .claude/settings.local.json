@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pip install:*)",
+      "Bash(du:*)",
+      "Bash(git -C /c/Users/bruno/OneDrive/Archaeology/PhD/AI/Geology-Source-Finder log --oneline -20)",
+      "Bash(git -C /c/Users/bruno/OneDrive/Archaeology/PhD/AI/Geology-Source-Finder config --list)",
+      "Bash(git -C \"c:/Users/bruno/OneDrive/Archaeology/PhD/AI/Geology-Source-Finder\" log --oneline -10)",
+      "Bash(python:*)",
+      "Bash(python3:*)",
+      "Bash(/c/Python313/python:*)",
+      "Bash(echo:*)",
+      "Bash(ruff check:*)",
+      "Bash(npx markdownlint-cli:*)",
+      "Bash(npx markdownlint-cli2:*)"
+    ]
+  }
+}
