@@ -1,11 +1,13 @@
 from __future__ import annotations
 
 import os
+import base64
 import logging
 from datetime import datetime
 from io import BytesIO
 from collections import Counter
 from typing import Any
+from urllib.parse import quote
 
 import pandas as pd
 import numpy as np
@@ -192,6 +194,66 @@ def load_data(
     arch_coords_df["Longitude"] = arch_coords_df["Longitude"].abs() * -1
 
     return artefact_df, geology_df, geo_coords_df, arch_coords_df
+
+
+@st.cache_data(show_spinner=False)
+def _load_photo_mapping() -> pd.DataFrame:
+    """Load artefact-to-photo filename mapping from CSV."""
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    for d in [
+        os.path.join(base_dir, "Data"),
+        os.path.join(base_dir, "..", "Data"),
+    ]:
+        path = os.path.join(d, "photo_mapping.csv")
+        if os.path.exists(path):
+            df = pd.read_csv(path, encoding="utf-8")
+            df["Accession #"] = df["Accession #"].astype(str).str.strip()
+            return df
+    return pd.DataFrame()
+
+
+def _onedrive_folder_api_base(share_url: str) -> str:
+    """Convert a OneDrive shared-folder URL to Graph API base."""
+    encoded = base64.urlsafe_b64encode(
+        share_url.strip().encode()
+    ).decode().rstrip("=")
+    return (
+        f"https://api.onedrive.com/v1.0"
+        f"/shares/u!{encoded}/root"
+    )
+
+
+def _build_image_url(
+    folder_api_base: str, relative_path: str,
+) -> str:
+    """Build a direct-download URL for a file in the shared folder."""
+    encoded_path = quote(relative_path, safe="/")
+    return f"{folder_api_base}:/{encoded_path}:/content"
+
+
+def _get_artefact_image_urls(
+    accession: str,
+    photo_df: pd.DataFrame,
+    folder_api_base: str,
+) -> list[str]:
+    """Look up photo URLs for an accession number."""
+    if photo_df.empty:
+        return []
+    row = photo_df[photo_df["Accession #"] == str(accession).strip()]
+    if row.empty:
+        return []
+    row = row.iloc[0]
+    urls = []
+    for col in [
+        "Image_1", "Image_2", "Image_3",
+        "Image_4", "Image_5", "Image_6",
+    ]:
+        val = row.get(col)
+        if pd.notna(val) and str(val).strip():
+            urls.append(
+                _build_image_url(folder_api_base, str(val).strip())
+            )
+    return urls
 
 
 # -----------------------------
@@ -598,6 +660,27 @@ def _create_styled_excel(
 # -----------------------------
 # UI Display Functions
 # -----------------------------
+def display_artefact_photos(
+    accession: str,
+    photo_df: pd.DataFrame,
+    folder_api_base: str,
+) -> None:
+    """Display artefact photographs from OneDrive."""
+    urls = _get_artefact_image_urls(
+        accession, photo_df, folder_api_base,
+    )
+    if not urls:
+        return
+    with st.expander(
+        f"Artefact Photographs ({len(urls)} images)",
+        expanded=True,
+    ):
+        cols = st.columns(min(len(urls), 3))
+        for i, url in enumerate(urls):
+            with cols[i % 3]:
+                st.image(url, use_container_width=True)
+
+
 def display_legend() -> None:
     """Display color-coded threshold explanations."""
     col1, col2, col3 = st.columns(3)
@@ -879,6 +962,23 @@ def display_results_map(
 
     fig = go.Figure()
 
+    # Invisible anchors at map-extent corners so fitbounds always
+    # shows the full southern-Iberia region regardless of data spread
+    _MAP_BOUNDS = {
+        "west":  -9.8,
+        "east":   1.5,
+        "south": 33.5,
+        "north": 41.5,
+    }
+    fig.add_trace(go.Scattermapbox(
+        lat=[_MAP_BOUNDS["south"], _MAP_BOUNDS["north"]],
+        lon=[_MAP_BOUNDS["west"], _MAP_BOUNDS["east"]],
+        mode="markers",
+        marker={"size": 1, "opacity": 0},
+        showlegend=False,
+        hoverinfo="skip",
+    ))
+
     # Match points colored by Aitchison distance
     if map_points:
         map_df = pd.DataFrame(map_points)
@@ -976,36 +1076,33 @@ def display_results_map(
         mode="lines", line={"width": _sb_lw - 4, "color": "#ffffff"},
         showlegend=False, hoverinfo="skip",
     ))
-    # Distance labels — layout annotations always render on top of map tiles
-    # Paper x: linear lon→(lon-west)/(east-west), west=-9.8, east=1.5 (range=11.3)
-    _lon_to_x = lambda lon: (lon + 9.8) / 11.3
-    _sb_lbl_y = 0.04   # paper y for km numbers (just above bar)
-    _sb_km_y  = 0.07   # paper y for "Kilometers"
-    for _km, _llon in [(0, _sb_lon0), (50, _sb_lon50),
-                       (100, _sb_lon100), (200, _sb_lon200)]:
-        fig.add_annotation(
-            x=_lon_to_x(_llon), y=_sb_lbl_y,
-            xref="paper", yref="paper",
-            text=str(_km), showarrow=False,
-            font={"size": 11, "color": "black"},
-            xanchor="center", yanchor="bottom",
-        )
-    fig.add_annotation(
-        x=_lon_to_x((_sb_lon0 + _sb_lon200) / 2), y=_sb_km_y,
-        xref="paper", yref="paper",
-        text="Kilometers", showarrow=False,
-        font={"size": 11, "color": "black"},
-        xanchor="center", yanchor="bottom",
-    )
+    # Distance labels — Scattermapbox text traces so they pan with the bar
+    _sb_num_lat = _sb_lat   # numbers sit just above bar via textposition
+    _sb_km_lat  = _sb_lat + 0.18  # "Kilometers" title above the numbers
+    fig.add_trace(go.Scattermapbox(
+        lat=[_sb_num_lat] * 4,
+        lon=[_sb_lon0, _sb_lon50, _sb_lon100, _sb_lon200],
+        mode="text",
+        text=["0", "50", "100", "200"],
+        textfont={"size": 11, "color": "black"},
+        textposition="top center",
+        showlegend=False,
+        hoverinfo="skip",
+    ))
+    fig.add_trace(go.Scattermapbox(
+        lat=[_sb_km_lat],
+        lon=[(_sb_lon0 + _sb_lon200) / 2],
+        mode="text",
+        text=["Kilometers"],
+        textfont={"size": 11, "color": "black"},
+        textposition="top center",
+        showlegend=False,
+        hoverinfo="skip",
+    ))
 
-    # Map extent: southern Iberia focus matching ArcGIS layout
-    # East stops at Spanish coast (no Balearics), Morocco clearly visible below
-    _MAP_BOUNDS = {
-        "west":  -9.8,   # Portugal's Atlantic coast with small ocean gap
-        "east":   1.5,   # southeastern Spanish coast (~0-1°E)
-        "south": 33.5,   # Morocco well south of Melilla
-        "north": 41.5,   # just past Madrid (~40.4°N)
-    }
+    # Map layout — fitbounds="locations" auto-zooms to show every trace
+    # (including the invisible corner anchors) so the full region is
+    # always visible regardless of container size or aspect ratio.
     fig.update_layout(
         mapbox={
             "style": "white-bg",
@@ -1030,7 +1127,21 @@ def display_results_map(
         },
         margin={"l": 0, "r": 0, "t": 30, "b": 0},
         title="Geographical Distribution of Matches",
-        height=750,
+    )
+    # Responsive height: fill available viewport, scoped to the mapbox chart only
+    st.markdown(
+        """
+        <style>
+        [data-testid="stPlotlyChart"]:has(.mapboxgl-canvas) {
+            height: calc(100vh - 160px) !important;
+            min-height: 450px;
+        }
+        [data-testid="stPlotlyChart"]:has(.mapboxgl-canvas) > div {
+            height: 100% !important;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
     )
     st.plotly_chart(fig, use_container_width=True)
 
@@ -1224,6 +1335,8 @@ def _execute_query(
     geology_df: pd.DataFrame,
     geo_coords_df: pd.DataFrame,
     arch_coords_df: pd.DataFrame,
+    photo_df: pd.DataFrame | None = None,
+    onedrive_folder_url: str = "",
 ) -> None:
     """Execute a single query and display results."""
     if query_mode == "Artefact \u2192 Geology":
@@ -1316,6 +1429,19 @@ def _execute_query(
         results_df, accession_number,
         direction, query_site=site_info,
     )
+
+    # Display artefact photographs (if OneDrive configured)
+    if (
+        onedrive_folder_url
+        and photo_df is not None
+        and not photo_df.empty
+        and direction == "artefact_to_geology"
+    ):
+        folder_base = _onedrive_folder_api_base(onedrive_folder_url)
+        display_artefact_photos(
+            str(sample["Accession #"]), photo_df, folder_base,
+        )
+
     display_radar_chart(
         sample, results_df, target_df,
         accession_number, direction,
@@ -1829,6 +1955,17 @@ def main() -> None:
         mode_key = (
             "trace" if "Trace" in element_mode else "all"
         )
+        st.divider()
+        onedrive_folder_url = st.text_input(
+            "OneDrive Photos Folder Link:",
+            value="",
+            help=(
+                "Paste a OneDrive shared-folder link to "
+                "display artefact photographs. The folder "
+                "must be shared with 'Anyone with the link'."
+            ),
+            key="onedrive_url",
+        )
 
     st.title("GSF - Geology Source Finder")
 
@@ -1846,6 +1983,9 @@ def main() -> None:
         st.exception(e)
         return
 
+    # Load photo mapping
+    photo_df = _load_photo_mapping()
+
     # Show dataset counts in sidebar
     with st.sidebar:
         st.divider()
@@ -1853,6 +1993,10 @@ def main() -> None:
             f"Dataset: {len(artefact_df)} artefacts, "
             f"{len(geology_df)} geology samples"
         )
+        if not photo_df.empty:
+            st.caption(
+                f"Photo mapping: {len(photo_df)} artefacts"
+            )
 
     # Tab layout
     tab_single, tab_batch, tab_compare = st.tabs([
@@ -1925,6 +2069,8 @@ def main() -> None:
                 top_n, selected_regions,
                 artefact_df, geology_df,
                 geo_coords_df, arch_coords_df,
+                photo_df=photo_df,
+                onedrive_folder_url=onedrive_folder_url,
             )
 
     # --- Tab 2: Batch Query ---

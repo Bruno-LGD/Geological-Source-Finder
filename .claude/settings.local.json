@@ -12,7 +12,8 @@
       "Bash(echo:*)",
       "Bash(ruff check:*)",
       "Bash(npx markdownlint-cli:*)",
-      "Bash(npx markdownlint-cli2:*)"
+      "Bash(npx markdownlint-cli2:*)",
+      "Bash(\"c:/Users/bruno/Code/Geological-Source-Finder/Data/photo_mapping.csv\":*)"
     ]
   }
 }
