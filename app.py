@@ -1,14 +1,18 @@
 from __future__ import annotations
 
 import os
+import json
 import base64
+import time
 import logging
 from datetime import datetime
 from io import BytesIO
 from collections import Counter
+from functools import partial
 from typing import Any
 from urllib.parse import quote
 
+import requests
 import pandas as pd
 import numpy as np
 from geopy.distance import geodesic
@@ -52,6 +56,21 @@ AITCH_MODERATE = 3.0
 EUCL_VERY_STRONG = 2.0
 EUCL_STRONG = 4.0
 EUCL_MODERATE = 6.0
+
+# ALR-5 configuration
+ALR5_ELEMENTS = ["Ni", "Cr", "Y", "Nb", "Sr", "Zr"]
+ALR5_DENOMINATOR = "Zr"
+ALR5_NUMERATORS = ["Ni", "Cr", "Y", "Nb", "Sr"]
+ALR5_RATIO_NAMES = [
+    "ln(Ni/Zr)", "ln(Cr/Zr)", "ln(Y/Zr)",
+    "ln(Nb/Zr)", "ln(Sr/Zr)",
+]
+ALR5_D = 6  # number of parts in the sub-composition
+
+# ALR-5 Aitchison thresholds (scaled by sqrt(5)/sqrt(16))
+ALR5_AITCH_VERY_STRONG = 0.56
+ALR5_AITCH_STRONG = 1.12
+ALR5_AITCH_MODERATE = 1.68
 
 # Geographical distance thresholds (km) for color coding
 GEO_VERY_CLOSE_KM = 60
@@ -99,9 +118,86 @@ REGION_COLOR_MAP: dict[str, str] = {
 }
 
 
+def _aitch_thresholds(
+    mode_key: str,
+) -> tuple[float, float, float]:
+    """Return Aitchison thresholds for the given mode."""
+    if mode_key == "alr5":
+        return (
+            ALR5_AITCH_VERY_STRONG,
+            ALR5_AITCH_STRONG,
+            ALR5_AITCH_MODERATE,
+        )
+    return (AITCH_VERY_STRONG, AITCH_STRONG, AITCH_MODERATE)
+
+
+def _has_euclidean(mode_key: str) -> bool:
+    """Return True if the mode includes Euclidean distance."""
+    return mode_key != "alr5"
+
+
+# -----------------------------
+# Microsoft Graph / OneDrive Constants
+# -----------------------------
+_GRAPH_AUTHORITY = "https://login.microsoftonline.com/common"
+_GRAPH_DEVICE_CODE_URL = f"{_GRAPH_AUTHORITY}/oauth2/v2.0/devicecode"
+_GRAPH_TOKEN_URL = f"{_GRAPH_AUTHORITY}/oauth2/v2.0/token"
+_GRAPH_SCOPES = "Files.Read offline_access"
+_GRAPH_BASE = "https://graph.microsoft.com/v1.0"
+
+
 # -----------------------------
 # Data Loading
 # -----------------------------
+def _load_alr5_df(
+    filepath: str, sheet_name: str,
+) -> pd.DataFrame:
+    """Load ppm data and compute ALR-5 coordinates.
+
+    Reads the raw ppm sheet, extracts 6 elements
+    (Ni, Cr, Y, Nb, Sr, Zr) and computes ln(X/Zr)
+    for each numerator. Missing or non-positive values
+    are left as NaN so that incomplete ALR coordinates
+    are excluded from distance calculations rather than
+    being replaced with extreme outliers.
+    """
+    raw = pd.read_excel(filepath, sheet_name=sheet_name)
+
+    meta_cols = [
+        c for c in METADATA_COLUMNS if c in raw.columns
+    ]
+
+    missing = [
+        e for e in ALR5_ELEMENTS if e not in raw.columns
+    ]
+    if missing:
+        raise ValueError(
+            f"Missing elements {missing} in sheet "
+            f"'{sheet_name}' of {filepath}"
+        )
+
+    result = raw[meta_cols].copy()
+    elem_vals: dict[str, pd.Series] = {}
+    for elem in ALR5_ELEMENTS:
+        vals = pd.to_numeric(raw[elem], errors="coerce")
+        # Non-positive values → NaN; avoids log-space
+        # outliers (ln(ε/x) ≈ -25) that dominate distances
+        vals = vals.where(vals > 0, np.nan)
+        elem_vals[elem] = vals
+
+    zr = elem_vals[ALR5_DENOMINATOR]
+    for num, name in zip(
+        ALR5_NUMERATORS, ALR5_RATIO_NAMES,
+    ):
+        # NaN in numerator or denominator propagates to NaN
+        result[name] = np.log(elem_vals[num] / zr)
+
+    result["Accession #"] = (
+        result["Accession #"].astype(str)
+    )
+    return result
+
+
 @st.cache_data(show_spinner=False)
 def load_data(
     element_mode: str = "trace",
@@ -110,7 +206,8 @@ def load_data(
 
     Args:
         element_mode: "trace" for 16 ratio columns,
-            "all" for 22 ratio columns.
+            "all" for 22 ratio columns,
+            "alr5" for 5 ALR log-ratio coordinates.
 
     Returns:
         (artefact_df, geology_df, geo_coords_df, arch_coords_df)
@@ -128,6 +225,7 @@ def load_data(
             "coords": "Coordinates sheet.xlsx",
         }
     else:
+        # Both "trace" and "alr5" use the Trace Elements files
         filenames = {
             "artefact": "AXEs metabasite data (Trace Elements).xlsx",
             "geology": "Geology samples data (Trace Elements).xlsx",
@@ -150,14 +248,32 @@ def load_data(
         )
 
     try:
-        artefact_df = pd.read_excel(
-            os.path.join(found_data_dir, filenames["artefact"]),
-            sheet_name="AXEs Ratios",
-        )
-        geology_df = pd.read_excel(
-            os.path.join(found_data_dir, filenames["geology"]),
-            sheet_name="Geology ratios",
-        )
+        if element_mode == "alr5":
+            artefact_df = _load_alr5_df(
+                os.path.join(
+                    found_data_dir, filenames["artefact"],
+                ),
+                "AXEs ppm data",
+            )
+            geology_df = _load_alr5_df(
+                os.path.join(
+                    found_data_dir, filenames["geology"],
+                ),
+                "Geology ppm data",
+            )
+        else:
+            artefact_df = pd.read_excel(
+                os.path.join(
+                    found_data_dir, filenames["artefact"],
+                ),
+                sheet_name="AXEs Ratios",
+            )
+            geology_df = pd.read_excel(
+                os.path.join(
+                    found_data_dir, filenames["geology"],
+                ),
+                sheet_name="Geology ratios",
+            )
         coords_sheets = pd.read_excel(
             os.path.join(found_data_dir, filenames["coords"]),
             sheet_name=[
@@ -212,48 +328,478 @@ def _load_photo_mapping() -> pd.DataFrame:
     return pd.DataFrame()
 
 
-def _onedrive_folder_api_base(share_url: str) -> str:
-    """Convert a OneDrive shared-folder URL to Graph API base."""
-    encoded = base64.urlsafe_b64encode(
-        share_url.strip().encode()
-    ).decode().rstrip("=")
-    return (
-        f"https://api.onedrive.com/v1.0"
-        f"/shares/u!{encoded}/root"
+def _get_config_path() -> str:
+    """Return path to the app config JSON file."""
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    return os.path.join(base_dir, "Data", "app_config.json")
+
+
+def _load_config() -> dict:
+    """Load persisted app configuration."""
+    path = _get_config_path()
+    if os.path.exists(path):
+        try:
+            with open(path, encoding="utf-8") as f:
+                return json.load(f)
+        except (json.JSONDecodeError, OSError):
+            pass
+    return {}
+
+
+def _save_config(config: dict) -> None:
+    """Save app configuration to JSON file."""
+    path = _get_config_path()
+    try:
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(config, f, indent=2)
+    except OSError:
+        logger.warning("Could not save config to %s", path)
+
+
+# -----------------------------
+# OAuth Token Cache
+# -----------------------------
+def _get_token_cache_path() -> str:
+    """Return path to the OAuth token cache JSON file."""
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    return os.path.join(base_dir, "Data", "token_cache.json")
+
+
+def _load_token_cache() -> dict:
+    """Load cached OAuth tokens from disk."""
+    path = _get_token_cache_path()
+    if os.path.exists(path):
+        try:
+            with open(path, encoding="utf-8") as f:
+                return json.load(f)
+        except (json.JSONDecodeError, OSError):
+            pass
+    return {}
+
+
+def _save_token_cache(data: dict) -> None:
+    """Save OAuth tokens to disk."""
+    path = _get_token_cache_path()
+    try:
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=2)
+    except OSError:
+        logger.warning("Could not save token cache to %s", path)
+
+
+# -----------------------------
+# OAuth2 Device Code Flow
+# -----------------------------
+def _start_device_code_flow(client_id: str) -> dict | None:
+    """Request a device code from Microsoft identity platform.
+
+    Returns dict with device_code, user_code, verification_uri,
+    or None on failure.
+    """
+    try:
+        resp = requests.post(
+            _GRAPH_DEVICE_CODE_URL,
+            data={
+                "client_id": client_id,
+                "scope": _GRAPH_SCOPES,
+            },
+            timeout=15,
+        )
+        resp.raise_for_status()
+        return resp.json()
+    except Exception as exc:
+        logger.error("Device code request failed: %s", exc)
+        return None
+
+
+def _poll_for_token(
+    client_id: str, device_code: str,
+) -> dict | None:
+    """Single non-blocking poll to exchange device code for tokens.
+
+    Returns token dict on success, None if still pending.
+    Raises ValueError if the flow expired or was denied.
+    """
+    try:
+        resp = requests.post(
+            _GRAPH_TOKEN_URL,
+            data={
+                "client_id": client_id,
+                "grant_type": (
+                    "urn:ietf:params:oauth:grant-type:device_code"
+                ),
+                "device_code": device_code,
+            },
+            timeout=15,
+        )
+        data = resp.json()
+
+        if "access_token" in data:
+            return data
+
+        error = data.get("error", "")
+        if error in ("authorization_pending", "slow_down"):
+            return None
+
+        raise ValueError(
+            data.get("error_description", f"Auth failed: {error}")
+        )
+    except requests.RequestException as exc:
+        logger.error("Token poll failed: %s", exc)
+        return None
+
+
+def _refresh_access_token(
+    client_id: str, refresh_token: str,
+) -> dict | None:
+    """Use refresh token to get a new access token."""
+    try:
+        resp = requests.post(
+            _GRAPH_TOKEN_URL,
+            data={
+                "client_id": client_id,
+                "grant_type": "refresh_token",
+                "refresh_token": refresh_token,
+                "scope": _GRAPH_SCOPES,
+            },
+            timeout=15,
+        )
+        resp.raise_for_status()
+        return resp.json()
+    except Exception as exc:
+        logger.error("Token refresh failed: %s", exc)
+        return None
+
+
+def _get_valid_access_token(client_id: str) -> str | None:
+    """Return a valid Graph API access token, refreshing if needed.
+
+    Checks session_state → disk cache → refresh token.
+    Returns None if not authenticated.
+    """
+    token_data = st.session_state.get("graph_token_data")
+
+    if not token_data:
+        token_data = _load_token_cache()
+        if token_data and "access_token" in token_data:
+            st.session_state["graph_token_data"] = token_data
+        else:
+            return None
+
+    # Check if token is still valid (5-min buffer)
+    expires_at = token_data.get("expires_at", 0)
+    if time.time() < expires_at - 300:
+        return token_data.get("access_token")
+
+    # Token expired — try refresh
+    refresh_token = token_data.get("refresh_token")
+    if not refresh_token:
+        return None
+
+    new_data = _refresh_access_token(client_id, refresh_token)
+    if not new_data:
+        st.session_state.pop("graph_token_data", None)
+        return None
+
+    new_data["expires_at"] = (
+        time.time() + new_data.get("expires_in", 3600)
     )
+    st.session_state["graph_token_data"] = new_data
+    _save_token_cache(new_data)
+    return new_data["access_token"]
 
 
-def _build_image_url(
-    folder_api_base: str, relative_path: str,
-) -> str:
-    """Build a direct-download URL for a file in the shared folder."""
-    encoded_path = quote(relative_path, safe="/")
-    return f"{folder_api_base}:/{encoded_path}:/content"
+# -----------------------------
+# Graph API Helpers
+# -----------------------------
+def _encode_share_url(share_url: str) -> str:
+    """Encode a OneDrive share URL into a Graph API sharing token.
+
+    Format: 'u!' + base64url(share_url) with no padding.
+    """
+    encoded = base64.urlsafe_b64encode(
+        share_url.encode("utf-8"),
+    ).rstrip(b"=").decode("ascii")
+    return f"u!{encoded}"
 
 
-def _get_artefact_image_urls(
+def _resolve_graph_path(relative_path: str) -> str:
+    """Apply CSV-to-disk path corrections for Graph API."""
+    for csv_prefix, disk_prefix in _PATH_PREFIXES.items():
+        if relative_path.startswith(csv_prefix):
+            return disk_prefix + relative_path[len(csv_prefix):]
+    return relative_path
+
+
+def _resolve_share_folder(
+    access_token: str, share_url: str,
+) -> tuple[str, str] | None:
+    """Resolve a share URL to (drive_id, folder_path).
+
+    Caches result in session_state.  Returns None on failure.
+    """
+    cache_key = "_share_resolved"
+    cached = st.session_state.get(cache_key)
+    if cached:
+        return cached
+
+    share_token = _encode_share_url(share_url)
+    url = (
+        f"{_GRAPH_BASE}/shares/{share_token}/driveItem"
+    )
+    try:
+        resp = requests.get(
+            url,
+            headers={
+                "Authorization": f"Bearer {access_token}",
+            },
+            params={
+                "$select": "id,name,parentReference",
+            },
+            timeout=15,
+        )
+        if not resp.ok:
+            try:
+                err_body = resp.json()
+            except Exception:
+                err_body = resp.text[:200]
+            st.session_state["_graph_last_error"] = (
+                f"Share resolve HTTP {resp.status_code}: "
+                f"{err_body}"
+            )
+            return None
+
+        item = resp.json()
+        drive_id = item["parentReference"]["driveId"]
+        parent_path = item["parentReference"].get(
+            "path", "",
+        )
+        # parent_path: "/drives/{id}/root:/some/path"
+        if "/root:" in parent_path:
+            base = parent_path.split(
+                "/root:",
+            )[1].lstrip("/")
+        else:
+            base = ""
+        folder_name = item.get("name", "")
+        folder_path = (
+            f"{base}/{folder_name}" if base
+            else folder_name
+        )
+        result = (drive_id, folder_path)
+        st.session_state[cache_key] = result
+        return result
+    except Exception as exc:
+        st.session_state["_graph_last_error"] = str(exc)
+        return None
+
+
+
+def _fetch_image_urls_from_graph(
+    access_token: str,
+    share_url: str,
+    relative_path: str,
+) -> tuple[str, str] | None:
+    """Get pre-authenticated URLs for an image via Graph API.
+
+    Returns (thumbnail_url, full_res_url) or None on failure.
+    The browser loads images directly from Microsoft's CDN —
+    no server-side download or base64 encoding needed.
+    """
+    resolved = _resolve_share_folder(
+        access_token, share_url,
+    )
+    if not resolved:
+        return None
+    drive_id, folder_path = resolved
+
+    full_path = f"{folder_path}/{relative_path}"
+    encoded_path = quote(full_path, safe="/")
+    url = (
+        f"{_GRAPH_BASE}/drives/{drive_id}"
+        f"/root:/{encoded_path}:"
+    )
+    try:
+        resp = requests.get(
+            url,
+            headers={
+                "Authorization": f"Bearer {access_token}",
+            },
+            params={"$expand": "thumbnails"},
+            timeout=15,
+        )
+        if not resp.ok:
+            try:
+                err_body = resp.json()
+            except Exception:
+                err_body = resp.text[:200]
+            st.session_state["_graph_last_error"] = (
+                f"HTTP {resp.status_code} for "
+                f"{full_path}: {err_body}"
+            )
+            return None
+
+        data = resp.json()
+        full_url = data.get(
+            "@microsoft.graph.downloadUrl", "",
+        )
+        if not full_url:
+            st.session_state["_graph_last_error"] = (
+                f"No download URL for {full_path}"
+            )
+            return None
+
+        thumb_url = full_url
+        thumbs = data.get("thumbnails", [])
+        if thumbs and "large" in thumbs[0]:
+            thumb_url = thumbs[0]["large"].get(
+                "url", full_url,
+            )
+        return (thumb_url, full_url)
+    except Exception as exc:
+        st.session_state["_graph_last_error"] = str(exc)
+        return None
+
+
+_IMAGE_URL_CACHE_TTL = 1800  # 30 min (URLs expire ~1 hr)
+
+
+def _get_cached_image_urls(
+    access_token: str,
+    share_url: str,
+    relative_path: str,
+) -> tuple[str, str] | None:
+    """Fetch image URLs with session-level caching."""
+    cache_key = f"imgurl_{relative_path}"
+    cached = st.session_state.get(cache_key)
+    if cached is not None:
+        cached_time, cached_urls = cached
+        if time.time() - cached_time < _IMAGE_URL_CACHE_TTL:
+            return cached_urls
+
+    urls = _fetch_image_urls_from_graph(
+        access_token, share_url, relative_path,
+    )
+    if urls:
+        st.session_state[cache_key] = (time.time(), urls)
+    return urls
+
+
+# Path corrections: CSV relative paths → actual disk paths
+_PATH_PREFIXES: dict[str, str] = {
+    "Montefrío/": "UGR assemblages/Montefrío/",
+    "Los Millares/": "UGR assemblages/Los Millares/",
+    "El Malagón/": "UGR assemblages/El Malagón/",
+    "Museo Almería/": "Museo Almería pictures/",
+}
+
+
+def _resolve_photo_path(
+    base_dir: str, relative_path: str,
+) -> str | None:
+    """Resolve a CSV relative path to an actual file on disk."""
+    # Apply known prefix corrections
+    resolved = relative_path
+    for csv_prefix, disk_prefix in _PATH_PREFIXES.items():
+        if relative_path.startswith(csv_prefix):
+            resolved = disk_prefix + relative_path[len(csv_prefix):]
+            break
+
+    full_path = os.path.join(base_dir, resolved)
+    if os.path.isfile(full_path):
+        return full_path
+
+    # Fallback: try original path unchanged
+    fallback = os.path.join(base_dir, relative_path)
+    if os.path.isfile(fallback):
+        return fallback
+
+    return None
+
+
+def _get_artefact_image_paths(
     accession: str,
     photo_df: pd.DataFrame,
-    folder_api_base: str,
+    photos_base_dir: str,
 ) -> list[str]:
-    """Look up photo URLs for an accession number."""
-    if photo_df.empty:
+    """Return local file paths for an accession's photos."""
+    if photo_df.empty or not photos_base_dir:
         return []
-    row = photo_df[photo_df["Accession #"] == str(accession).strip()]
+    row = photo_df[
+        photo_df["Accession #"] == str(accession).strip()
+    ]
     if row.empty:
         return []
     row = row.iloc[0]
-    urls = []
+    paths = []
     for col in [
         "Image_1", "Image_2", "Image_3",
         "Image_4", "Image_5", "Image_6",
     ]:
         val = row.get(col)
         if pd.notna(val) and str(val).strip():
-            urls.append(
-                _build_image_url(folder_api_base, str(val).strip())
+            resolved = _resolve_photo_path(
+                photos_base_dir, str(val).strip(),
             )
-    return urls
+            if resolved:
+                paths.append(resolved)
+    return paths
+
+
+def _get_artefact_images(
+    accession: str,
+    photo_df: pd.DataFrame,
+    photos_base_dir: str = "",
+    access_token: str = "",
+    share_url: str = "",
+) -> list[str | bytes | tuple[str, str]]:
+    """Return image sources for an accession's photos.
+
+    Tries local files first (if photos_base_dir is set),
+    falls back to Graph API (if access_token and share_url).
+    Returns list of:
+    - str: local file path
+    - bytes: image data
+    - tuple[str, str]: (thumbnail_url, full_res_url)
+    """
+    if photo_df.empty:
+        return []
+    row = photo_df[
+        photo_df["Accession #"] == str(accession).strip()
+    ]
+    if row.empty:
+        return []
+    row = row.iloc[0]
+
+    images: list[str | bytes | tuple[str, str]] = []
+    for col in [
+        "Image_1", "Image_2", "Image_3",
+        "Image_4", "Image_5", "Image_6",
+    ]:
+        val = row.get(col)
+        if not (pd.notna(val) and str(val).strip()):
+            continue
+        relative = str(val).strip()
+
+        # Try local path first
+        if photos_base_dir:
+            local = _resolve_photo_path(
+                photos_base_dir, relative,
+            )
+            if local:
+                images.append(local)
+                continue
+
+        # Try Graph API (URL-based, no download)
+        if access_token and share_url:
+            graph_path = _resolve_graph_path(relative)
+            urls = _get_cached_image_urls(
+                access_token, share_url, graph_path,
+            )
+            if urls:
+                images.append(urls)
+
+    return images
 
 
 # -----------------------------
@@ -312,6 +858,28 @@ def _compute_distances_vectorized(
     return aitchison_dists, euclidean_dists
 
 
+def _compute_alr5_aitchison_vectorized(
+    query_alr: np.ndarray, target_matrix: np.ndarray,
+) -> np.ndarray:
+    """Compute Aitchison distance from ALR coordinates.
+
+    Formula: d_A^2 = sum(d_i^2) - (sum(d_i))^2 / D
+    where d_i = alr_i(x) - alr_i(y),
+    D = k + 1 (k ALR coordinates + Zr reference element).
+
+    D is inferred from input shape so partial compositions
+    (when some elements are missing) are handled correctly.
+    ALR values are already log-ratios; no log transform needed.
+    """
+    k = query_alr.shape[0]   # number of ALR coordinates
+    D = k + 1                # k numerators + Zr denominator
+    diffs = target_matrix - query_alr
+    sum_sq = np.sum(diffs ** 2, axis=1)
+    sq_sum = np.sum(diffs, axis=1) ** 2
+    d_a_sq = np.maximum(sum_sq - sq_sum / D, 0.0)
+    return np.sqrt(d_a_sq)
+
+
 def _compute_geodesic(
     origin: tuple[float, float] | None,
     destination: tuple[float, float] | None,
@@ -340,6 +908,7 @@ def get_top_matches(
     target_coords_df: pd.DataFrame,
     top_n: int = DEFAULT_TOP_N,
     direction: str = "artefact_to_geology",
+    mode_key: str = "trace",
 ) -> pd.DataFrame:
     """Find the top-N matching samples by compositional similarity.
 
@@ -380,18 +949,28 @@ def get_top_matches(
         dtype=float,
     )
 
-    aitch_dists, eucl_dists = _compute_distances_vectorized(
-        query_vector, target_matrix,
-    )
-
     results_df = aligned_df[keep_cols].copy()
     results_df = results_df.reset_index(drop=True)
-    results_df["Aitch Dist"] = np.round(aitch_dists, 2)
-    results_df["Eucl Dist"] = np.round(eucl_dists, 2)
 
-    results_df = results_df.sort_values(  # pyright: ignore[reportCallIssue]
-        by=["Aitch Dist", "Eucl Dist"],
-    ).head(top_n)
+    if mode_key == "alr5":
+        aitch_dists = _compute_alr5_aitchison_vectorized(
+            query_vector, target_matrix,
+        )
+        results_df["Aitch Dist"] = np.round(aitch_dists, 2)
+        results_df = results_df.sort_values(
+            by=["Aitch Dist"],
+        ).head(top_n)
+    else:
+        aitch_dists, eucl_dists = (
+            _compute_distances_vectorized(
+                query_vector, target_matrix,
+            )
+        )
+        results_df["Aitch Dist"] = np.round(aitch_dists, 2)
+        results_df["Eucl Dist"] = np.round(eucl_dists, 2)
+        results_df = results_df.sort_values(  # pyright: ignore[reportCallIssue]
+            by=["Aitch Dist", "Eucl Dist"],
+        ).head(top_n)
     results_df.reset_index(drop=True, inplace=True)
     results_df.index += 1
 
@@ -515,18 +1094,21 @@ def _color_dist_cell(
     )
 
 
-def color_aitch_dist(val: Any) -> str:  # noqa: ANN401
-    """Apply background color to Aitch Dist cells."""
-    return _color_dist_cell(
-        val, (AITCH_VERY_STRONG, AITCH_STRONG, AITCH_MODERATE),
-    )
-
-
 def color_eucl_dist(val: Any) -> str:  # noqa: ANN401
     """Apply background color to Eucl Dist cells."""
     return _color_dist_cell(
         val, (EUCL_VERY_STRONG, EUCL_STRONG, EUCL_MODERATE),
     )
+
+
+def _color_aitch_with_thresholds(
+    val: Any,  # noqa: ANN401
+    thresholds: tuple[float, float, float] = (
+        AITCH_VERY_STRONG, AITCH_STRONG, AITCH_MODERATE,
+    ),
+) -> str:
+    """Apply background color using given thresholds."""
+    return _color_dist_cell(val, thresholds)
 
 
 # -----------------------------
@@ -576,6 +1158,7 @@ def _create_styled_excel(
     query_accession: str,
     query_site: str,
     direction: str,
+    mode_key: str = "trace",
 ) -> bytes:
     """Create a styled Excel workbook with color-coded cells."""
     output = BytesIO()
@@ -619,9 +1202,7 @@ def _create_styled_excel(
             ):
                 col_map[cell.value] = cell.column
 
-        aitch_thresholds = (
-            AITCH_VERY_STRONG, AITCH_STRONG, AITCH_MODERATE,
-        )
+        aitch_thresholds = _aitch_thresholds(mode_key)
         eucl_thresholds = (
             EUCL_VERY_STRONG, EUCL_STRONG, EUCL_MODERATE,
         )
@@ -660,52 +1241,195 @@ def _create_styled_excel(
 # -----------------------------
 # UI Display Functions
 # -----------------------------
+def _to_image_bytes(img_src: str | bytes) -> bytes | None:
+    """Convert an image source (file path or bytes) to bytes."""
+    if isinstance(img_src, bytes):
+        return img_src
+    try:
+        with open(img_src, "rb") as f:
+            return f.read()
+    except Exception:
+        return None
+
+
+def _render_zoom_viewer(
+    img_src: bytes | tuple[str, str],
+    uid: str,
+    height: int = 450,
+) -> None:
+    """Render an interactive pan/zoom viewer via HTML.
+
+    img_src can be:
+    - bytes: image data (base64-encoded into HTML)
+    - tuple[str, str]: (thumbnail_url, full_res_url)
+      for progressive loading — shows thumbnail first,
+      then auto-swaps to full resolution for max detail.
+    """
+    cid, iid = f"zc_{uid}", f"zi_{uid}"
+
+    if isinstance(img_src, tuple):
+        thumb_url, full_url = img_src
+        img_attr = f'src="{thumb_url}"'
+        # Progressive: load full-res in background, swap when
+        # ready while preserving the user's current view.
+        progressive_js = (
+            "var ow=0;"
+            f"var hd=new Image();hd.src='{full_url}';"
+            "hd.onload=function(){"
+            "var nw=hd.naturalWidth;"
+            "if(ow>0){s*=(ow/nw);}"
+            "hdReady=true;"
+            f"im.src='{full_url}';"
+            "};"
+        )
+    else:
+        b64 = base64.b64encode(img_src).decode("ascii")
+        img_attr = f'src="data:image/jpeg;base64,{b64}"'
+        progressive_js = ""
+
+    html = (
+        f'<div id="{cid}" style="width:100%;height:{height}px;'
+        "overflow:hidden;position:relative;background:#1a1a1a;"
+        'cursor:grab;border-radius:6px;">'
+        f'<img id="{iid}" {img_attr} '
+        'style="position:absolute;max-width:none;'
+        "image-orientation:from-image;"
+        'transform-origin:0 0;" draggable="false">'
+        "</div>"
+        "<script>(function(){"
+        f"const c=document.getElementById('{cid}'),"
+        f"im=document.getElementById('{iid}');"
+        "let s=1,tx=0,ty=0,drag=0,sx,sy,hdReady=false;"
+        "function up(){im.style.transform="
+        "'translate('+tx+'px,'+ty+'px) scale('+s+')';}"
+        "function fit(){"
+        "let rx=c.clientWidth/im.naturalWidth,"
+        "ry=c.clientHeight/im.naturalHeight;"
+        "s=Math.min(rx,ry);"
+        "tx=(c.clientWidth-im.naturalWidth*s)/2;"
+        "ty=(c.clientHeight-im.naturalHeight*s)/2;up();}"
+        "im.onload=function(){"
+        "if(!hdReady){fit();ow=im.naturalWidth;}"
+        "else{up();}};"
+        + progressive_js +
+        "c.onwheel=function(e){e.preventDefault();"
+        "let r=c.getBoundingClientRect(),"
+        "mx=e.clientX-r.left,my=e.clientY-r.top,"
+        "ps=s;s*=e.deltaY<0?1.15:0.87;"
+        "s=Math.max(0.1,Math.min(30,s));"
+        "tx=mx-(mx-tx)*(s/ps);ty=my-(my-ty)*(s/ps);up();};"
+        "c.onmousedown=function(e){"
+        "drag=1;sx=e.clientX-tx;sy=e.clientY-ty;"
+        "c.style.cursor='grabbing';};"
+        "c.onmousemove=function(e){"
+        "if(!drag)return;tx=e.clientX-sx;"
+        "ty=e.clientY-sy;up();};"
+        "c.onmouseup=c.onmouseleave=function(){"
+        "drag=0;c.style.cursor='grab';};"
+        "c.ondblclick=function(){fit();};"
+        "})();</script>"
+    )
+    st.components.v1.html(html, height=height + 10)
+
+
 def display_artefact_photos(
     accession: str,
     photo_df: pd.DataFrame,
-    folder_api_base: str,
+    photos_base_dir: str = "",
+    access_token: str = "",
+    share_url: str = "",
 ) -> None:
-    """Display artefact photographs from OneDrive."""
-    urls = _get_artefact_image_urls(
-        accession, photo_df, folder_api_base,
+    """Display artefact photographs from local files or OneDrive."""
+    images = _get_artefact_images(
+        accession, photo_df, photos_base_dir,
+        access_token, share_url,
     )
-    if not urls:
+    if not images:
+        # Diagnostic: show why no images were found
+        row = photo_df[
+            photo_df["Accession #"] == str(accession).strip()
+        ] if not photo_df.empty else pd.DataFrame()
+        if row.empty:
+            st.caption(
+                f"No photo mapping for accession {accession}"
+            )
+        else:
+            err = st.session_state.get(
+                "_graph_last_error", "",
+            )
+            st.warning(
+                f"Photo mapping found but images failed to "
+                f"load. {f'Last error: {err}' if err else ''}"
+            )
         return
     with st.expander(
-        f"Artefact Photographs ({len(urls)} images)",
+        f"Artefact Photographs ({len(images)} images)"
+        " — scroll to zoom, drag to pan, "
+        "double-click to reset",
         expanded=True,
     ):
-        cols = st.columns(min(len(urls), 3))
-        for i, url in enumerate(urls):
+        cols = st.columns(min(len(images), 3))
+        for i, img_src in enumerate(images):
             with cols[i % 3]:
-                st.image(url, use_container_width=True)
+                # URL tuples go straight to the viewer
+                if isinstance(img_src, tuple):
+                    _render_zoom_viewer(
+                        img_src,
+                        uid=f"{accession}_{i}",
+                    )
+                    st.caption(f"View {i + 1}")
+                else:
+                    img_bytes = _to_image_bytes(img_src)
+                    if img_bytes:
+                        _render_zoom_viewer(
+                            img_bytes,
+                            uid=f"{accession}_{i}",
+                        )
+                        st.caption(f"View {i + 1}")
+                    else:
+                        st.caption(
+                            f"View {i + 1}: not available"
+                        )
 
 
-def display_legend() -> None:
+def display_legend(mode_key: str = "trace") -> None:
     """Display color-coded threshold explanations."""
-    col1, col2, col3 = st.columns(3)
+    vs, s, m = _aitch_thresholds(mode_key)
+    show_eucl = _has_euclidean(mode_key)
+
+    if show_eucl:
+        col1, col2, col3 = st.columns(3)
+    else:
+        col1, col3 = st.columns(2)
+
+    aitch_label = (
+        "**Aitchison Distance** (ALR-5)"
+        if mode_key == "alr5"
+        else "**Aitchison Distance** (compositional)"
+    )
     with col1:
-        st.markdown("**Aitchison Distance** (compositional)")
+        st.markdown(aitch_label)
         st.markdown(
-            f"- :blue[< {AITCH_VERY_STRONG}] "
+            f"- :blue[< {vs}] "
             "-- Very strong match\n"
-            f"- :green[{AITCH_VERY_STRONG} - "
-            f"{AITCH_STRONG}] -- Strong match\n"
-            f"- :orange[{AITCH_STRONG} - "
-            f"{AITCH_MODERATE}] -- Moderate match\n"
-            f"- :red[> {AITCH_MODERATE}] -- Weak match"
+            f"- :green[{vs} - "
+            f"{s}] -- Strong match\n"
+            f"- :orange[{s} - "
+            f"{m}] -- Moderate match\n"
+            f"- :red[> {m}] -- Weak match"
         )
-    with col2:
-        st.markdown("**Euclidean Distance** (geometric)")
-        st.markdown(
-            f"- :blue[< {EUCL_VERY_STRONG}] "
-            "-- Very strong match\n"
-            f"- :green[{EUCL_VERY_STRONG} - "
-            f"{EUCL_STRONG}] -- Strong match\n"
-            f"- :orange[{EUCL_STRONG} - "
-            f"{EUCL_MODERATE}] -- Moderate match\n"
-            f"- :red[> {EUCL_MODERATE}] -- Weak match"
-        )
+    if show_eucl:
+        with col2:
+            st.markdown("**Euclidean Distance** (geometric)")
+            st.markdown(
+                f"- :blue[< {EUCL_VERY_STRONG}] "
+                "-- Very strong match\n"
+                f"- :green[{EUCL_VERY_STRONG} - "
+                f"{EUCL_STRONG}] -- Strong match\n"
+                f"- :orange[{EUCL_STRONG} - "
+                f"{EUCL_MODERATE}] -- Moderate match\n"
+                f"- :red[> {EUCL_MODERATE}] -- Weak match"
+            )
     with col3:
         st.markdown("**Geographical Distance**")
         st.markdown(
@@ -724,18 +1448,25 @@ def display_results_table(
     query_accession: str,
     direction: str,
     query_site: str = "",
+    mode_key: str = "trace",
 ) -> None:
     """Style and display the results table with downloads."""
-    styled_df = results_df.style.format(
-        {"Aitch Dist": "{:.2f}", "Eucl Dist": "{:.2f}"},
+    fmt: dict[str, str] = {"Aitch Dist": "{:.2f}"}
+    if _has_euclidean(mode_key):
+        fmt["Eucl Dist"] = "{:.2f}"
+    styled_df = results_df.style.format(fmt)
+
+    aitch_styler = partial(
+        _color_aitch_with_thresholds,
+        thresholds=_aitch_thresholds(mode_key),
     )
-    styled_df = (
-        styled_df.apply(  # pyright: ignore[reportAttributeAccessIssue]
-            highlight_geo_dist, subset=["Geo Dist"],
+    styled_df = styled_df.apply(  # pyright: ignore[reportAttributeAccessIssue]
+        highlight_geo_dist, subset=["Geo Dist"],
+    ).map(aitch_styler, subset=["Aitch Dist"])
+    if _has_euclidean(mode_key):
+        styled_df = styled_df.map(
+            color_eucl_dist, subset=["Eucl Dist"],
         )
-        .map(color_aitch_dist, subset=["Aitch Dist"])
-        .map(color_eucl_dist, subset=["Eucl Dist"])
-    )
     border_style = ("border", "1px solid gray")
     padding = ("padding", "4px")
     no_radius = ("border-radius", "0px")
@@ -783,6 +1514,7 @@ def display_results_table(
         excel_data = _create_styled_excel(
             results_df, query_accession,
             query_site, direction,
+            mode_key=mode_key,
         )
         st.download_button(
             label="Download as Excel",
@@ -795,7 +1527,10 @@ def display_results_table(
         )
 
 
-def display_scatter_plot(results_df: pd.DataFrame) -> None:
+def display_scatter_plot(
+    results_df: pd.DataFrame,
+    mode_key: str = "trace",
+) -> None:
     """Create a scatter plot of Geo Dist vs. Aitch Dist."""
     plot_df = results_df[
         results_df["Geo Dist"] != "Unknown"
@@ -847,9 +1582,7 @@ def display_scatter_plot(results_df: pd.DataFrame) -> None:
             x=ref, line_dash="dash",
             line_color="black", opacity=0.5,
         )
-    for ref in [
-        AITCH_VERY_STRONG, AITCH_STRONG, AITCH_MODERATE,
-    ]:
+    for ref in _aitch_thresholds(mode_key):
         fig.add_hline(
             y=ref, line_dash="dash",
             line_color="black", opacity=0.5,
@@ -888,19 +1621,24 @@ def display_scatter_plot(results_df: pd.DataFrame) -> None:
 
 
 
-def _aitch_to_marker_color(val: float) -> str:
-    """Map Aitchison distance value to a marker color (0.5-step bands)."""
-    if val < 0.5:
+def _aitch_to_marker_color(
+    val: float, mode_key: str = "trace",
+) -> str:
+    """Map Aitchison distance to a marker color."""
+    _, _, mod = _aitch_thresholds(mode_key)
+    # Scale the 0.5-step bands proportionally
+    step = mod / 6.0  # 6 bands below moderate
+    if val < step:
         return "lightskyblue"
-    if val < 1.0:
+    if val < 2 * step:
         return "steelblue"
-    if val < 1.5:
+    if val < 3 * step:
         return "limegreen"
-    if val < 2.0:
+    if val < 4 * step:
         return "gold"
-    if val < 2.5:
+    if val < 5 * step:
         return "orange"
-    if val < 3.0:
+    if val < mod:
         return "tomato"
     return "darkred"
 
@@ -911,6 +1649,7 @@ def display_results_map(
     target_coords_df: pd.DataFrame,
     query_label: str,
     direction: str,
+    mode_key: str = "trace",
 ) -> None:
     """Display an interactive map with query and match locations."""
     acc_col = (
@@ -983,7 +1722,7 @@ def display_results_map(
     if map_points:
         map_df = pd.DataFrame(map_points)
         map_df["marker_color"] = map_df["aitch"].apply(
-            _aitch_to_marker_color,
+            lambda v: _aitch_to_marker_color(v, mode_key),
         )
         map_df["hover_text"] = map_df.apply(
             lambda r: (
@@ -1007,14 +1746,25 @@ def display_results_map(
         # Add traces worst-first so that better matches render
         # on top when multiple samples share the same coordinates.
         # legendrank keeps the legend ordered best-first.
+        _, _, mod = _aitch_thresholds(mode_key)
+        step = mod / 6.0
+        def _fmt(v: float) -> str:
+            return f"{v:.2f}" if v != int(v) else f"{v:.1f}"
         color_labels = [
-            ("lightskyblue", 1, "< 0.5 (very strong)"),
-            ("steelblue",   2, "0.5–1.0 (very strong)"),
-            ("limegreen", 3, "1.0–1.5 (strong)"),
-            ("gold",      4, "1.5–2.0 (strong)"),
-            ("orange",    5, "2.0–2.5 (moderate)"),
-            ("tomato",    6, "2.5–3.0 (moderate)"),
-            ("darkred",   7, "> 3.0 (weak)"),
+            ("lightskyblue", 1,
+             f"< {_fmt(step)} (very strong)"),
+            ("steelblue", 2,
+             f"{_fmt(step)}–{_fmt(2*step)} (very strong)"),
+            ("limegreen", 3,
+             f"{_fmt(2*step)}–{_fmt(3*step)} (strong)"),
+            ("gold", 4,
+             f"{_fmt(3*step)}–{_fmt(4*step)} (strong)"),
+            ("orange", 5,
+             f"{_fmt(4*step)}–{_fmt(5*step)} (moderate)"),
+            ("tomato", 6,
+             f"{_fmt(5*step)}–{_fmt(mod)} (moderate)"),
+            ("darkred", 7,
+             f"> {_fmt(mod)} (weak)"),
         ]
         for color, rank, label in reversed(color_labels):
             subset = map_df[
@@ -1155,6 +1905,7 @@ def display_radar_chart(
     target_df: pd.DataFrame,
     query_accession: str,
     direction: str,
+    mode_key: str = "trace",
 ) -> None:
     """Display a radar chart comparing ratio profiles."""
     ratio_cols = _get_ratio_columns(query_sample)
@@ -1219,14 +1970,18 @@ def display_radar_chart(
         st.info("No valid match data found for radar chart.")
         return
 
-    # Normalize: log10 then min-max across all compared samples
+    # Normalize: min-max across all compared samples
     matrix = np.array(all_values)
-    log_matrix = np.log10(np.clip(matrix, EPSILON, None))
-    col_min = log_matrix.min(axis=0)
-    col_max = log_matrix.max(axis=0)
+    if mode_key == "alr5":
+        # ALR values are already log-scale; skip log10
+        work = matrix
+    else:
+        work = np.log10(np.clip(matrix, EPSILON, None))
+    col_min = work.min(axis=0)
+    col_max = work.max(axis=0)
     col_range = col_max - col_min
     col_range[col_range == 0] = 1
-    normalized = (log_matrix - col_min) / col_range
+    normalized = (work - col_min) / col_range
 
     # Build radar chart
     fig = go.Figure()
@@ -1336,7 +2091,10 @@ def _execute_query(
     geo_coords_df: pd.DataFrame,
     arch_coords_df: pd.DataFrame,
     photo_df: pd.DataFrame | None = None,
-    onedrive_folder_url: str = "",
+    photos_base_dir: str = "",
+    access_token: str = "",
+    share_url: str = "",
+    mode_key: str = "trace",
 ) -> None:
     """Execute a single query and display results."""
     if query_mode == "Artefact \u2192 Geology":
@@ -1397,6 +2155,7 @@ def _execute_query(
     results_df = get_top_matches(
         sample, target_df, query_coords_df,
         target_coords_df, top_n, direction,
+        mode_key=mode_key,
     )
 
     # Apply region filter
@@ -1423,30 +2182,37 @@ def _execute_query(
     with st.expander(
         "Distance Interpretation Guide", expanded=False,
     ):
-        display_legend()
+        display_legend(mode_key=mode_key)
 
     display_results_table(
         results_df, accession_number,
         direction, query_site=site_info,
+        mode_key=mode_key,
     )
 
-    # Display artefact photographs (if OneDrive configured)
+    # Display artefact photographs (if any source configured)
     if (
-        onedrive_folder_url
+        (photos_base_dir or (access_token and share_url))
         and photo_df is not None
         and not photo_df.empty
         and direction == "artefact_to_geology"
     ):
-        folder_base = _onedrive_folder_api_base(onedrive_folder_url)
         display_artefact_photos(
-            str(sample["Accession #"]), photo_df, folder_base,
+            str(sample["Accession #"]),
+            photo_df,
+            photos_base_dir,
+            access_token=access_token,
+            share_url=share_url,
         )
 
     display_radar_chart(
         sample, results_df, target_df,
         accession_number, direction,
+        mode_key=mode_key,
     )
-    display_scatter_plot(results_df)
+    display_scatter_plot(
+        results_df, mode_key=mode_key,
+    )
 
     query_coords = _get_query_coords(
         sample, query_coords_df, direction,
@@ -1458,6 +2224,7 @@ def _execute_query(
     display_results_map(
         results_df, query_coords,
         target_coords_df, query_label, direction,
+        mode_key=mode_key,
     )
 
 
@@ -1469,6 +2236,7 @@ def _execute_batch_query(
     geology_df: pd.DataFrame,
     geo_coords_df: pd.DataFrame,
     arch_coords_df: pd.DataFrame,
+    mode_key: str = "trace",
 ) -> None:
     """Batch query: upload CSV, run matching for each."""
     uploaded_file = st.file_uploader(
@@ -1552,6 +2320,7 @@ def _execute_batch_query(
         result = get_top_matches(
             sample, target_df, query_coords_df,
             target_coords_df, top_n, direction,
+            mode_key=mode_key,
         )
         if not result.empty:
             result.insert(0, "Query Acc #", acc)
@@ -1612,7 +2381,16 @@ def _execute_batch_query(
     freq_df["Min_Aitch"] = np.round(
         freq_df["Min_Aitch"], 2,
     )
-    st.dataframe(freq_df, use_container_width=True)
+    aitch_styler = partial(
+        _color_aitch_with_thresholds,
+        thresholds=_aitch_thresholds(mode_key),
+    )
+    styled_freq = (
+        freq_df.style
+        .map(aitch_styler, subset=["Avg_Aitch", "Min_Aitch"])
+        .format({"Avg_Aitch": "{:.2f}", "Min_Aitch": "{:.2f}"})
+    )
+    st.dataframe(styled_freq, use_container_width=True)
 
     # Combined results
     with st.expander("All Individual Results", expanded=False):
@@ -1671,6 +2449,11 @@ def _execute_comparison(
     geology_df: pd.DataFrame,
     geo_coords_df: pd.DataFrame,
     arch_coords_df: pd.DataFrame,
+    photo_df: pd.DataFrame | None = None,
+    photos_base_dir: str = "",
+    access_token: str = "",
+    share_url: str = "",
+    mode_key: str = "trace",
 ) -> None:
     """Enter 2+ accession numbers to find shared sources."""
     st.markdown(
@@ -1752,6 +2535,7 @@ def _execute_comparison(
         result = get_top_matches(
             sample, target_df, query_coords_df,
             target_coords_df, top_n, direction,
+            mode_key=mode_key,
         )
         if not result.empty:
             all_results[acc] = result
@@ -1765,6 +2549,32 @@ def _execute_comparison(
             "numbers to compare."
         )
         return
+
+    # Display photos of compared artefacts
+    if (
+        (photos_base_dir or (access_token and share_url))
+        and photo_df is not None
+        and not photo_df.empty
+        and direction == "artefact_to_geology"
+    ):
+        photo_cols = st.columns(
+            min(len(all_results), 4)
+        )
+        for i, acc in enumerate(all_results):
+            with photo_cols[i % min(len(all_results), 4)]:
+                images = _get_artefact_images(
+                    acc, photo_df, photos_base_dir,
+                    access_token, share_url,
+                )
+                if images:
+                    try:
+                        st.image(
+                            images[0],
+                            caption=f"Acc # {acc}",
+                            use_container_width=True,
+                        )
+                    except Exception:
+                        st.caption(f"Acc # {acc}")
 
     # Find shared sources
     source_counter: Counter[tuple[str, str]] = Counter()
@@ -1883,9 +2693,13 @@ def _execute_comparison(
         if "Avg Aitch" in comp_df.columns
         else []
     )
+    aitch_color_fn = partial(
+        _color_aitch_with_thresholds,
+        thresholds=_aitch_thresholds(mode_key),
+    )
     for col in aitch_cols + avg_cols:
         styled = styled.map(
-            color_aitch_dist, subset=[col],
+            aitch_color_fn, subset=[col],
         )
 
     st.table(styled)
@@ -1924,19 +2738,10 @@ def main() -> None:
     with st.sidebar:
         st.header("About")
         st.markdown(
-            """
-            **GSF - Geology Source Finder** matches
-            archaeological artefacts to potential geological
-            sources using trace element ratio comparison.
-
-            **Metrics used:**
-            - **Aitchison Distance**: Compositional distance
-              using centered log-ratio (CLR) transform.
-            - **Euclidean Distance**: Standard geometric
-              distance between ratio vectors.
-            - **Geographical Distance**: Geodesic distance
-              between site coordinates in kilometres.
-            """
+            "**GSF - Geology Source Finder** matches "
+            "archaeological artefacts to potential "
+            "geological sources using trace element "
+            "ratio comparison."
         )
         st.divider()
         st.header("Settings")
@@ -1945,27 +2750,181 @@ def main() -> None:
             [
                 "Trace Elements (16 ratios)",
                 "All Elements (22 ratios)",
+                "ALR-5 Elements (5 log-ratios)",
             ],
             help=(
                 "Trace Elements uses 16 trace-element "
                 "ratios. All Elements adds 6 "
-                "major-element ratios (22 total)."
+                "major-element ratios (22 total). "
+                "ALR-5 uses 5 additive log-ratio "
+                "coordinates from 6 key elements "
+                "(Ni, Cr, Y, Nb, Sr, Zr)."
             ),
         )
-        mode_key = (
-            "trace" if "Trace" in element_mode else "all"
-        )
+        if "ALR" in element_mode:
+            mode_key = "alr5"
+        elif "Trace" in element_mode:
+            mode_key = "trace"
+        else:
+            mode_key = "all"
+        if mode_key == "alr5":
+            st.caption(
+                "**Metrics:** Aitchison Distance "
+                "(ALR coordinates) · "
+                "Geographical Distance"
+            )
+        else:
+            st.caption(
+                "**Metrics:** Aitchison Distance "
+                "(CLR transform) · "
+                "Euclidean Distance · "
+                "Geographical Distance"
+            )
         st.divider()
-        onedrive_folder_url = st.text_input(
-            "OneDrive Photos Folder Link:",
-            value="",
+        saved_config = _load_config()
+
+        # --- Local photos folder ---
+        saved_dir = saved_config.get("photos_base_dir", "")
+        photos_base_dir = st.text_input(
+            "Local Photos Folder:",
+            value=saved_dir,
             help=(
-                "Paste a OneDrive shared-folder link to "
-                "display artefact photographs. The folder "
-                "must be shared with 'Anyone with the link'."
+                "Local path to the folder containing "
+                "artefact photographs (e.g. a OneDrive "
+                "sync folder)."
+            ),
+            key="photos_dir",
+        )
+        if photos_base_dir != saved_dir:
+            _save_config(
+                {**saved_config, "photos_base_dir": photos_base_dir}
+            )
+
+        # --- OneDrive (Graph API) ---
+        st.markdown("---")
+        st.markdown("**OneDrive (online)**")
+
+        saved_share = saved_config.get(
+            "onedrive_folder_url", "",
+        )
+        share_url = st.text_input(
+            "OneDrive Shared Folder URL:",
+            value=saved_share,
+            help=(
+                "The 1drv.ms sharing link to the root "
+                "photos folder in OneDrive."
             ),
             key="onedrive_url",
         )
+        if share_url != saved_share:
+            _save_config(
+                {**saved_config, "onedrive_folder_url": share_url}
+            )
+
+        saved_client = saved_config.get("azure_client_id", "")
+        client_id = st.text_input(
+            "Azure App Client ID:",
+            value=saved_client,
+            help=(
+                "Register a free Azure AD app at "
+                "portal.azure.com, enable public client "
+                "flows, add Files.Read permission, then "
+                "paste the Application (client) ID here."
+            ),
+            key="azure_client_id",
+            type="password",
+        )
+        if client_id != saved_client:
+            _save_config(
+                {**saved_config, "azure_client_id": client_id}
+            )
+
+        # Auth status and sign-in
+        access_token = ""
+        if client_id and share_url:
+            access_token = (
+                _get_valid_access_token(client_id) or ""
+            )
+            if access_token:
+                st.success("OneDrive: signed in")
+                if st.button(
+                    "Sign out", key="graph_signout",
+                ):
+                    st.session_state.pop(
+                        "graph_token_data", None,
+                    )
+                    path = _get_token_cache_path()
+                    if os.path.exists(path):
+                        os.remove(path)
+                    st.rerun()
+            else:
+                dc = st.session_state.get("device_code_flow")
+                if dc:
+                    st.info(
+                        f"Go to **{dc['verification_uri']}** "
+                        f"and enter code: "
+                        f"**{dc['user_code']}**"
+                    )
+                    if time.time() > dc.get("expires_at", 0):
+                        st.error("Code expired. Try again.")
+                        st.session_state.pop(
+                            "device_code_flow", None,
+                        )
+                    elif st.button(
+                        "Check sign-in status",
+                        key="graph_poll",
+                    ):
+                        try:
+                            result = _poll_for_token(
+                                client_id, dc["device_code"],
+                            )
+                        except ValueError as exc:
+                            st.error(str(exc))
+                            st.session_state.pop(
+                                "device_code_flow", None,
+                            )
+                            result = None
+                        if result:
+                            result["expires_at"] = (
+                                time.time()
+                                + result.get("expires_in", 3600)
+                            )
+                            st.session_state[
+                                "graph_token_data"
+                            ] = result
+                            st.session_state.pop(
+                                "device_code_flow", None,
+                            )
+                            _save_token_cache(result)
+                            st.rerun()
+                        else:
+                            st.warning(
+                                "Not ready yet. Complete "
+                                "sign-in in browser, then "
+                                "check again."
+                            )
+                else:
+                    if st.button(
+                        "Sign in to OneDrive",
+                        key="graph_signin",
+                    ):
+                        flow = _start_device_code_flow(
+                            client_id,
+                        )
+                        if flow:
+                            flow["expires_at"] = (
+                                time.time()
+                                + flow.get("expires_in", 900)
+                            )
+                            st.session_state[
+                                "device_code_flow"
+                            ] = flow
+                            st.rerun()
+                        else:
+                            st.error(
+                                "Could not start sign-in. "
+                                "Check the Client ID."
+                            )
 
     st.title("GSF - Geology Source Finder")
 
@@ -2070,7 +3029,10 @@ def main() -> None:
                 artefact_df, geology_df,
                 geo_coords_df, arch_coords_df,
                 photo_df=photo_df,
-                onedrive_folder_url=onedrive_folder_url,
+                photos_base_dir=photos_base_dir,
+                access_token=access_token,
+                share_url=share_url,
+                mode_key=mode_key,
             )
 
     # --- Tab 2: Batch Query ---
@@ -2078,6 +3040,7 @@ def main() -> None:
         _execute_batch_query(
             artefact_df, geology_df,
             geo_coords_df, arch_coords_df,
+            mode_key=mode_key,
         )
 
     # --- Tab 3: Comparison Mode ---
@@ -2085,6 +3048,11 @@ def main() -> None:
         _execute_comparison(
             artefact_df, geology_df,
             geo_coords_df, arch_coords_df,
+            photo_df=photo_df,
+            photos_base_dir=photos_base_dir,
+            access_token=access_token,
+            share_url=share_url,
+            mode_key=mode_key,
         )
 
 

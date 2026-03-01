@@ -13,7 +13,12 @@
       "Bash(ruff check:*)",
       "Bash(npx markdownlint-cli:*)",
       "Bash(npx markdownlint-cli2:*)",
-      "Bash(\"c:/Users/bruno/Code/Geological-Source-Finder/Data/photo_mapping.csv\":*)"
+      "Bash(\"c:/Users/bruno/Code/Geological-Source-Finder/Data/photo_mapping.csv\":*)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code} %{content_type} %{size_download}\" -L \"https://api.onedrive.com/v1.0/shares/u!aHR0cHM6Ly8xZHJ2Lm1zL2YvYy9mMzI0NjA1ZmZiMzU2MDhhL0lnQ0tZRFg3WDJBa0lJRHpqVDhDQUFBQUFXd3luWUIycmowVk95eEFmZUNYVUJNP2U9TGpaa3hJ/root:/Museo%20Almer%C3%ADa/TV%204170.jpg:/content\" --max-time 30)",
+      "Bash(curl -v \"https://api.onedrive.com\" --max-time 10)",
+      "Bash(curl -s -L -o /tmp/test_img.jpg -w \"%{http_code} %{content_type} %{size_download}\" \"https://api.onedrive.com/v1.0/shares/u!aHR0cHM6Ly8xZHJ2Lm1zL2YvYy9mMzI0NjA1ZmZiMzU2MDhhL0lnQ0tZRFg3WDJBa0lJRHpqVDhDQUFBQUFXd3luWUIycmowVk95eEFmZUNYVUJNP2U9TGpaa3hJ/root:/Museo%20Almer%C3%ADa/TV%204170.jpg:/content\" --max-time 30)",
+      "Bash(curl -s -L \"https://api.onedrive.com/v1.0/shares/u!aHR0cHM6Ly8xZHJ2Lm1zL2YvYy9mMzI0NjA1ZmZiMzU2MDhhL0lnQ0tZRFg3WDJBa0lJRHpqVDhDQUFBQUFXd3luWUIycmowVk95eEFmZUNYVUJNP2U9TGpaa3hJ/root:/Museo%20Almer%C3%ADa/TV%204170.jpg:/content\" --max-time 30)",
+      "Bash(curl -s -L \"https://api.onedrive.com/v1.0/shares/u!aHR0cHM6Ly8xZHJ2Lm1zL2YvYy9mMzI0NjA1ZmZiMzU2MDhhL0lnQ0tZRFg3WDJBa0lJRHpqVDhDQUFBQUFXd3luWUIycmowVk95eEFmZUNYVUJNP2U9TGpaa3hJ/driveItem\" -H \"Prefer: redeemSharingLink\" --max-time 15)"
     ]
   }
 }
