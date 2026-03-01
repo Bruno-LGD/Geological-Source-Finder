@@ -1939,7 +1939,7 @@ def display_radar_chart(
         match_options,
         default=match_options[:min(3, len(match_options))],
         max_selections=8,
-        key="radar_select",
+        key=f"radar_select_{query_accession}_{mode_key}",
     )
 
     if not selected:
@@ -2752,6 +2752,7 @@ def main() -> None:
                 "All Elements (22 ratios)",
                 "ALR-5 Elements (5 log-ratios)",
             ],
+            index=2,
             help=(
                 "Trace Elements uses 16 trace-element "
                 "ratios. All Elements adds 6 "
