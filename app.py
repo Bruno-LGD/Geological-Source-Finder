@@ -17,6 +17,7 @@ import pandas as pd
 import numpy as np
 from geopy.distance import geodesic
 import streamlit as st
+import streamlit.components.v1 as components
 import plotly.express as px
 import plotly.graph_objects as go
 from openpyxl.styles import PatternFill, Font, Border, Side
@@ -595,16 +596,16 @@ def _resolve_share_folder(
 
 
 
-def _fetch_image_urls_from_graph(
+def _fetch_image_bytes_from_graph(
     access_token: str,
     share_url: str,
     relative_path: str,
-) -> tuple[str, str] | None:
-    """Get pre-authenticated URLs for an image via Graph API.
+) -> bytes | None:
+    """Download image bytes from OneDrive via Graph API.
 
-    Returns (thumbnail_url, full_res_url) or None on failure.
-    The browser loads images directly from Microsoft's CDN —
-    no server-side download or base64 encoding needed.
+    Fetches server-side so images can be embedded as base64 —
+    avoids browser CORS/CSP blocks when loading CDN URLs from
+    within a Streamlit iframe.
     """
     resolved = _resolve_share_folder(
         access_token, share_url,
@@ -617,7 +618,7 @@ def _fetch_image_urls_from_graph(
     encoded_path = quote(full_path, safe="/")
     url = (
         f"{_GRAPH_BASE}/drives/{drive_id}"
-        f"/root:/{encoded_path}:"
+        f"/root:/{encoded_path}:/content"
     )
     try:
         resp = requests.get(
@@ -625,8 +626,7 @@ def _fetch_image_urls_from_graph(
             headers={
                 "Authorization": f"Bearer {access_token}",
             },
-            params={"$expand": "thumbnails"},
-            timeout=15,
+            timeout=30,
         )
         if not resp.ok:
             try:
@@ -638,51 +638,29 @@ def _fetch_image_urls_from_graph(
                 f"{full_path}: {err_body}"
             )
             return None
-
-        data = resp.json()
-        full_url = data.get(
-            "@microsoft.graph.downloadUrl", "",
-        )
-        if not full_url:
-            st.session_state["_graph_last_error"] = (
-                f"No download URL for {full_path}"
-            )
-            return None
-
-        thumb_url = full_url
-        thumbs = data.get("thumbnails", [])
-        if thumbs and "large" in thumbs[0]:
-            thumb_url = thumbs[0]["large"].get(
-                "url", full_url,
-            )
-        return (thumb_url, full_url)
+        return resp.content
     except Exception as exc:
         st.session_state["_graph_last_error"] = str(exc)
         return None
 
 
-_IMAGE_URL_CACHE_TTL = 1800  # 30 min (URLs expire ~1 hr)
-
-
-def _get_cached_image_urls(
+def _get_cached_image_bytes(
     access_token: str,
     share_url: str,
     relative_path: str,
-) -> tuple[str, str] | None:
-    """Fetch image URLs with session-level caching."""
-    cache_key = f"imgurl_{relative_path}"
+) -> bytes | None:
+    """Fetch image bytes with session-level caching."""
+    cache_key = f"imgbytes_{relative_path}"
     cached = st.session_state.get(cache_key)
     if cached is not None:
-        cached_time, cached_urls = cached
-        if time.time() - cached_time < _IMAGE_URL_CACHE_TTL:
-            return cached_urls
+        return cached
 
-    urls = _fetch_image_urls_from_graph(
+    data = _fetch_image_bytes_from_graph(
         access_token, share_url, relative_path,
     )
-    if urls:
-        st.session_state[cache_key] = (time.time(), urls)
-    return urls
+    if data:
+        st.session_state[cache_key] = data
+    return data
 
 
 # Path corrections: CSV relative paths → actual disk paths
@@ -752,15 +730,14 @@ def _get_artefact_images(
     photos_base_dir: str = "",
     access_token: str = "",
     share_url: str = "",
-) -> list[str | bytes | tuple[str, str]]:
+) -> list[str | bytes]:
     """Return image sources for an accession's photos.
 
     Tries local files first (if photos_base_dir is set),
-    falls back to Graph API (if access_token and share_url).
+    falls back to Graph API (downloads bytes server-side).
     Returns list of:
     - str: local file path
     - bytes: image data
-    - tuple[str, str]: (thumbnail_url, full_res_url)
     """
     if photo_df.empty:
         return []
@@ -771,7 +748,7 @@ def _get_artefact_images(
         return []
     row = row.iloc[0]
 
-    images: list[str | bytes | tuple[str, str]] = []
+    images: list[str | bytes] = []
     for col in [
         "Image_1", "Image_2", "Image_3",
         "Image_4", "Image_5", "Image_6",
@@ -790,14 +767,14 @@ def _get_artefact_images(
                 images.append(local)
                 continue
 
-        # Try Graph API (URL-based, no download)
+        # Try Graph API (download bytes server-side)
         if access_token and share_url:
             graph_path = _resolve_graph_path(relative)
-            urls = _get_cached_image_urls(
+            data = _get_cached_image_bytes(
                 access_token, share_url, graph_path,
             )
-            if urls:
-                images.append(urls)
+            if data:
+                images.append(data)
 
     return images
 
@@ -1253,39 +1230,19 @@ def _to_image_bytes(img_src: str | bytes) -> bytes | None:
 
 
 def _render_zoom_viewer(
-    img_src: bytes | tuple[str, str],
+    img_src: bytes,
     uid: str,
     height: int = 450,
 ) -> None:
     """Render an interactive pan/zoom viewer via HTML.
 
-    img_src can be:
-    - bytes: image data (base64-encoded into HTML)
-    - tuple[str, str]: (thumbnail_url, full_res_url)
-      for progressive loading — shows thumbnail first,
-      then auto-swaps to full resolution for max detail.
+    img_src: image bytes (base64-encoded into the HTML so no
+    cross-origin requests are needed from the iframe).
     """
     cid, iid = f"zc_{uid}", f"zi_{uid}"
 
-    if isinstance(img_src, tuple):
-        thumb_url, full_url = img_src
-        img_attr = f'src="{thumb_url}"'
-        # Progressive: load full-res in background, swap when
-        # ready while preserving the user's current view.
-        progressive_js = (
-            "var ow=0;"
-            f"var hd=new Image();hd.src='{full_url}';"
-            "hd.onload=function(){"
-            "var nw=hd.naturalWidth;"
-            "if(ow>0){s*=(ow/nw);}"
-            "hdReady=true;"
-            f"im.src='{full_url}';"
-            "};"
-        )
-    else:
-        b64 = base64.b64encode(img_src).decode("ascii")
-        img_attr = f'src="data:image/jpeg;base64,{b64}"'
-        progressive_js = ""
+    b64 = base64.b64encode(img_src).decode("ascii")
+    img_attr = f'src="data:image/jpeg;base64,{b64}"'
 
     html = (
         f'<div id="{cid}" style="width:100%;height:{height}px;'
@@ -1299,7 +1256,7 @@ def _render_zoom_viewer(
         "<script>(function(){"
         f"const c=document.getElementById('{cid}'),"
         f"im=document.getElementById('{iid}');"
-        "let s=1,tx=0,ty=0,drag=0,sx,sy,hdReady=false;"
+        "let s=1,tx=0,ty=0,drag=0,sx,sy;"
         "function up(){im.style.transform="
         "'translate('+tx+'px,'+ty+'px) scale('+s+')';}"
         "function fit(){"
@@ -1308,10 +1265,7 @@ def _render_zoom_viewer(
         "s=Math.min(rx,ry);"
         "tx=(c.clientWidth-im.naturalWidth*s)/2;"
         "ty=(c.clientHeight-im.naturalHeight*s)/2;up();}"
-        "im.onload=function(){"
-        "if(!hdReady){fit();ow=im.naturalWidth;}"
-        "else{up();}};"
-        + progressive_js +
+        "im.onload=function(){fit();};"
         "c.onwheel=function(e){e.preventDefault();"
         "let r=c.getBoundingClientRect(),"
         "mx=e.clientX-r.left,my=e.clientY-r.top,"
@@ -1329,7 +1283,7 @@ def _render_zoom_viewer(
         "c.ondblclick=function(){fit();};"
         "})();</script>"
     )
-    st.components.v1.html(html, height=height + 10)
+    components.html(html, height=height + 10)
 
 
 def display_artefact_photos(
@@ -1371,25 +1325,17 @@ def display_artefact_photos(
         cols = st.columns(min(len(images), 3))
         for i, img_src in enumerate(images):
             with cols[i % 3]:
-                # URL tuples go straight to the viewer
-                if isinstance(img_src, tuple):
+                img_bytes = _to_image_bytes(img_src)
+                if img_bytes:
                     _render_zoom_viewer(
-                        img_src,
+                        img_bytes,
                         uid=f"{accession}_{i}",
                     )
                     st.caption(f"View {i + 1}")
                 else:
-                    img_bytes = _to_image_bytes(img_src)
-                    if img_bytes:
-                        _render_zoom_viewer(
-                            img_bytes,
-                            uid=f"{accession}_{i}",
-                        )
-                        st.caption(f"View {i + 1}")
-                    else:
-                        st.caption(
-                            f"View {i + 1}: not available"
-                        )
+                    st.caption(
+                        f"View {i + 1}: not available"
+                    )
 
 
 def display_legend(mode_key: str = "trace") -> None:
@@ -1401,6 +1347,7 @@ def display_legend(mode_key: str = "trace") -> None:
         col1, col2, col3 = st.columns(3)
     else:
         col1, col3 = st.columns(2)
+        col2 = None
 
     aitch_label = (
         "**Aitchison Distance** (ALR-5)"
@@ -1418,7 +1365,7 @@ def display_legend(mode_key: str = "trace") -> None:
             f"{m}] -- Moderate match\n"
             f"- :red[> {m}] -- Weak match"
         )
-    if show_eucl:
+    if col2 is not None:
         with col2:
             st.markdown("**Euclidean Distance** (geometric)")
             st.markdown(
@@ -1451,10 +1398,13 @@ def display_results_table(
     mode_key: str = "trace",
 ) -> None:
     """Style and display the results table with downloads."""
-    fmt: dict[str, str] = {"Aitch Dist": "{:.2f}"}
+    styled_df = results_df.style.format(
+        "{:.2f}", subset=["Aitch Dist"],
+    )
     if _has_euclidean(mode_key):
-        fmt["Eucl Dist"] = "{:.2f}"
-    styled_df = results_df.style.format(fmt)
+        styled_df = styled_df.format(
+            "{:.2f}", subset=["Eucl Dist"],
+        )
 
     aitch_styler = partial(
         _color_aitch_with_thresholds,
@@ -2785,7 +2735,9 @@ def main() -> None:
         saved_config = _load_config()
 
         # --- Local photos folder ---
-        saved_dir = saved_config.get("photos_base_dir", "")
+        saved_dir = (
+            saved_config.get("photos_base_dir", "") or ""
+        )
         photos_base_dir = st.text_input(
             "Local Photos Folder:",
             value=saved_dir,
@@ -2795,7 +2747,7 @@ def main() -> None:
                 "sync folder)."
             ),
             key="photos_dir",
-        )
+        ) or ""
         if photos_base_dir != saved_dir:
             _save_config(
                 {**saved_config, "photos_base_dir": photos_base_dir}
@@ -2805,8 +2757,9 @@ def main() -> None:
         st.markdown("---")
         st.markdown("**OneDrive (online)**")
 
-        saved_share = saved_config.get(
-            "onedrive_folder_url", "",
+        saved_share = (
+            saved_config.get("onedrive_folder_url", "")
+            or ""
         )
         share_url = st.text_input(
             "OneDrive Shared Folder URL:",
@@ -2816,13 +2769,15 @@ def main() -> None:
                 "photos folder in OneDrive."
             ),
             key="onedrive_url",
-        )
+        ) or ""
         if share_url != saved_share:
             _save_config(
                 {**saved_config, "onedrive_folder_url": share_url}
             )
 
-        saved_client = saved_config.get("azure_client_id", "")
+        saved_client = (
+            saved_config.get("azure_client_id", "") or ""
+        )
         client_id = st.text_input(
             "Azure App Client ID:",
             value=saved_client,
@@ -2834,7 +2789,7 @@ def main() -> None:
             ),
             key="azure_client_id",
             type="password",
-        )
+        ) or ""
         if client_id != saved_client:
             _save_config(
                 {**saved_config, "azure_client_id": client_id}
