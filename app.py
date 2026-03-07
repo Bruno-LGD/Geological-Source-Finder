@@ -95,6 +95,21 @@ COLORS = {
 
 CELL_STYLE = "color: black; border: 1px solid gray"
 
+# Mode labels for column headers
+MODE_LABELS: dict[str, str] = {
+    "alr5": "ALR-5",
+    "trace": "Trace",
+    "all": "All",
+}
+
+# Canonical mode ordering (ALR-5 first = default sort)
+MODE_ORDER: list[str] = ["alr5", "trace", "all"]
+
+
+def _aitch_col(mode_key: str) -> str:
+    """Return the Aitchison distance column name for a mode."""
+    return f"Aitch ({MODE_LABELS[mode_key]})"
+
 # Lithology color map for scatter plots
 LITHOLOGY_COLOR_MAP: dict[str, str] = {
     "Ophite-THOL": "#FF0000",
@@ -1021,6 +1036,176 @@ def get_top_matches(
     return results_df
 
 
+def get_top_matches_multimode(
+    query_samples: dict[str, pd.Series],
+    target_dfs: dict[str, pd.DataFrame],
+    query_coords_df: pd.DataFrame,
+    target_coords_df: pd.DataFrame,
+    top_n: int = DEFAULT_TOP_N,
+    direction: str = "artefact_to_geology",
+    enabled_modes: list[str] | None = None,
+    sort_mode: str = "alr5",
+) -> pd.DataFrame:
+    """Find top-N matches using multiple distance modes.
+
+    Computes Aitchison distance for each enabled mode,
+    merges by Accession #, sorts by sort_mode's distance.
+    """
+    if enabled_modes is None:
+        enabled_modes = list(query_samples.keys())
+
+    if direction == "artefact_to_geology":
+        keep_cols = [
+            "Lithology", "Accession #", "Site", "Region",
+        ]
+    else:
+        keep_cols = ["Accession #", "Site", "Region"]
+
+    # Build base metadata from sort_mode's target_df
+    base_target = target_dfs[sort_mode]
+    available_keep = [
+        c for c in keep_cols if c in base_target.columns
+    ]
+    base_df = (
+        base_target[available_keep]
+        .drop_duplicates(subset=["Accession #"])
+        .copy()
+        .reset_index(drop=True)
+    )
+
+    # Compute Aitchison distances for each mode
+    for mode in enabled_modes:
+        query_sample = query_samples[mode]
+        target_df = target_dfs[mode]
+        col_name = _aitch_col(mode)
+
+        ratio_cols = _get_ratio_columns(query_sample)
+        if not ratio_cols:
+            base_df[col_name] = np.nan
+            continue
+
+        avail_cols = [
+            c for c in ["Accession #"] + ratio_cols
+            if c in target_df.columns
+        ]
+        aligned_df = target_df[avail_cols].dropna(
+            subset=ratio_cols,
+        )
+
+        if aligned_df.empty:
+            base_df[col_name] = np.nan
+            continue
+
+        query_series = pd.Series(pd.to_numeric(
+            query_sample[ratio_cols], errors="coerce",
+        )).fillna(EPSILON)
+        query_vector = np.asarray(query_series, dtype=float)
+        target_matrix = np.asarray(
+            aligned_df[ratio_cols]
+            .apply(pd.to_numeric, errors="coerce")
+            .fillna(EPSILON),
+            dtype=float,
+        )
+
+        if mode == "alr5":
+            dists = _compute_alr5_aitchison_vectorized(
+                query_vector, target_matrix,
+            )
+        else:
+            dists, _ = _compute_distances_vectorized(
+                query_vector, target_matrix,
+            )
+
+        dist_df = pd.DataFrame({
+            "Accession #": aligned_df["Accession #"].values,
+            col_name: np.round(dists, 2),
+        })
+        base_df = base_df.merge(
+            dist_df, on="Accession #", how="left",
+        )
+
+    # Sort by primary mode's distance
+    sort_col = _aitch_col(sort_mode)
+    base_df = base_df.dropna(subset=[sort_col])
+    base_df = base_df.sort_values(
+        by=[sort_col],
+    ).head(top_n)
+    base_df.reset_index(drop=True, inplace=True)
+    base_df.index += 1
+
+    # Compute geodesic distances for top results
+    if direction == "artefact_to_geology":
+        # Use any mode's query_sample for site lookup
+        q_sample = query_samples[sort_mode]
+        site_match = query_coords_df[
+            query_coords_df["Site"] == q_sample["Site"]
+        ]
+        query_coords: tuple[float, float] | None = (
+            (
+                float(site_match.iloc[0]["Latitude"]),
+                float(site_match.iloc[0]["Longitude"]),
+            )
+            if not site_match.empty
+            else None
+        )
+        target_coord_lookup: dict[
+            str, tuple[float, float]
+        ] = {}
+        for _, row in target_coords_df.iterrows():
+            target_coord_lookup[str(row["Accession #"])] = (
+                float(row["Latitude"]),
+                float(row["Longitude"]),
+            )
+        base_df["Geo Dist"] = (
+            base_df["Accession #"].apply(
+                lambda acc: _compute_geodesic(
+                    query_coords,
+                    target_coord_lookup.get(str(acc)),
+                )
+            )
+        )
+    else:
+        q_sample = query_samples[sort_mode]
+        acc_match = query_coords_df[
+            query_coords_df["Accession #"]
+            == str(q_sample["Accession #"])
+        ]
+        query_coords = (
+            (
+                float(acc_match.iloc[0]["Latitude"]),
+                float(acc_match.iloc[0]["Longitude"]),
+            )
+            if not acc_match.empty
+            else None
+        )
+        target_coord_lookup = {}
+        for _, row in target_coords_df.iterrows():
+            target_coord_lookup[str(row["Site"])] = (
+                float(row["Latitude"]),
+                float(row["Longitude"]),
+            )
+        base_df["Geo Dist"] = base_df["Site"].apply(
+            lambda site: _compute_geodesic(
+                query_coords,
+                target_coord_lookup.get(site),
+            )
+        )
+
+    if direction == "artefact_to_geology":
+        base_df = base_df.rename(columns={
+            "Accession #": "Geo Acc #",
+            "Site": "Geo Site",
+        })
+    else:
+        base_df = base_df.rename(columns={
+            "Accession #": "Artefact Acc #",
+            "Site": "Artefact Site",
+            "Region": "Artefact Region",
+        })
+
+    return base_df
+
+
 # -----------------------------
 # Table Styling Functions
 # -----------------------------
@@ -1135,9 +1320,12 @@ def _create_styled_excel(
     query_accession: str,
     query_site: str,
     direction: str,
-    mode_key: str = "trace",
+    enabled_modes: list[str] | None = None,
 ) -> bytes:
     """Create a styled Excel workbook with color-coded cells."""
+    if enabled_modes is None:
+        enabled_modes = list(MODE_ORDER)
+
     output = BytesIO()
     thin_border = Border(
         left=Side(style="thin"),
@@ -1168,21 +1356,26 @@ def _create_styled_excel(
             f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M')}"
         )
 
-        # Find column letters for distance columns
-        # row where pandas writes headers
-        # (0-indexed startrow=2 -> Excel row 3)
+        # Find column positions for distance columns
         header_row = 3
         col_map: dict[str, int] = {}
+        aitch_col_names = {
+            _aitch_col(m) for m in enabled_modes
+        }
         for cell in ws[header_row]:
-            if cell.value in (
-                "Aitch Dist", "Eucl Dist", "Geo Dist",
-            ):
+            if cell.value in aitch_col_names or cell.value == "Geo Dist":
                 col_map[cell.value] = cell.column
 
-        aitch_thresholds = _aitch_thresholds(mode_key)
-        eucl_thresholds = (
-            EUCL_VERY_STRONG, EUCL_STRONG, EUCL_MODERATE,
-        )
+        # Build thresholds lookup per Aitch column
+        aitch_thresholds_map: dict[int, tuple[float, float, float]] = {}
+        for mode in enabled_modes:
+            col_name = _aitch_col(mode)
+            if col_name in col_map:
+                aitch_thresholds_map[col_map[col_name]] = (
+                    _aitch_thresholds(mode)
+                )
+
+        geo_col_num = col_map.get("Geo Dist")
 
         # Apply fills to data rows
         for row in ws.iter_rows(
@@ -1190,19 +1383,14 @@ def _create_styled_excel(
         ):
             for cell in row:
                 cell.border = thin_border
-                if cell.column == col_map.get("Aitch Dist"):
+                if cell.column in aitch_thresholds_map:
                     fill = _get_fill_for_value(
-                        cell.value, aitch_thresholds,
+                        cell.value,
+                        aitch_thresholds_map[cell.column],
                     )
                     if fill:
                         cell.fill = fill
-                elif cell.column == col_map.get("Eucl Dist"):
-                    fill = _get_fill_for_value(
-                        cell.value, eucl_thresholds,
-                    )
-                    if fill:
-                        cell.fill = fill
-                elif cell.column == col_map.get("Geo Dist"):
+                elif cell.column == geo_col_num:
                     fill = _get_geo_fill(cell.value)
                     if fill:
                         cell.fill = fill
@@ -1338,46 +1526,34 @@ def display_artefact_photos(
                     )
 
 
-def display_legend(mode_key: str = "trace") -> None:
+def display_legend(
+    enabled_modes: list[str] | None = None,
+) -> None:
     """Display color-coded threshold explanations."""
-    vs, s, m = _aitch_thresholds(mode_key)
-    show_eucl = _has_euclidean(mode_key)
+    if enabled_modes is None:
+        enabled_modes = list(MODE_ORDER)
 
-    if show_eucl:
-        col1, col2, col3 = st.columns(3)
-    else:
-        col1, col3 = st.columns(2)
-        col2 = None
+    n_cols = len(enabled_modes) + 1  # +1 for Geo Dist
+    cols = st.columns(n_cols)
 
-    aitch_label = (
-        "**Aitchison Distance** (ALR-5)"
-        if mode_key == "alr5"
-        else "**Aitchison Distance** (compositional)"
-    )
-    with col1:
-        st.markdown(aitch_label)
-        st.markdown(
-            f"- :blue[< {vs}] "
-            "-- Very strong match\n"
-            f"- :green[{vs} - "
-            f"{s}] -- Strong match\n"
-            f"- :orange[{s} - "
-            f"{m}] -- Moderate match\n"
-            f"- :red[> {m}] -- Weak match"
+    for i, mode in enumerate(enabled_modes):
+        vs, s, m = _aitch_thresholds(mode)
+        label = (
+            f"**Aitchison Distance** ({MODE_LABELS[mode]})"
         )
-    if col2 is not None:
-        with col2:
-            st.markdown("**Euclidean Distance** (geometric)")
+        with cols[i]:
+            st.markdown(label)
             st.markdown(
-                f"- :blue[< {EUCL_VERY_STRONG}] "
+                f"- :blue[< {vs}] "
                 "-- Very strong match\n"
-                f"- :green[{EUCL_VERY_STRONG} - "
-                f"{EUCL_STRONG}] -- Strong match\n"
-                f"- :orange[{EUCL_STRONG} - "
-                f"{EUCL_MODERATE}] -- Moderate match\n"
-                f"- :red[> {EUCL_MODERATE}] -- Weak match"
+                f"- :green[{vs} - "
+                f"{s}] -- Strong match\n"
+                f"- :orange[{s} - "
+                f"{m}] -- Moderate match\n"
+                f"- :red[> {m}] -- Weak match"
             )
-    with col3:
+
+    with cols[-1]:
         st.markdown("**Geographical Distance**")
         st.markdown(
             f"- :blue[< {GEO_VERY_CLOSE_KM} km] "
@@ -1395,28 +1571,31 @@ def display_results_table(
     query_accession: str,
     direction: str,
     query_site: str = "",
-    mode_key: str = "trace",
+    enabled_modes: list[str] | None = None,
 ) -> None:
     """Style and display the results table with downloads."""
-    styled_df = results_df.style.format(
-        "{:.2f}", subset=["Aitch Dist"],
-    )
-    if _has_euclidean(mode_key):
-        styled_df = styled_df.format(
-            "{:.2f}", subset=["Eucl Dist"],
-        )
+    if enabled_modes is None:
+        enabled_modes = list(MODE_ORDER)
 
-    aitch_styler = partial(
-        _color_aitch_with_thresholds,
-        thresholds=_aitch_thresholds(mode_key),
-    )
+    styled_df = results_df.style
+
+    # Format and color each enabled mode's Aitch column
+    for mode in enabled_modes:
+        col = _aitch_col(mode)
+        if col not in results_df.columns:
+            continue
+        styled_df = styled_df.format(
+            "{:.2f}", subset=[col],
+        )
+        styler = partial(
+            _color_aitch_with_thresholds,
+            thresholds=_aitch_thresholds(mode),
+        )
+        styled_df = styled_df.map(styler, subset=[col])
+
     styled_df = styled_df.apply(  # pyright: ignore[reportAttributeAccessIssue]
         highlight_geo_dist, subset=["Geo Dist"],
-    ).map(aitch_styler, subset=["Aitch Dist"])
-    if _has_euclidean(mode_key):
-        styled_df = styled_df.map(
-            color_eucl_dist, subset=["Eucl Dist"],
-        )
+    )
     border_style = ("border", "1px solid gray")
     padding = ("padding", "4px")
     no_radius = ("border-radius", "0px")
@@ -1464,7 +1643,7 @@ def display_results_table(
         excel_data = _create_styled_excel(
             results_df, query_accession,
             query_site, direction,
-            mode_key=mode_key,
+            enabled_modes=enabled_modes,
         )
         st.download_button(
             label="Download as Excel",
@@ -1479,9 +1658,13 @@ def display_results_table(
 
 def display_scatter_plot(
     results_df: pd.DataFrame,
-    mode_key: str = "trace",
+    sort_mode: str = "alr5",
 ) -> None:
-    """Create a scatter plot of Geo Dist vs. Aitch Dist."""
+    """Create a scatter plot of Geo Dist vs. sort mode Aitch."""
+    sort_col = _aitch_col(sort_mode)
+    if sort_col not in results_df.columns:
+        return
+
     plot_df = results_df[
         results_df["Geo Dist"] != "Unknown"
     ].copy()
@@ -1515,12 +1698,12 @@ def display_scatter_plot(
     fig = px.scatter(
         plot_df,
         x="Geo Dist Num",
-        y="Aitch Dist",
+        y=sort_col,
         color=color_col,
         hover_data=hover_cols,
         title=(
             "Scatter Plot of Geographical Distance "
-            "vs. Aitchison Distance"
+            f"vs. {sort_col}"
         ),
         color_discrete_map=color_map if color_map else {},
     )
@@ -1532,7 +1715,7 @@ def display_scatter_plot(
             x=ref, line_dash="dash",
             line_color="black", opacity=0.5,
         )
-    for ref in _aitch_thresholds(mode_key):
+    for ref in _aitch_thresholds(sort_mode):
         fig.add_hline(
             y=ref, line_dash="dash",
             line_color="black", opacity=0.5,
@@ -1551,7 +1734,7 @@ def display_scatter_plot(
         plot_bgcolor="white",
         font={"color": "black"},
         xaxis_title="Geographical Distance (km)",
-        yaxis_title="Aitchison Distance",
+        yaxis_title=sort_col,
         margin={"l": 40, "r": 40, "t": 40, "b": 40},
         legend_title=color_col if color_col else "Legend",
     )
@@ -1599,9 +1782,13 @@ def display_results_map(
     target_coords_df: pd.DataFrame,
     query_label: str,
     direction: str,
-    mode_key: str = "trace",
+    sort_mode: str = "alr5",
 ) -> None:
     """Display an interactive map with query and match locations."""
+    sort_col = _aitch_col(sort_mode)
+    if sort_col not in results_df.columns:
+        return
+
     acc_col = (
         "Geo Acc #"
         if direction == "artefact_to_geology"
@@ -1628,7 +1815,7 @@ def display_results_map(
                     "lat": coord_row.iloc[0]["Latitude"],
                     "lon": coord_row.iloc[0]["Longitude"],
                     "label": f"{acc} - {row[site_col]}",
-                    "aitch": row["Aitch Dist"],
+                    "aitch": row[sort_col],
                 })
     else:
         for _, row in results_df.iterrows():
@@ -1643,7 +1830,7 @@ def display_results_map(
                     "lat": coord_row.iloc[0]["Latitude"],
                     "lon": coord_row.iloc[0]["Longitude"],
                     "label": f"{row[acc_col]} - {site}",
-                    "aitch": row["Aitch Dist"],
+                    "aitch": row[sort_col],
                 })
 
     if not map_points and query_coords is None:
@@ -1672,7 +1859,7 @@ def display_results_map(
     if map_points:
         map_df = pd.DataFrame(map_points)
         map_df["marker_color"] = map_df["aitch"].apply(
-            lambda v: _aitch_to_marker_color(v, mode_key),
+            lambda v: _aitch_to_marker_color(v, sort_mode),
         )
         map_df["hover_text"] = map_df.apply(
             lambda r: (
@@ -1696,7 +1883,7 @@ def display_results_map(
         # Add traces worst-first so that better matches render
         # on top when multiple samples share the same coordinates.
         # legendrank keeps the legend ordered best-first.
-        _, _, mod = _aitch_thresholds(mode_key)
+        _, _, mod = _aitch_thresholds(sort_mode)
         step = mod / 6.0
         def _fmt(v: float) -> str:
             return f"{v:.2f}" if v != int(v) else f"{v:.1f}"
@@ -2036,33 +2223,36 @@ def _execute_query(
     query_mode: str,
     top_n: int,
     selected_regions: list[str],
-    artefact_df: pd.DataFrame,
-    geology_df: pd.DataFrame,
+    mode_datasets: dict[str, tuple[pd.DataFrame, pd.DataFrame]],
     geo_coords_df: pd.DataFrame,
     arch_coords_df: pd.DataFrame,
+    enabled_modes: list[str],
+    sort_mode: str = "alr5",
     photo_df: pd.DataFrame | None = None,
     photos_base_dir: str = "",
     access_token: str = "",
     share_url: str = "",
-    mode_key: str = "trace",
 ) -> None:
     """Execute a single query and display results."""
     if query_mode == "Artefact \u2192 Geology":
         direction = "artefact_to_geology"
-        source_df = artefact_df
-        target_df = geology_df
         query_coords_df = arch_coords_df
         target_coords_df = geo_coords_df
         label_prefix = "artefact"
         region_col = "Region"
     else:
         direction = "geology_to_artefact"
-        source_df = geology_df
-        target_df = artefact_df
         query_coords_df = geo_coords_df
         target_coords_df = arch_coords_df
         label_prefix = "geology sample"
         region_col = "Artefact Region"
+
+    # Resolve query sample in sort mode for header info
+    sort_art_df, sort_geo_df = mode_datasets[sort_mode]
+    if direction == "artefact_to_geology":
+        source_df = sort_art_df
+    else:
+        source_df = sort_geo_df
 
     sample = _resolve_sample(
         accession_number, source_df,
@@ -2085,27 +2275,51 @@ def _execute_query(
         f"{sample['Accession #']} - {site_info}"
     )
 
-    # Data quality indicator
+    # Data quality indicator for sort mode
     total_ratios = _count_total_ratio_columns(source_df)
     valid_ratios = len(_get_ratio_columns(sample))
     if valid_ratios < total_ratios:
         st.warning(
-            f"Data Quality: {valid_ratios}/{total_ratios}"
+            f"Data Quality ({MODE_LABELS[sort_mode]}): "
+            f"{valid_ratios}/{total_ratios}"
             " ratio columns available. "
             f"Missing {total_ratios - valid_ratios} "
-            "values - results based on fewer dimensions."
+            "values."
         )
     else:
         st.info(
-            f"Data Quality: {valid_ratios}/{total_ratios}"
+            f"Data Quality ({MODE_LABELS[sort_mode]}): "
+            f"{valid_ratios}/{total_ratios}"
             " ratio columns available (complete)."
         )
 
-    # Get top matches
-    results_df = get_top_matches(
-        sample, target_df, query_coords_df,
-        target_coords_df, top_n, direction,
-        mode_key=mode_key,
+    # Resolve query samples and target dfs for all modes
+    query_samples: dict[str, pd.Series] = {}
+    target_dfs: dict[str, pd.DataFrame] = {}
+    for mode in enabled_modes:
+        art_df, geo_df = mode_datasets[mode]
+        if direction == "artefact_to_geology":
+            src, tgt = art_df, geo_df
+        else:
+            src, tgt = geo_df, art_df
+        matches = src[
+            src["Accession #"] == accession_number
+        ]
+        if not matches.empty:
+            query_samples[mode] = matches.iloc[0]
+            target_dfs[mode] = tgt
+
+    if sort_mode not in query_samples:
+        st.error("Query sample not found in sort mode data.")
+        return
+
+    # Get top matches across all modes
+    results_df = get_top_matches_multimode(
+        query_samples, target_dfs,
+        query_coords_df, target_coords_df,
+        top_n, direction,
+        enabled_modes=enabled_modes,
+        sort_mode=sort_mode,
     )
 
     # Apply region filter
@@ -2132,12 +2346,12 @@ def _execute_query(
     with st.expander(
         "Distance Interpretation Guide", expanded=False,
     ):
-        display_legend(mode_key=mode_key)
+        display_legend(enabled_modes=enabled_modes)
 
     display_results_table(
         results_df, accession_number,
         direction, query_site=site_info,
-        mode_key=mode_key,
+        enabled_modes=enabled_modes,
     )
 
     # Display artefact photographs (if any source configured)
@@ -2155,13 +2369,16 @@ def _execute_query(
             share_url=share_url,
         )
 
+    # Radar chart uses sort mode's data
+    sort_target_df = target_dfs[sort_mode]
     display_radar_chart(
-        sample, results_df, target_df,
+        query_samples[sort_mode], results_df,
+        sort_target_df,
         accession_number, direction,
-        mode_key=mode_key,
+        mode_key=sort_mode,
     )
     display_scatter_plot(
-        results_df, mode_key=mode_key,
+        results_df, sort_mode=sort_mode,
     )
 
     query_coords = _get_query_coords(
@@ -2174,7 +2391,7 @@ def _execute_query(
     display_results_map(
         results_df, query_coords,
         target_coords_df, query_label, direction,
-        mode_key=mode_key,
+        sort_mode=sort_mode,
     )
 
 
@@ -2182,11 +2399,11 @@ def _execute_query(
 # Batch Query
 # -----------------------------
 def _execute_batch_query(
-    artefact_df: pd.DataFrame,
-    geology_df: pd.DataFrame,
+    mode_datasets: dict[str, tuple[pd.DataFrame, pd.DataFrame]],
     geo_coords_df: pd.DataFrame,
     arch_coords_df: pd.DataFrame,
-    mode_key: str = "trace",
+    enabled_modes: list[str],
+    sort_mode: str = "alr5",
 ) -> None:
     """Batch query: upload CSV, run matching for each."""
     uploaded_file = st.file_uploader(
@@ -2227,16 +2444,20 @@ def _execute_batch_query(
 
     if query_mode == "Artefact \u2192 Geology":
         direction = "artefact_to_geology"
-        source_df = artefact_df
-        target_df = geology_df
-        query_coords_df = arch_coords_df
+        query_coords_df_b = arch_coords_df
         target_coords_df = geo_coords_df
     else:
         direction = "geology_to_artefact"
-        source_df = geology_df
-        target_df = artefact_df
-        query_coords_df = geo_coords_df
+        query_coords_df_b = geo_coords_df
         target_coords_df = arch_coords_df
+
+    # Use sort mode source_df for accession lookup
+    sort_art_df, sort_geo_df = mode_datasets[sort_mode]
+    source_df = (
+        sort_art_df
+        if direction == "artefact_to_geology"
+        else sort_geo_df
+    )
 
     accession_numbers = (
         input_df[acc_column]
@@ -2266,11 +2487,31 @@ def _execute_batch_query(
         if matches.empty:
             errors.append(acc)
             continue
-        sample = matches.iloc[0]
-        result = get_top_matches(
-            sample, target_df, query_coords_df,
-            target_coords_df, top_n, direction,
-            mode_key=mode_key,
+
+        # Resolve per-mode query samples
+        query_samples: dict[str, pd.Series] = {}
+        target_dfs: dict[str, pd.DataFrame] = {}
+        for mode in enabled_modes:
+            art_df, geo_df = mode_datasets[mode]
+            if direction == "artefact_to_geology":
+                src, tgt = art_df, geo_df
+            else:
+                src, tgt = geo_df, art_df
+            m = src[src["Accession #"] == acc]
+            if not m.empty:
+                query_samples[mode] = m.iloc[0]
+                target_dfs[mode] = tgt
+
+        if sort_mode not in query_samples:
+            errors.append(acc)
+            continue
+
+        result = get_top_matches_multimode(
+            query_samples, target_dfs,
+            query_coords_df_b, target_coords_df,
+            top_n, direction,
+            enabled_modes=enabled_modes,
+            sort_mode=sort_mode,
         )
         if not result.empty:
             result.insert(0, "Query Acc #", acc)
@@ -2294,6 +2535,8 @@ def _execute_batch_query(
     combined_df = pd.concat(all_results, ignore_index=True)
     combined_df.index += 1
 
+    sort_col = _aitch_col(sort_mode)
+
     # Frequency summary
     acc_col = (
         "Geo Acc #"
@@ -2316,8 +2559,8 @@ def _execute_batch_query(
         combined_df.groupby([acc_col, site_col])
         .agg(
             Count=("Query Acc #", "nunique"),
-            Avg_Aitch=("Aitch Dist", "mean"),
-            Min_Aitch=("Aitch Dist", "min"),
+            Avg_Aitch=(sort_col, "mean"),
+            Min_Aitch=(sort_col, "min"),
         )
         .sort_values(  # pyright: ignore[reportCallIssue]
             ["Count", "Avg_Aitch"],
@@ -2333,7 +2576,7 @@ def _execute_batch_query(
     )
     aitch_styler = partial(
         _color_aitch_with_thresholds,
-        thresholds=_aitch_thresholds(mode_key),
+        thresholds=_aitch_thresholds(sort_mode),
     )
     styled_freq = (
         freq_df.style
@@ -2395,15 +2638,15 @@ def _execute_batch_query(
 # Comparison Mode
 # -----------------------------
 def _execute_comparison(
-    artefact_df: pd.DataFrame,
-    geology_df: pd.DataFrame,
+    mode_datasets: dict[str, tuple[pd.DataFrame, pd.DataFrame]],
     geo_coords_df: pd.DataFrame,
     arch_coords_df: pd.DataFrame,
+    enabled_modes: list[str],
+    sort_mode: str = "alr5",
     photo_df: pd.DataFrame | None = None,
     photos_base_dir: str = "",
     access_token: str = "",
     share_url: str = "",
-    mode_key: str = "trace",
 ) -> None:
     """Enter 2+ accession numbers to find shared sources."""
     st.markdown(
@@ -2449,16 +2692,22 @@ def _execute_comparison(
 
     if query_mode == "Artefact \u2192 Geology":
         direction = "artefact_to_geology"
-        source_df = artefact_df
-        target_df = geology_df
-        query_coords_df = arch_coords_df
+        query_coords_df_c = arch_coords_df
         target_coords_df = geo_coords_df
     else:
         direction = "geology_to_artefact"
-        source_df = geology_df
-        target_df = artefact_df
-        query_coords_df = geo_coords_df
+        query_coords_df_c = geo_coords_df
         target_coords_df = arch_coords_df
+
+    sort_col = _aitch_col(sort_mode)
+
+    # Use sort mode for source lookup
+    sort_art_df, sort_geo_df = mode_datasets[sort_mode]
+    source_df = (
+        sort_art_df
+        if direction == "artefact_to_geology"
+        else sort_geo_df
+    )
 
     acc_col = (
         "Geo Acc #"
@@ -2481,11 +2730,31 @@ def _execute_comparison(
         if matches.empty:
             errors.append(acc)
             continue
-        sample = matches.iloc[0]
-        result = get_top_matches(
-            sample, target_df, query_coords_df,
-            target_coords_df, top_n, direction,
-            mode_key=mode_key,
+
+        # Resolve per-mode query samples
+        query_samples: dict[str, pd.Series] = {}
+        target_dfs: dict[str, pd.DataFrame] = {}
+        for mode in enabled_modes:
+            art_df, geo_df = mode_datasets[mode]
+            if direction == "artefact_to_geology":
+                src, tgt = art_df, geo_df
+            else:
+                src, tgt = geo_df, art_df
+            m = src[src["Accession #"] == acc]
+            if not m.empty:
+                query_samples[mode] = m.iloc[0]
+                target_dfs[mode] = tgt
+
+        if sort_mode not in query_samples:
+            errors.append(acc)
+            continue
+
+        result = get_top_matches_multimode(
+            query_samples, target_dfs,
+            query_coords_df_c, target_coords_df,
+            top_n, direction,
+            enabled_modes=enabled_modes,
+            sort_mode=sort_mode,
         )
         if not result.empty:
             all_results[acc] = result
@@ -2526,7 +2795,7 @@ def _execute_comparison(
                     except Exception:
                         st.caption(f"Acc # {acc}")
 
-    # Find shared sources
+    # Find shared sources (using sort mode's distance)
     source_counter: Counter[tuple[str, str]] = Counter()
     source_aitch: dict[
         tuple[str, str], dict[str, float]
@@ -2541,7 +2810,7 @@ def _execute_comparison(
             if source_key not in source_aitch:
                 source_aitch[source_key] = {}
             source_aitch[source_key][query_acc] = float(
-                row["Aitch Dist"]
+                row[sort_col]
             )
 
     # Build comparison table
@@ -2610,13 +2879,13 @@ def _execute_comparison(
     comp_df = pd.DataFrame(comp_rows)
 
     # Sort by shared count desc, then average Aitchison dist
-    aitch_cols = [
+    comp_aitch_cols = [
         c for c in comp_df.columns
         if c.startswith("Aitch (")
     ]
-    if aitch_cols:
+    if comp_aitch_cols:
         comp_df["Avg Aitch"] = np.round(
-            comp_df[aitch_cols].mean(axis=1), 2,
+            comp_df[comp_aitch_cols].mean(axis=1), 2,
         )
         comp_df = comp_df.sort_values(  # pyright: ignore[reportCallIssue]
             ["Shared Count", "Avg Aitch"],
@@ -2645,9 +2914,9 @@ def _execute_comparison(
     )
     aitch_color_fn = partial(
         _color_aitch_with_thresholds,
-        thresholds=_aitch_thresholds(mode_key),
+        thresholds=_aitch_thresholds(sort_mode),
     )
-    for col in aitch_cols + avg_cols:
+    for col in comp_aitch_cols + avg_cols:
         styled = styled.map(
             aitch_color_fn, subset=[col],
         )
@@ -2694,43 +2963,54 @@ def main() -> None:
             "ratio comparison."
         )
         st.divider()
-        st.header("Settings")
-        element_mode = st.radio(
-            "Element Mode:",
-            [
-                "Trace Elements (16 ratios)",
-                "All Elements (22 ratios)",
-                "ALR-5 Elements (5 log-ratios)",
-            ],
-            index=2,
+        st.header("Element Modes")
+        use_alr5 = st.checkbox(
+            "ALR-5 (5 log-ratios)",
+            value=True,
+            key="mode_alr5",
             help=(
-                "Trace Elements uses 16 trace-element "
-                "ratios. All Elements adds 6 "
-                "major-element ratios (22 total). "
-                "ALR-5 uses 5 additive log-ratio "
-                "coordinates from 6 key elements "
+                "5 additive log-ratio coordinates "
+                "from 6 key elements "
                 "(Ni, Cr, Y, Nb, Sr, Zr)."
             ),
         )
-        if "ALR" in element_mode:
-            mode_key = "alr5"
-        elif "Trace" in element_mode:
-            mode_key = "trace"
-        else:
-            mode_key = "all"
-        if mode_key == "alr5":
-            st.caption(
-                "**Metrics:** Aitchison Distance "
-                "(ALR coordinates) · "
-                "Geographical Distance"
+        use_trace = st.checkbox(
+            "Trace Elements (16 ratios)",
+            value=True,
+            key="mode_trace",
+            help=(
+                "16 trace-element ratios."
+            ),
+        )
+        use_all = st.checkbox(
+            "All Elements (22 ratios)",
+            value=True,
+            key="mode_all",
+            help=(
+                "22 ratios including 6 major-element "
+                "ratios."
+            ),
+        )
+        enabled_modes: list[str] = []
+        if use_alr5:
+            enabled_modes.append("alr5")
+        if use_trace:
+            enabled_modes.append("trace")
+        if use_all:
+            enabled_modes.append("all")
+        if not enabled_modes:
+            st.error(
+                "Enable at least one element mode."
             )
-        else:
-            st.caption(
-                "**Metrics:** Aitchison Distance "
-                "(CLR transform) · "
-                "Euclidean Distance · "
-                "Geographical Distance"
-            )
+            return
+        sort_mode = enabled_modes[0]
+        mode_labels_str = ", ".join(
+            MODE_LABELS[m] for m in enabled_modes
+        )
+        st.caption(
+            f"**Active:** {mode_labels_str} · "
+            f"Sorted by {MODE_LABELS[sort_mode]}"
+        )
         st.divider()
         saved_config = _load_config()
 
@@ -2884,12 +3164,19 @@ def main() -> None:
 
     st.title("GSF - Geology Source Finder")
 
-    # Load data with selected element mode
+    # Load data for all enabled modes
+    mode_datasets: dict[
+        str, tuple[pd.DataFrame, pd.DataFrame]
+    ] = {}
+    geo_coords_df: pd.DataFrame | None = None
+    arch_coords_df: pd.DataFrame | None = None
     try:
-        (
-            artefact_df, geology_df,
-            geo_coords_df, arch_coords_df,
-        ) = load_data(mode_key)
+        for mode in enabled_modes:
+            art_df, geo_df, gc_df, ac_df = load_data(mode)
+            mode_datasets[mode] = (art_df, geo_df)
+            if geo_coords_df is None:
+                geo_coords_df = gc_df
+                arch_coords_df = ac_df
     except FileNotFoundError as e:
         st.error(str(e))
         return
@@ -2898,6 +3185,12 @@ def main() -> None:
         st.exception(e)
         return
 
+    assert geo_coords_df is not None
+    assert arch_coords_df is not None
+
+    # Use sort mode's data for autocomplete and counts
+    sort_art_df, sort_geo_df = mode_datasets[sort_mode]
+
     # Load photo mapping
     photo_df = _load_photo_mapping()
 
@@ -2905,8 +3198,8 @@ def main() -> None:
     with st.sidebar:
         st.divider()
         st.caption(
-            f"Dataset: {len(artefact_df)} artefacts, "
-            f"{len(geology_df)} geology samples"
+            f"Dataset: {len(sort_art_df)} artefacts, "
+            f"{len(sort_geo_df)} geology samples"
         )
         if not photo_df.empty:
             st.caption(
@@ -2929,9 +3222,9 @@ def main() -> None:
 
         # Autocomplete accession number selection
         options_df = (
-            artefact_df
+            sort_art_df
             if query_mode == "Artefact \u2192 Geology"
-            else geology_df
+            else sort_geo_df
         )
 
         options = sorted(
@@ -2968,8 +3261,8 @@ def main() -> None:
 
         # Region filter
         all_regions = sorted(
-            set(artefact_df["Region"].dropna().unique())
-            | set(geology_df["Region"].dropna().unique())
+            set(sort_art_df["Region"].dropna().unique())
+            | set(sort_geo_df["Region"].dropna().unique())
         )
         selected_regions = st.multiselect(
             "Filter by region(s) (optional):",
@@ -2982,33 +3275,36 @@ def main() -> None:
             _execute_query(
                 accession_number, query_mode,
                 top_n, selected_regions,
-                artefact_df, geology_df,
+                mode_datasets,
                 geo_coords_df, arch_coords_df,
+                enabled_modes=enabled_modes,
+                sort_mode=sort_mode,
                 photo_df=photo_df,
                 photos_base_dir=photos_base_dir,
                 access_token=access_token,
                 share_url=share_url,
-                mode_key=mode_key,
             )
 
     # --- Tab 2: Batch Query ---
     with tab_batch:
         _execute_batch_query(
-            artefact_df, geology_df,
+            mode_datasets,
             geo_coords_df, arch_coords_df,
-            mode_key=mode_key,
+            enabled_modes=enabled_modes,
+            sort_mode=sort_mode,
         )
 
     # --- Tab 3: Comparison Mode ---
     with tab_compare:
         _execute_comparison(
-            artefact_df, geology_df,
+            mode_datasets,
             geo_coords_df, arch_coords_df,
+            enabled_modes=enabled_modes,
+            sort_mode=sort_mode,
             photo_df=photo_df,
             photos_base_dir=photos_base_dir,
             access_token=access_token,
             share_url=share_url,
-            mode_key=mode_key,
         )
 
 
