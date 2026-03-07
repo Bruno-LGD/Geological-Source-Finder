@@ -16,11 +16,25 @@ stone axes from southern Spain.
 
 ```text
 Geology-Source-Finder/
-├── app.py                 # Main application (all logic in one file)
+├── app.py                 # Thin entry point (set_page_config + imports gsf.main)
 ├── run.py                 # Launch helper (calls streamlit run app.py)
 ├── requirements.txt       # Python dependencies
 ├── .streamlit/
 │   └── config.toml        # Streamlit theme & server config
+├── gsf/                   # Main application package
+│   ├── __init__.py        # Re-exports main()
+│   ├── constants.py       # All constants, thresholds, color maps, small helpers
+│   ├── config.py          # JSON config persistence (app settings)
+│   ├── auth.py            # OAuth device code flow, token management, Graph API URLs
+│   ├── data.py            # Excel/CSV loading (@st.cache_data)
+│   ├── distances.py       # Vectorized Aitchison, Euclidean, geodesic calculations
+│   ├── photos.py          # OneDrive/local photo resolution and caching
+│   ├── matching.py        # get_top_matches, get_top_matches_multimode
+│   ├── styling.py         # HTML/CSS color functions for distance cells
+│   ├── export.py          # Excel workbook generation with openpyxl formatting
+│   ├── viz.py             # Display functions (table, map, scatter, radar, photos, legend)
+│   ├── queries.py         # Single, batch, comparison query execution
+│   └── app.py             # main() — sidebar config, tabs, data loading orchestration
 ├── Data/
 │   ├── AXEs metabasite data (All Elements).xlsx
 │   ├── AXEs metabasite data (Trace Elements).xlsx
@@ -32,15 +46,33 @@ Geology-Source-Finder/
 
 ## Architecture
 
-The entire application is in `app.py` (~1,315 lines), organized into sections:
+The application is organized as the `gsf/` Python package with 12 focused modules:
 
-1. **Constants & Config** (lines 19-92) - Thresholds, color schemes, metadata columns
-2. **Data Loading** (lines 98-167) - Cached Excel loading with `@st.cache_data`
-3. **Distance Functions** (lines 173-314) - Aitchison (CLR transform), Euclidean, Geodesic
-4. **Excel Export** (lines 371-453) - Styled workbook generation with color-coded fills
-5. **Visualization** (lines 459-795) - Tables, radar charts, scatter plots, maps
-6. **Query Execution** (lines 801-909) - Single, batch, and comparison modes
-7. **Main UI** (lines 1199-1308) - Sidebar + three-tab interface
+1. **constants.py** - Thresholds, color schemes, metadata columns, mode labels
+2. **config.py** - JSON config persistence (photos folder, OneDrive settings)
+3. **auth.py** - Microsoft Graph OAuth2 device code flow, token management
+4. **data.py** - Cached Excel/CSV loading with `@st.cache_data`
+5. **distances.py** - Aitchison (CLR transform), ALR-5, Euclidean, Geodesic
+6. **photos.py** - OneDrive Graph API image download, local photo resolution
+7. **matching.py** - Single-mode and multi-mode top-N matching logic
+8. **styling.py** - HTML/CSS color functions for distance cells in tables
+9. **export.py** - Styled Excel workbook generation with openpyxl
+10. **viz.py** - Tables, radar charts, scatter plots, maps, photo viewers
+11. **queries.py** - Single, batch, and comparison query execution
+12. **app.py** - Main UI: sidebar + three-tab interface
+
+Module dependency graph (acyclic):
+
+```text
+constants, config, auth          (leaf modules — no gsf imports)
+data, distances                  → constants
+photos                           → auth
+styling, export                  → constants
+matching                         → constants, distances
+viz                              → constants, styling, export, photos, distances
+queries                          → constants, matching, viz, photos, distances
+gsf/app                          → constants, config, auth, data, queries
+```
 
 ## Key Concepts
 
