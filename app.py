@@ -1265,12 +1265,23 @@ def color_eucl_dist(val: Any) -> str:  # noqa: ANN401
 
 def _color_aitch_with_thresholds(
     val: Any,  # noqa: ANN401
-    thresholds: tuple[float, float, float] = (
-        AITCH_VERY_STRONG, AITCH_STRONG, AITCH_MODERATE,
-    ),
+    mode_key: str = "trace",
 ) -> str:
-    """Apply background color using given thresholds."""
-    return _color_dist_cell(val, thresholds)
+    """Apply paired-color background using fixed step per mode."""
+    try:
+        v = float(val)
+    except (ValueError, TypeError):
+        return ""
+    step = _AITCH_STEP.get(mode_key, 0.8)
+    color = _CELL_OVERFLOW
+    for i, c in enumerate(_CELL_COLORS, start=1):
+        if v < i * step:
+            color = c
+            break
+    return (
+        f"background-color: {color}; {CELL_STYLE};"
+        " border-radius: 0px"
+    )
 
 
 # -----------------------------
@@ -1278,28 +1289,21 @@ def _color_aitch_with_thresholds(
 # -----------------------------
 def _get_fill_for_value(
     val: Any,  # noqa: ANN401
-    thresholds: tuple[float, float, float],
+    mode_key: str = "trace",
 ) -> PatternFill | None:
-    """Return a PatternFill for a numeric value."""
+    """Return a paired-color PatternFill using fixed step per mode."""
     try:
         v = float(val)
     except (ValueError, TypeError):
         return None
-    t1, t2, t3 = thresholds
-    if v < t1:
-        return PatternFill(
-            start_color="ADD8E6", fill_type="solid",
-        )
-    if v < t2:
-        return PatternFill(
-            start_color="90EE90", fill_type="solid",
-        )
-    if v < t3:
-        return PatternFill(
-            start_color="FFDAB9", fill_type="solid",
-        )
+    step = _AITCH_STEP.get(mode_key, 0.8)
+    hex_color = _EXCEL_OVERFLOW
+    for i, c in enumerate(_EXCEL_COLORS, start=1):
+        if v < i * step:
+            hex_color = c
+            break
     return PatternFill(
-        start_color="F08080", fill_type="solid",
+        start_color=hex_color, fill_type="solid",
     )
 
 
@@ -1309,10 +1313,15 @@ def _get_geo_fill(val: Any) -> PatternFill | None:  # noqa: ANN401
         num = float(str(val).replace(" km", ""))
     except (ValueError, TypeError, AttributeError):
         return None
-    return _get_fill_for_value(
-        num,
-        (GEO_VERY_CLOSE_KM, GEO_CLOSE_KM, GEO_MODERATE_KM),
-    )
+    if num < GEO_VERY_CLOSE_KM:
+        c = "ADD8E6"
+    elif num < GEO_CLOSE_KM:
+        c = "90EE90"
+    elif num < GEO_MODERATE_KM:
+        c = "FFDAB9"
+    else:
+        c = "F08080"
+    return PatternFill(start_color=c, fill_type="solid")
 
 
 def _create_styled_excel(
@@ -1366,14 +1375,12 @@ def _create_styled_excel(
             if cell.value in aitch_col_names or cell.value == "Geo Dist":
                 col_map[cell.value] = cell.column
 
-        # Build thresholds lookup per Aitch column
-        aitch_thresholds_map: dict[int, tuple[float, float, float]] = {}
+        # Build mode_key lookup per Aitch column
+        aitch_mode_map: dict[int, str] = {}
         for mode in enabled_modes:
             col_name = _aitch_col(mode)
             if col_name in col_map:
-                aitch_thresholds_map[col_map[col_name]] = (
-                    _aitch_thresholds(mode)
-                )
+                aitch_mode_map[col_map[col_name]] = mode
 
         geo_col_num = col_map.get("Geo Dist")
 
@@ -1383,10 +1390,10 @@ def _create_styled_excel(
         ):
             for cell in row:
                 cell.border = thin_border
-                if cell.column in aitch_thresholds_map:
+                if cell.column in aitch_mode_map:
                     fill = _get_fill_for_value(
                         cell.value,
-                        aitch_thresholds_map[cell.column],
+                        aitch_mode_map[cell.column],
                     )
                     if fill:
                         cell.fill = fill
@@ -1589,7 +1596,7 @@ def display_results_table(
         )
         styler = partial(
             _color_aitch_with_thresholds,
-            thresholds=_aitch_thresholds(mode),
+            mode_key=mode,
         )
         styled_df = styled_df.map(styler, subset=[col])
 
@@ -1754,26 +1761,38 @@ def display_scatter_plot(
 
 
 
+_AITCH_STEP: dict[str, float] = {"alr5": 0.5, "trace": 1.0, "all": 1.5}
+
+# Map marker colors — one per band, matching Excel conditional formatting
+_MARKER_COLORS = [
+    "lightskyblue",    # band 1 — blue
+    "mediumseagreen",  # band 2 — green
+    "goldenrod",       # band 3 — yellow / gold
+]
+_MARKER_OVERFLOW = "tomato"  # band 4+ — red
+
+# Table cell background colors — matching Excel conditional formatting
+_CELL_COLORS = [
+    "#ADD8E6",  # band 1 — light blue
+    "#90EE90",  # band 2 — light green
+    "#FFDAB9",  # band 3 — peach
+]
+_CELL_OVERFLOW = "#F08080"  # band 4+ — light coral
+
+# Excel fill hex (same palette, no # prefix)
+_EXCEL_COLORS = [c.lstrip("#") for c in _CELL_COLORS]
+_EXCEL_OVERFLOW = _CELL_OVERFLOW.lstrip("#")
+
+
 def _aitch_to_marker_color(
     val: float, mode_key: str = "trace",
 ) -> str:
     """Map Aitchison distance to a marker color."""
-    _, _, mod = _aitch_thresholds(mode_key)
-    # Scale the 0.5-step bands proportionally
-    step = mod / 6.0  # 6 bands below moderate
-    if val < step:
-        return "lightskyblue"
-    if val < 2 * step:
-        return "steelblue"
-    if val < 3 * step:
-        return "limegreen"
-    if val < 4 * step:
-        return "gold"
-    if val < 5 * step:
-        return "orange"
-    if val < mod:
-        return "tomato"
-    return "darkred"
+    step = _AITCH_STEP.get(mode_key, 0.8)
+    for i, color in enumerate(_MARKER_COLORS, start=1):
+        if val < i * step:
+            return color
+    return _MARKER_OVERFLOW
 
 
 def display_results_map(
@@ -1883,25 +1902,16 @@ def display_results_map(
         # Add traces worst-first so that better matches render
         # on top when multiple samples share the same coordinates.
         # legendrank keeps the legend ordered best-first.
-        _, _, mod = _aitch_thresholds(sort_mode)
-        step = mod / 6.0
+        step = _AITCH_STEP.get(sort_mode, 0.8)
         def _fmt(v: float) -> str:
-            return f"{v:.2f}" if v != int(v) else f"{v:.1f}"
+            return f"{v:.1f}" if v == int(v) else f"{v:.1f}"
         color_labels = [
-            ("lightskyblue", 1,
-             f"< {_fmt(step)} (very strong)"),
-            ("steelblue", 2,
-             f"{_fmt(step)}–{_fmt(2*step)} (very strong)"),
-            ("limegreen", 3,
-             f"{_fmt(2*step)}–{_fmt(3*step)} (strong)"),
-            ("gold", 4,
-             f"{_fmt(3*step)}–{_fmt(4*step)} (strong)"),
-            ("orange", 5,
-             f"{_fmt(4*step)}–{_fmt(5*step)} (moderate)"),
-            ("tomato", 6,
-             f"{_fmt(5*step)}–{_fmt(mod)} (moderate)"),
-            ("darkred", 7,
-             f"> {_fmt(mod)} (weak)"),
+            (_MARKER_COLORS[i], i + 1,
+             f"{_fmt(i * step)}–{_fmt((i + 1) * step)}")
+            for i in range(len(_MARKER_COLORS))
+        ] + [
+            (_MARKER_OVERFLOW, len(_MARKER_COLORS) + 1,
+             f"> {_fmt(len(_MARKER_COLORS) * step)}"),
         ]
         for color, rank, label in reversed(color_labels):
             subset = map_df[
@@ -1940,56 +1950,7 @@ def display_results_map(
             legendrank=0,
         ))
 
-    # Scale bar — ArcGIS-style alternating bar 0-50-100-200 km
-    # Bottom-left corner of map, Atlantic Ocean west of Strait of Gibraltar
-    # At 35.1°N: 111.32 × cos(35.1°) ≈ 91.1 km/° lon
-    _sb_lat    = 35.1
-    _sb_lon0   = -9.7
-    _sb_dlon   = 50 / 91.1          # ≈ 0.549° per 50 km
-    _sb_lon50  = _sb_lon0 + _sb_dlon
-    _sb_lon100 = _sb_lon0 + 2 * _sb_dlon
-    _sb_lon200 = _sb_lon0 + 4 * _sb_dlon
-    _sb_lw     = 10   # bar thickness in screen pixels
-
-    # Black base bar (0 → 200 km)
-    fig.add_trace(go.Scattermapbox(
-        lat=[_sb_lat, _sb_lat], lon=[_sb_lon0, _sb_lon200],
-        mode="lines", line={"width": _sb_lw, "color": "#000000"},
-        showlegend=False, hoverinfo="skip",
-    ))
-    # White cutout for 50-100 km segment — slightly narrower to preserve black outline
-    fig.add_trace(go.Scattermapbox(
-        lat=[_sb_lat, _sb_lat], lon=[_sb_lon50, _sb_lon100],
-        mode="lines", line={"width": _sb_lw - 4, "color": "#ffffff"},
-        showlegend=False, hoverinfo="skip",
-    ))
-    # Distance labels — Scattermapbox text traces so they pan with the bar
-    _sb_num_lat = _sb_lat   # numbers sit just above bar via textposition
-    _sb_km_lat  = _sb_lat + 0.18  # "Kilometers" title above the numbers
-    fig.add_trace(go.Scattermapbox(
-        lat=[_sb_num_lat] * 4,
-        lon=[_sb_lon0, _sb_lon50, _sb_lon100, _sb_lon200],
-        mode="text",
-        text=["0", "50", "100", "200"],
-        textfont={"size": 11, "color": "black"},
-        textposition="top center",
-        showlegend=False,
-        hoverinfo="skip",
-    ))
-    fig.add_trace(go.Scattermapbox(
-        lat=[_sb_km_lat],
-        lon=[(_sb_lon0 + _sb_lon200) / 2],
-        mode="text",
-        text=["Kilometers"],
-        textfont={"size": 11, "color": "black"},
-        textposition="top center",
-        showlegend=False,
-        hoverinfo="skip",
-    ))
-
-    # Map layout — fitbounds="locations" auto-zooms to show every trace
-    # (including the invisible corner anchors) so the full region is
-    # always visible regardless of container size or aspect ratio.
+    # Map layout
     fig.update_layout(
         mapbox={
             "style": "white-bg",
@@ -2009,28 +1970,46 @@ def display_results_map(
                 }
             ],
             "bounds": _MAP_BOUNDS,
-            "center": {"lat": 37.5, "lon": -4.15},  # fallback
-            "zoom": 6,                               # fallback
+            "center": {"lat": 38.0, "lon": -4.0},   # fallback
+            "zoom": 5.5,                              # fallback
         },
+        height=700,
         margin={"l": 0, "r": 0, "t": 30, "b": 0},
         title="Geographical Distribution of Matches",
     )
-    # Responsive height: fill available viewport, scoped to the mapbox chart only
+    st.plotly_chart(fig, use_container_width=True)
+
+    # Scale bar overlay — pure HTML/CSS positioned over the bottom-left of the map
     st.markdown(
         """
-        <style>
-        [data-testid="stPlotlyChart"]:has(.mapboxgl-canvas) {
-            height: calc(100vh - 160px) !important;
-            min-height: 450px;
-        }
-        [data-testid="stPlotlyChart"]:has(.mapboxgl-canvas) > div {
-            height: 100% !important;
-        }
-        </style>
+        <div style="
+            position: relative;
+            margin-top: -90px;
+            margin-left: 20px;
+            margin-bottom: 50px;
+            z-index: 1000;
+            width: 220px;
+            pointer-events: none;
+        ">
+            <div style="text-align: center; font-size: 11px; font-weight: bold;
+                        color: #222; margin-bottom: 2px;">Kilometers</div>
+            <div style="display: flex; height: 8px; border: 1px solid #222;">
+                <div style="flex: 1; background: #222;"></div>
+                <div style="flex: 1; background: #fff;"></div>
+                <div style="flex: 1; background: #222;"></div>
+                <div style="flex: 1; background: #fff;"></div>
+            </div>
+            <div style="position: relative; font-size: 11px; color: #222;
+                        margin-top: 1px; height: 16px;">
+                <span style="position: absolute; left: 0; transform: translateX(-50%);">0</span>
+                <span style="position: absolute; left: 25%; transform: translateX(-50%);">50</span>
+                <span style="position: absolute; left: 50%; transform: translateX(-50%);">100</span>
+                <span style="position: absolute; left: 100%; transform: translateX(-50%);">200</span>
+            </div>
+        </div>
         """,
         unsafe_allow_html=True,
     )
-    st.plotly_chart(fig, use_container_width=True)
 
 
 # -----------------------------
@@ -2576,7 +2555,7 @@ def _execute_batch_query(
     )
     aitch_styler = partial(
         _color_aitch_with_thresholds,
-        thresholds=_aitch_thresholds(sort_mode),
+        mode_key=sort_mode,
     )
     styled_freq = (
         freq_df.style
@@ -2914,7 +2893,7 @@ def _execute_comparison(
     )
     aitch_color_fn = partial(
         _color_aitch_with_thresholds,
-        thresholds=_aitch_thresholds(sort_mode),
+        mode_key=sort_mode,
     )
     for col in comp_aitch_cols + avg_cols:
         styled = styled.map(
