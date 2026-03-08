@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import base64
 import os
+from concurrent.futures import ThreadPoolExecutor
 
 import pandas as pd
 import requests
@@ -9,6 +10,8 @@ import streamlit as st
 from urllib.parse import quote
 
 from gsf.auth import GRAPH_BASE
+
+_PHOTO_EXECUTOR = ThreadPoolExecutor(max_workers=6)
 
 # Path corrections: CSV relative paths -> actual disk paths
 _PATH_PREFIXES: dict[str, str] = {
@@ -101,24 +104,16 @@ def _resolve_share_folder(
         return None
 
 
-def _fetch_image_bytes_from_graph(
+def _download_image_bytes(
     access_token: str,
-    share_url: str,
+    drive_id: str,
+    folder_path: str,
     relative_path: str,
-) -> bytes | None:
-    """Download image bytes from OneDrive via Graph API.
+) -> tuple[str, bytes | None, str]:
+    """Thread-safe image download (no session_state access).
 
-    Fetches server-side so images can be embedded as base64 --
-    avoids browser CORS/CSP blocks when loading CDN URLs from
-    within a Streamlit iframe.
+    Returns (relative_path, image_bytes_or_None, error_msg).
     """
-    resolved = _resolve_share_folder(
-        access_token, share_url,
-    )
-    if not resolved:
-        return None
-    drive_id, folder_path = resolved
-
     full_path = f"{folder_path}/{relative_path}"
     encoded_path = quote(full_path, safe="/")
     url = (
@@ -138,34 +133,14 @@ def _fetch_image_bytes_from_graph(
                 err_body = resp.json()
             except Exception:
                 err_body = resp.text[:200]
-            st.session_state["_graph_last_error"] = (
+            return (
+                relative_path, None,
                 f"HTTP {resp.status_code} for "
-                f"{full_path}: {err_body}"
+                f"{full_path}: {err_body}",
             )
-            return None
-        return resp.content
+        return (relative_path, resp.content, "")
     except Exception as exc:
-        st.session_state["_graph_last_error"] = str(exc)
-        return None
-
-
-def _get_cached_image_bytes(
-    access_token: str,
-    share_url: str,
-    relative_path: str,
-) -> bytes | None:
-    """Fetch image bytes with session-level caching."""
-    cache_key = f"imgbytes_{relative_path}"
-    cached = st.session_state.get(cache_key)
-    if cached is not None:
-        return cached
-
-    data = _fetch_image_bytes_from_graph(
-        access_token, share_url, relative_path,
-    )
-    if data:
-        st.session_state[cache_key] = data
-    return data
+        return (relative_path, None, str(exc))
 
 
 def _resolve_photo_path(
@@ -191,6 +166,77 @@ def _resolve_photo_path(
     return None
 
 
+_IMAGE_COLS = [
+    "Image_1", "Image_2", "Image_3",
+    "Image_4", "Image_5", "Image_6",
+]
+
+
+def _get_photo_relatives(
+    accession: str, photo_df: pd.DataFrame,
+) -> list[str]:
+    """Return non-empty relative paths for an accession."""
+    if photo_df.empty:
+        return []
+    row = photo_df[
+        photo_df["Accession #"] == str(accession).strip()
+    ]
+    if row.empty:
+        return []
+    row = row.iloc[0]
+    paths: list[str] = []
+    for col in _IMAGE_COLS:
+        val = row.get(col)
+        if pd.notna(val) and str(val).strip():
+            paths.append(str(val).strip())
+    return paths
+
+
+def prefetch_artefact_images(
+    accession: str,
+    photo_df: pd.DataFrame,
+    photos_base_dir: str = "",
+    access_token: str = "",
+    share_url: str = "",
+) -> None:
+    """Start downloading uncached images in background.
+
+    Call early in the query pipeline so downloads overlap
+    with distance computation and table rendering.
+    """
+    if not (access_token and share_url):
+        return
+    relatives = _get_photo_relatives(accession, photo_df)
+    if not relatives:
+        return
+
+    # Resolve share folder on main thread (uses session cache)
+    resolved = _resolve_share_folder(access_token, share_url)
+    if not resolved:
+        return
+    drive_id, folder_path = resolved
+
+    futures = {}
+    for relative in relatives:
+        # Skip if local file would be used instead
+        if photos_base_dir and _resolve_photo_path(
+            photos_base_dir, relative,
+        ):
+            continue
+        graph_path = _resolve_graph_path(relative)
+        cache_key = f"imgbytes_{graph_path}"
+        if st.session_state.get(cache_key) is not None:
+            continue
+        futures[graph_path] = _PHOTO_EXECUTOR.submit(
+            _download_image_bytes,
+            access_token, drive_id, folder_path, graph_path,
+        )
+    if futures:
+        st.session_state[
+            f"_prefetch_futures_{accession}"
+        ] = futures
+
+
 def get_artefact_images(
     accession: str,
     photo_df: pd.DataFrame,
@@ -201,31 +247,25 @@ def get_artefact_images(
     """Return image sources for an accession's photos.
 
     Tries local files first (if photos_base_dir is set),
-    falls back to Graph API (downloads bytes server-side).
-    Returns list of:
-    - str: local file path
-    - bytes: image data
+    falls back to Graph API (downloads bytes in parallel).
+    Collects prefetch futures if available.
     """
-    if photo_df.empty:
+    relatives = _get_photo_relatives(accession, photo_df)
+    if not relatives:
         return []
-    row = photo_df[
-        photo_df["Accession #"] == str(accession).strip()
-    ]
-    if row.empty:
-        return []
-    row = row.iloc[0]
 
-    images: list[str | bytes] = []
-    for col in [
-        "Image_1", "Image_2", "Image_3",
-        "Image_4", "Image_5", "Image_6",
-    ]:
-        val = row.get(col)
-        if not (pd.notna(val) and str(val).strip()):
-            continue
-        relative = str(val).strip()
+    # Collect prefetch futures (if prefetch was started earlier)
+    prefetch_key = f"_prefetch_futures_{accession}"
+    prefetch_futures: dict = st.session_state.pop(
+        prefetch_key, {},
+    )
 
-        # Try local path first
+    # First pass: resolve local files and session cache hits,
+    # identify Graph API cache misses
+    images: list[str | bytes | None] = []
+    to_fetch: list[tuple[int, str]] = []  # (index, graph_path)
+
+    for relative in relatives:
         if photos_base_dir:
             local = _resolve_photo_path(
                 photos_base_dir, relative,
@@ -234,16 +274,52 @@ def get_artefact_images(
                 images.append(local)
                 continue
 
-        # Try Graph API (download bytes server-side)
         if access_token and share_url:
             graph_path = _resolve_graph_path(relative)
-            data = _get_cached_image_bytes(
-                access_token, share_url, graph_path,
-            )
-            if data:
-                images.append(data)
+            cache_key = f"imgbytes_{graph_path}"
+            cached = st.session_state.get(cache_key)
+            if cached is not None:
+                images.append(cached)
+                continue
+            to_fetch.append((len(images), graph_path))
+            images.append(None)  # placeholder
+        else:
+            images.append(None)
 
-    return images
+    # Parallel fetch for cache misses
+    if to_fetch and access_token and share_url:
+        resolved = _resolve_share_folder(
+            access_token, share_url,
+        )
+        if resolved:
+            drive_id, folder_path = resolved
+            # Submit downloads not covered by prefetch
+            for idx, graph_path in to_fetch:
+                if graph_path not in prefetch_futures:
+                    prefetch_futures[graph_path] = (
+                        _PHOTO_EXECUTOR.submit(
+                            _download_image_bytes,
+                            access_token, drive_id,
+                            folder_path, graph_path,
+                        )
+                    )
+            # Collect results on main thread
+            for idx, graph_path in to_fetch:
+                future = prefetch_futures.get(graph_path)
+                if not future:
+                    continue
+                _, data, error = future.result()
+                if data:
+                    st.session_state[
+                        f"imgbytes_{graph_path}"
+                    ] = data
+                    images[idx] = data
+                elif error:
+                    st.session_state[
+                        "_graph_last_error"
+                    ] = error
+
+    return [img for img in images if img is not None]
 
 
 def to_image_bytes(img_src: str | bytes) -> bytes | None:

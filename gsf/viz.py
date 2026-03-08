@@ -45,51 +45,62 @@ def _render_zoom_viewer(
 
     img_src: image bytes (base64-encoded into the HTML so no
     cross-origin requests are needed from the iframe).
+    Caches the generated HTML in session_state to avoid
+    repeated base64 encoding on Streamlit reruns.
     """
-    cid, iid = f"zc_{uid}", f"zi_{uid}"
+    html_cache_key = f"_zoom_html_{uid}"
+    html = st.session_state.get(html_cache_key)
 
-    b64 = base64.b64encode(img_src).decode("ascii")
-    img_attr = f'src="data:image/jpeg;base64,{b64}"'
+    if html is None:
+        cid, iid = f"zc_{uid}", f"zi_{uid}"
 
-    html = (
-        f'<div id="{cid}" style="width:100%;height:{height}px;'
-        "overflow:hidden;position:relative;background:#1a1a1a;"
-        'cursor:grab;border-radius:6px;">'
-        f'<img id="{iid}" {img_attr} '
-        'style="position:absolute;max-width:none;'
-        "image-orientation:from-image;"
-        'transform-origin:0 0;" draggable="false">'
-        "</div>"
-        "<script>(function(){"
-        f"const c=document.getElementById('{cid}'),"
-        f"im=document.getElementById('{iid}');"
-        "let s=1,tx=0,ty=0,drag=0,sx,sy;"
-        "function up(){im.style.transform="
-        "'translate('+tx+'px,'+ty+'px) scale('+s+')';}"
-        "function fit(){"
-        "let rx=c.clientWidth/im.naturalWidth,"
-        "ry=c.clientHeight/im.naturalHeight;"
-        "s=Math.min(rx,ry);"
-        "tx=(c.clientWidth-im.naturalWidth*s)/2;"
-        "ty=(c.clientHeight-im.naturalHeight*s)/2;up();}"
-        "im.onload=function(){fit();};"
-        "c.onwheel=function(e){e.preventDefault();"
-        "let r=c.getBoundingClientRect(),"
-        "mx=e.clientX-r.left,my=e.clientY-r.top,"
-        "ps=s;s*=e.deltaY<0?1.15:0.87;"
-        "s=Math.max(0.1,Math.min(30,s));"
-        "tx=mx-(mx-tx)*(s/ps);ty=my-(my-ty)*(s/ps);up();};"
-        "c.onmousedown=function(e){"
-        "drag=1;sx=e.clientX-tx;sy=e.clientY-ty;"
-        "c.style.cursor='grabbing';};"
-        "c.onmousemove=function(e){"
-        "if(!drag)return;tx=e.clientX-sx;"
-        "ty=e.clientY-sy;up();};"
-        "c.onmouseup=c.onmouseleave=function(){"
-        "drag=0;c.style.cursor='grab';};"
-        "c.ondblclick=function(){fit();};"
-        "})();</script>"
-    )
+        b64 = base64.b64encode(img_src).decode("ascii")
+        img_attr = f'src="data:image/jpeg;base64,{b64}"'
+
+        html = (
+            f'<div id="{cid}" style="width:100%;'
+            f"height:{height}px;"
+            "overflow:hidden;position:relative;"
+            "background:#1a1a1a;"
+            'cursor:grab;border-radius:6px;">'
+            f'<img id="{iid}" {img_attr} '
+            'style="position:absolute;max-width:none;'
+            "image-orientation:from-image;"
+            'transform-origin:0 0;" draggable="false">'
+            "</div>"
+            "<script>(function(){"
+            f"const c=document.getElementById('{cid}'),"
+            f"im=document.getElementById('{iid}');"
+            "let s=1,tx=0,ty=0,drag=0,sx,sy;"
+            "function up(){im.style.transform="
+            "'translate('+tx+'px,'+ty+'px) scale('+s+')';}"
+            "function fit(){"
+            "let rx=c.clientWidth/im.naturalWidth,"
+            "ry=c.clientHeight/im.naturalHeight;"
+            "s=Math.min(rx,ry);"
+            "tx=(c.clientWidth-im.naturalWidth*s)/2;"
+            "ty=(c.clientHeight-im.naturalHeight*s)/2;up();}"
+            "im.onload=function(){fit();};"
+            "c.onwheel=function(e){e.preventDefault();"
+            "let r=c.getBoundingClientRect(),"
+            "mx=e.clientX-r.left,my=e.clientY-r.top,"
+            "ps=s;s*=e.deltaY<0?1.15:0.87;"
+            "s=Math.max(0.1,Math.min(30,s));"
+            "tx=mx-(mx-tx)*(s/ps);"
+            "ty=my-(my-ty)*(s/ps);up();};"
+            "c.onmousedown=function(e){"
+            "drag=1;sx=e.clientX-tx;sy=e.clientY-ty;"
+            "c.style.cursor='grabbing';};"
+            "c.onmousemove=function(e){"
+            "if(!drag)return;tx=e.clientX-sx;"
+            "ty=e.clientY-sy;up();};"
+            "c.onmouseup=c.onmouseleave=function(){"
+            "drag=0;c.style.cursor='grab';};"
+            "c.ondblclick=function(){fit();};"
+            "})();</script>"
+        )
+        st.session_state[html_cache_key] = html
+
     components.html(html, height=height + 10)
 
 

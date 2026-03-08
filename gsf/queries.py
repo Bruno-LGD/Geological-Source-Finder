@@ -17,7 +17,7 @@ from gsf.constants import (
 )
 from gsf.distances import count_total_ratio_columns, get_ratio_columns
 from gsf.matching import get_top_matches_multimode
-from gsf.photos import get_artefact_images
+from gsf.photos import get_artefact_images, prefetch_artefact_images
 from gsf.styling import color_aitch_with_thresholds
 from gsf.viz import (
     display_artefact_photos,
@@ -128,6 +128,20 @@ def execute_query(
     if sample is None:
         return
 
+    # Start photo downloads early (runs in background)
+    if (
+        direction == "artefact_to_geology"
+        and photo_df is not None
+        and not photo_df.empty
+        and (photos_base_dir or (access_token and share_url))
+    ):
+        prefetch_artefact_images(
+            str(sample["Accession #"]),
+            photo_df, photos_base_dir,
+            access_token=access_token,
+            share_url=share_url,
+        )
+
     # Build header
     if "Region" in sample.index and bool(
         pd.notnull(sample.get("Region"))
@@ -180,14 +194,24 @@ def execute_query(
         st.error("Query sample not found in sort mode data.")
         return
 
-    # Get top matches across all modes
-    results_df = get_top_matches_multimode(
-        query_samples, target_dfs,
-        query_coords_df, target_coords_df,
-        top_n, direction,
-        enabled_modes=enabled_modes,
-        sort_mode=sort_mode,
+    # Get top matches across all modes (cached per query)
+    dist_cache_key = (
+        f"_dist_cache_{accession_number}_{direction}"
+        f"_{sort_mode}_{top_n}"
+        f"_{'_'.join(sorted(enabled_modes))}"
     )
+    cached_results = st.session_state.get(dist_cache_key)
+    if cached_results is not None:
+        results_df = cached_results
+    else:
+        results_df = get_top_matches_multimode(
+            query_samples, target_dfs,
+            query_coords_df, target_coords_df,
+            top_n, direction,
+            enabled_modes=enabled_modes,
+            sort_mode=sort_mode,
+        )
+        st.session_state[dist_cache_key] = results_df
 
     # Apply region filter
     if (
