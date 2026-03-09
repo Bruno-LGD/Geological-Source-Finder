@@ -141,7 +141,7 @@
 20456,Martos,AXE,Jaén Museum/20456 (1).jpg,Jaén Museum/20456 (2).jpg,Jaén Museum/20456 (3).jpg,Jaén Museum/20456 (4).jpg,Jaén Museum/20456 (5).jpg,,High,auto-matched
 20462,Martos,AXE,Jaén Museum/20462 (1).jpg,Jaén Museum/20462 (2).jpg,Jaén Museum/20462 (3).jpg,Jaén Museum/20462 (4).jpg,,,High,auto-matched
 20463,Martos,AXE,Jaén Museum/20463 (1).jpg,Jaén Museum/20463 (2).jpg,Jaén Museum/20463 (3).jpg,Jaén Museum/20463 (4).jpg,,,High,auto-matched
-209,Valencina,AXE,Montefrío/Raw/209 (1).JPG,Montefrío/Raw/209 (2).JPG,Montefrío/Raw/209 (3).JPG,Valencina Museum/209 (1).jpg,,,Medium,auto-matched; Valencina Museum (Feb 2026)
+209,Valencina,AXE,Valencina Museum/209 (1).jpg,Montefrío/Raw/209 (1).JPG,Montefrío/Raw/209 (2).JPG,Montefrío/Raw/209 (3).JPG,,,Medium,"auto-matched; Valencina Museum (Feb 2026). Images 2-4 are from Montefrío (DIFFERENT artefact, same accession number at different museum)"
 221,MUbe DEC,AXE,Úbeda Museum/MUbe 221 (1).jpg,Úbeda Museum/MUbe 221 (2).jpg,Úbeda Museum/MUbe 221 (3).jpg,Úbeda Museum/MUbe 221 (4).jpg,,,High,structured
 23130,Castellar,AXE,Jaén Museum/23130 (1).jpg,Jaén Museum/23130 (2).jpg,Jaén Museum/23130 (3).jpg,Jaén Museum/23130 (4).jpg,,,High,auto-matched
 23131,Castellar,AXE,Jaén Museum/23131 (1).jpg,Jaén Museum/23131 (2).jpg,Jaén Museum/23131 (3).jpg,Jaén Museum/23131 (4).jpg,,,High,auto-matched
@@ -514,9 +514,9 @@ IG941,Pozuelo,AXE,Huelva museum pictures/IG941 (1).jpg,Huelva museum pictures/IG
 RPPUL-1,Malagón,AXE,Montefrío/Raw/RPPUL-1 (1).JPG,Montefrío/Raw/RPPUL-1 (2).JPG,Montefrío/Raw/RPPUL-1 (3).JPG,El Malagón/Raw/CB RPPUL-1 or 10160 (1).JPG,El Malagón/Raw/CB RPPUL-1 or 10160 (2).JPG,El Malagón/Raw/CB RPPUL-1 or 10160 (3).JPG,Medium,auto-matched
 RPPUL-10,Montefrío,AXE,El Malagón/Raw/CB RPPUL-10 (1).JPG,El Malagón/Raw/CB RPPUL-10 (2).JPG,El Malagón/Raw/CB RPPUL-10 (3).JPG,Descontextualizado/Raw/MF RPPUL-10 (1).jpg,Descontextualizado/Raw/MF RPPUL-10 (2).jpg,Descontextualizado/Raw/MF RPPUL-10 (3).jpg,High,El Malagón/Raw
 RPPUL-3,Malagón,AXE,Montefrío/Raw/RPPUL-3 (1).JPG,Montefrío/Raw/RPPUL-3 (2).JPG,Montefrío/Raw/RPPUL-3 (3).JPG,El Malagón/Raw/CB RPPUL-3 or 10061 (1).JPG,El Malagón/Raw/CB RPPUL-3 or 10061 (2).JPG,El Malagón/Raw/CB RPPUL-3 or 10061 (3).JPG,Medium,auto-matched
-RPPUL-6,Montefrío,AXE,El Malagón/Raw/CB RPPUL-6 (1).JPG,El Malagón/Raw/CB RPPUL-6 (2).JPG,El Malagón/Raw/CB RPPUL-6 (3).JPG,El Malagón/Raw/CB RPPUL-6 (4).JPG,,,High,El Malagón/Raw
+RPPUL-6,Malagón,AXE,El Malagón/Raw/CB RPPUL-6 (1).JPG,El Malagón/Raw/CB RPPUL-6 (2).JPG,El Malagón/Raw/CB RPPUL-6 (3).JPG,El Malagón/Raw/CB RPPUL-6 (4).JPG,,,High,El Malagón/Raw
 RPPUL-7,Malagón,AXE,El Malagón/Raw/CB RPPUL-7 (1).JPG,El Malagón/Raw/CB RPPUL-7 (2).JPG,El Malagón/Raw/CB RPPUL-7 (3).JPG,,,,High,El Malagón/Raw
-RPPUL-8,Montefrío,AXE,El Malagón/Raw/CB RPPUL-8 (1).JPG,El Malagón/Raw/CB RPPUL-8 (2).JPG,El Malagón/Raw/CB RPPUL-8 (3).JPG,,,,High,El Malagón/Raw
+RPPUL-8,Malagón,AXE,El Malagón/Raw/CB RPPUL-8 (1).JPG,El Malagón/Raw/CB RPPUL-8 (2).JPG,El Malagón/Raw/CB RPPUL-8 (3).JPG,,,,High,El Malagón/Raw
 RPPUL-9,Malagón,AXE,El Malagón/Raw/CB RPPUL-9 (1).JPG,El Malagón/Raw/CB RPPUL-9 (2).JPG,El Malagón/Raw/CB RPPUL-9 (3).JPG,,,,High,El Malagón/Raw
 UGR Dep DEC1,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 1 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 1 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 1 (3).jpg,UGR assemblages/UGR trip January 2022/DEC 1.png,Descontextualizado/Raw/DEC 1 (1).jpg,Descontextualizado/Raw/DEC 1 (2).jpg,High,structured; Descontextualizado/Raw/DEC 1 (3).jpg
 UGR Dep DEC10,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 10 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 10 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 10 (3).jpg,UGR assemblages/UGR trip January 2022/DEC 10.png,Descontextualizado/Raw/DEC 10 (1).jpg,Descontextualizado/Raw/DEC 10 (2).jpg,High,structured; Descontextualizado/Raw/DEC 10 (3).jpg
