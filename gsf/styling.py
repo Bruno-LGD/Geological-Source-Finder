@@ -7,6 +7,11 @@ import pandas as pd
 from gsf.constants import (
     CELL_STYLE,
     COLORS,
+    CONF_COLORS,
+    CONF_HIGH,
+    CONF_LOW,
+    CONF_MODERATE,
+    CONF_VERY_HIGH,
     EUCL_MODERATE,
     EUCL_STRONG,
     EUCL_VERY_STRONG,
@@ -92,6 +97,35 @@ def color_aitch_with_thresholds(
             break
     return (
         f"background-color: {color}; {CELL_STYLE};"
+        " border-radius: 0px"
+    )
+
+
+def color_confidence(val: Any) -> str:  # noqa: ANN401
+    """Apply background color to a Conf cell."""
+    try:
+        v = float(val)
+    except (ValueError, TypeError):
+        return ""
+    if v >= CONF_VERY_HIGH:
+        color = CONF_COLORS["very_high"]
+        text_color = "white"
+    elif v >= CONF_HIGH:
+        color = CONF_COLORS["high"]
+        text_color = "black"
+    elif v >= CONF_MODERATE:
+        color = CONF_COLORS["moderate"]
+        text_color = "black"
+    elif v >= CONF_LOW:
+        color = CONF_COLORS["low"]
+        text_color = "black"
+    else:
+        color = CONF_COLORS["very_low"]
+        text_color = "black"
+    return (
+        f"background-color: {color};"
+        f" color: {text_color};"
+        " border: 1px solid gray;"
         " border-radius: 0px"
     )
 

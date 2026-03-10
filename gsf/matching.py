@@ -3,6 +3,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
+from gsf.confidence import add_confidence_column
 from gsf.constants import DEFAULT_TOP_N, EPSILON, aitch_col
 from gsf.distances import (
     compute_alr5_aitchison_vectorized,
@@ -193,6 +194,9 @@ def get_top_matches_multimode(
     )
 
     # Compute Aitchison distances for each mode
+    # Also store full (unrounded) distances for confidence scoring
+    full_dist_data: dict[str, pd.DataFrame] = {}
+
     for mode in enabled_modes:
         query_sample = query_samples[mode]
         target_df = target_dfs[mode]
@@ -235,6 +239,14 @@ def get_top_matches_multimode(
                 query_vector, target_matrix,
             )
 
+        # Save full distances for confidence scoring
+        full_dist_data[mode] = pd.DataFrame({
+            "Accession #": (
+                aligned_df["Accession #"].astype(str).values
+            ),
+            "distance": dists,
+        })
+
         dist_df = pd.DataFrame({
             "Accession #": aligned_df["Accession #"].values,
             col_name: np.round(dists, 2),
@@ -251,6 +263,25 @@ def get_top_matches_multimode(
     ).head(top_n)
     base_df.reset_index(drop=True, inplace=True)
     base_df.index += 1
+
+    # Add confidence column (before Geo Dist)
+    metadata_cols = ["Accession #", "Site", "Region"]
+    avail_meta = [
+        c for c in metadata_cols
+        if c in base_target.columns
+    ]
+    metadata_df = (
+        base_target[avail_meta]
+        .drop_duplicates(subset=["Accession #"])
+        .copy()
+    )
+    metadata_df["Accession #"] = (
+        metadata_df["Accession #"].astype(str)
+    )
+    base_df = add_confidence_column(
+        base_df, full_dist_data, metadata_df,
+        enabled_modes, acc_col="Accession #",
+    )
 
     # Compute geodesic distances for top results
     if direction == "artefact_to_geology":

@@ -8,6 +8,11 @@ import pandas as pd
 from openpyxl.styles import PatternFill, Font, Border, Side
 
 from gsf.constants import (
+    CONF_EXCEL_COLORS,
+    CONF_HIGH,
+    CONF_LOW,
+    CONF_MODERATE,
+    CONF_VERY_HIGH,
     GEO_CLOSE_KM,
     GEO_MODERATE_KM,
     GEO_VERY_CLOSE_KM,
@@ -37,6 +42,25 @@ def _get_fill_for_value(
     return PatternFill(
         start_color=hex_color, fill_type="solid",
     )
+
+
+def _get_conf_fill(val: Any) -> PatternFill | None:  # noqa: ANN401
+    """Return a PatternFill for a Conf percentage value."""
+    try:
+        v = float(val)
+    except (ValueError, TypeError):
+        return None
+    if v >= CONF_VERY_HIGH:
+        c = CONF_EXCEL_COLORS["very_high"]
+    elif v >= CONF_HIGH:
+        c = CONF_EXCEL_COLORS["high"]
+    elif v >= CONF_MODERATE:
+        c = CONF_EXCEL_COLORS["moderate"]
+    elif v >= CONF_LOW:
+        c = CONF_EXCEL_COLORS["low"]
+    else:
+        c = CONF_EXCEL_COLORS["very_low"]
+    return PatternFill(start_color=c, fill_type="solid")
 
 
 def _get_geo_fill(val: Any) -> PatternFill | None:  # noqa: ANN401
@@ -103,8 +127,12 @@ def create_styled_excel(
         aitch_col_names = {
             aitch_col(m) for m in enabled_modes
         }
+        special_cols = {"Geo Dist", "Conf"}
         for cell in ws[header_row]:
-            if cell.value in aitch_col_names or cell.value == "Geo Dist":
+            if (
+                cell.value in aitch_col_names
+                or cell.value in special_cols
+            ):
                 col_map[cell.value] = cell.column
 
         # Build mode_key lookup per Aitch column
@@ -115,6 +143,7 @@ def create_styled_excel(
                 aitch_mode_map[col_map[col_name]] = mode
 
         geo_col_num = col_map.get("Geo Dist")
+        conf_col_num = col_map.get("Conf")
 
         # Apply fills to data rows
         for row in ws.iter_rows(
@@ -127,6 +156,10 @@ def create_styled_excel(
                         cell.value,
                         aitch_mode_map[cell.column],
                     )
+                    if fill:
+                        cell.fill = fill
+                elif cell.column == conf_col_num:
+                    fill = _get_conf_fill(cell.value)
                     if fill:
                         cell.fill = fill
                 elif cell.column == geo_col_num:

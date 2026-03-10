@@ -136,6 +136,25 @@ CELL_OVERFLOW = "#F08080"  # band 4+ — light coral
 EXCEL_COLORS = [c.lstrip("#") for c in CELL_COLORS]
 EXCEL_OVERFLOW = CELL_OVERFLOW.lstrip("#")
 
+# Confidence score band thresholds and colors
+CONF_VERY_HIGH = 85   # >= 85%
+CONF_HIGH = 70        # 70–84%
+CONF_MODERATE = 50    # 50–69%
+CONF_LOW = 35         # 35–49%
+# < 35% = Very Low
+
+CONF_COLORS: dict[str, str] = {
+    "very_high": "#2E8B57",  # Sea green
+    "high": "#90EE90",       # Light green
+    "moderate": "#FFDAB9",   # Peach
+    "low": "#F4A460",        # Sandy brown
+    "very_low": "#F08080",   # Light coral
+}
+
+CONF_EXCEL_COLORS: dict[str, str] = {
+    k: v.lstrip("#") for k, v in CONF_COLORS.items()
+}
+
 # Map extent bounds for southern Iberia
 MAP_BOUNDS = {
     "west":  -9.8,

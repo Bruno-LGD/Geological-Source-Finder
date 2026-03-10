@@ -12,6 +12,11 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 from gsf.constants import (
+    CONF_COLORS,
+    CONF_HIGH,
+    CONF_LOW,
+    CONF_MODERATE,
+    CONF_VERY_HIGH,
     EPSILON,
     GEO_CLOSE_KM,
     GEO_MODERATE_KM,
@@ -32,6 +37,7 @@ from gsf.export import create_styled_excel
 from gsf.photos import get_artefact_images, to_image_bytes
 from gsf.styling import (
     color_aitch_with_thresholds,
+    color_confidence,
     highlight_geo_dist,
 )
 
@@ -163,7 +169,8 @@ def display_legend(
     if enabled_modes is None:
         enabled_modes = list(MODE_ORDER)
 
-    n_cols = len(enabled_modes) + 1  # +1 for Geo Dist
+    # +1 for Confidence, +1 for Geo Dist
+    n_cols = len(enabled_modes) + 2
     cols = st.columns(n_cols)
 
     for i, mode in enumerate(enabled_modes):
@@ -182,6 +189,21 @@ def display_legend(
                 f"{m}] -- Moderate match\n"
                 f"- :red[> {m}] -- Weak match"
             )
+
+    with cols[-2]:
+        st.markdown("**Confidence Score**")
+        st.markdown(
+            f"- :green[≥ {CONF_VERY_HIGH}%] "
+            "-- Very high\n"
+            f"- :green[{CONF_HIGH}–{CONF_VERY_HIGH - 1}%] "
+            "-- High\n"
+            f"- :orange[{CONF_MODERATE}–{CONF_HIGH - 1}%] "
+            "-- Moderate\n"
+            f"- :orange[{CONF_LOW}–{CONF_MODERATE - 1}%] "
+            "-- Low\n"
+            f"- :red[< {CONF_LOW}%] "
+            "-- Very low"
+        )
 
     with cols[-1]:
         st.markdown("**Geographical Distance**")
@@ -222,6 +244,15 @@ def display_results_table(
             mode_key=mode,
         )
         styled_df = styled_df.map(styler, subset=[col])
+
+    # Format and color the Conf column
+    if "Conf" in results_df.columns:
+        styled_df = styled_df.format(
+            "{:.0f}%", subset=["Conf"],
+        )
+        styled_df = styled_df.map(
+            color_confidence, subset=["Conf"],
+        )
 
     styled_df = styled_df.apply(  # pyright: ignore[reportAttributeAccessIssue]
         highlight_geo_dist, subset=["Geo Dist"],
