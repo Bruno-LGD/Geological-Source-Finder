@@ -1111,6 +1111,55 @@ def _color_aitch_with_thresholds(
     return _color_dist_cell(val, thresholds)
 
 
+# Per-zone gradient pairs for ALR-5: (light_color, dark_color)
+# Each zone keeps its identity (blue/green/peach/coral) while darker
+# shades indicate worse matches within the zone.
+_ALR5_ZONE_GRADIENTS: list[
+    tuple[float, float, tuple[int, int, int], tuple[int, int, int]]
+] = [
+    # (zone_start, zone_end, light_rgb, dark_rgb)
+    (0.0,                  ALR5_AITCH_VERY_STRONG, (173, 216, 230), (70,  130, 180)),  # blue
+    (ALR5_AITCH_VERY_STRONG, ALR5_AITCH_STRONG,   (144, 238, 144), (46,  139,  87)),  # green
+    (ALR5_AITCH_STRONG,    ALR5_AITCH_MODERATE,   (255, 218, 185), (210, 105,  30)),  # peach→orange
+    (ALR5_AITCH_MODERATE,  float("inf"),           (240, 128, 128), (178,  34,  34)),  # coral→red
+]
+
+
+
+def _alr5_zone_color(v: float) -> str:
+    """Return hex color for ALR-5 distance v using per-zone brightness gradient.
+
+    The category color (blue / green / peach / coral) conveys absolute
+    quality. The brightness within each zone shows relative differences:
+    lighter = closer to 0, darker = approaching the zone boundary.
+    """
+    for z_start, z_end, c_light, c_dark in _ALR5_ZONE_GRADIENTS:
+        if v < z_end or z_end == float("inf"):
+            width = z_end - z_start if z_end != float("inf") else _ALR5_ZONE_GRADIENTS[-2][1]
+            t = min((v - z_start) / width, 1.0) if width > 0 else 0.0
+            r = int(c_light[0] + t * (c_dark[0] - c_light[0]))
+            g = int(c_light[1] + t * (c_dark[1] - c_light[1]))
+            b = int(c_light[2] + t * (c_dark[2] - c_light[2]))
+            return f"#{r:02x}{g:02x}{b:02x}"
+    _, _, _, c = _ALR5_ZONE_GRADIENTS[-1]
+    return f"#{c[0]:02x}{c[1]:02x}{c[2]:02x}"
+
+
+def _color_aitch_alr5_gradient(val: Any) -> str:  # noqa: ANN401
+    """Per-zone brightness gradient coloring for ALR-5 Aitch Dist.
+
+    Category (blue/green/peach/coral) reflects absolute quality band.
+    Brightness within the band shows fine differences: lighter = better.
+    """
+    try:
+        v = float(val)
+    except (ValueError, TypeError):
+        return ""
+    return (
+        f"background-color: {_alr5_zone_color(v)}; {CELL_STYLE}; border-radius: 0px"
+    )
+
+
 # -----------------------------
 # Excel Export with Formatting
 # -----------------------------
@@ -1214,9 +1263,19 @@ def _create_styled_excel(
             for cell in row:
                 cell.border = thin_border
                 if cell.column == col_map.get("Aitch Dist"):
-                    fill = _get_fill_for_value(
-                        cell.value, aitch_thresholds,
-                    )
+                    if mode_key == "alr5":
+                        try:
+                            v = float(cell.value)
+                            hex_color = _alr5_zone_color(v)[1:].upper()
+                            fill = PatternFill(
+                                start_color=hex_color, fill_type="solid",
+                            )
+                        except (ValueError, TypeError):
+                            fill = None
+                    else:
+                        fill = _get_fill_for_value(
+                            cell.value, aitch_thresholds,
+                        )
                     if fill:
                         cell.fill = fill
                 elif cell.column == col_map.get("Eucl Dist"):
@@ -1394,7 +1453,6 @@ def display_artefact_photos(
 
 def display_legend(mode_key: str = "trace") -> None:
     """Display color-coded threshold explanations."""
-    vs, s, m = _aitch_thresholds(mode_key)
     show_eucl = _has_euclidean(mode_key)
 
     if show_eucl:
@@ -1402,22 +1460,31 @@ def display_legend(mode_key: str = "trace") -> None:
     else:
         col1, col3 = st.columns(2)
 
-    aitch_label = (
-        "**Aitchison Distance** (ALR-5)"
-        if mode_key == "alr5"
-        else "**Aitchison Distance** (compositional)"
-    )
     with col1:
-        st.markdown(aitch_label)
-        st.markdown(
-            f"- :blue[< {vs}] "
-            "-- Very strong match\n"
-            f"- :green[{vs} - "
-            f"{s}] -- Strong match\n"
-            f"- :orange[{s} - "
-            f"{m}] -- Moderate match\n"
-            f"- :red[> {m}] -- Weak match"
-        )
+        if mode_key == "alr5":
+            vs = ALR5_AITCH_VERY_STRONG
+            s = ALR5_AITCH_STRONG
+            m = ALR5_AITCH_MODERATE
+            st.markdown("**Aitchison Distance** (ALR-5, continuous gradient)")
+            st.markdown(
+                f"- :blue[≈ 0 – {vs}] -- Very strong match\n"
+                f"- :green[≈ {vs} – {s}] -- Strong match\n"
+                f"- :orange[≈ {s} – {m}] -- Moderate match\n"
+                f"- :red[> {m}] -- Weak match\n"
+                "\n*Gradient: colour transitions continuously across the scale.*"
+            )
+        else:
+            vs, s, m = _aitch_thresholds(mode_key)
+            st.markdown("**Aitchison Distance** (compositional)")
+            st.markdown(
+                f"- :blue[< {vs}] "
+                "-- Very strong match\n"
+                f"- :green[{vs} - "
+                f"{s}] -- Strong match\n"
+                f"- :orange[{s} - "
+                f"{m}] -- Moderate match\n"
+                f"- :red[> {m}] -- Weak match"
+            )
     if show_eucl:
         with col2:
             st.markdown("**Euclidean Distance** (geometric)")
@@ -1456,13 +1523,21 @@ def display_results_table(
         fmt["Eucl Dist"] = "{:.2f}"
     styled_df = results_df.style.format(fmt)
 
-    aitch_styler = partial(
-        _color_aitch_with_thresholds,
-        thresholds=_aitch_thresholds(mode_key),
-    )
     styled_df = styled_df.apply(  # pyright: ignore[reportAttributeAccessIssue]
         highlight_geo_dist, subset=["Geo Dist"],
-    ).map(aitch_styler, subset=["Aitch Dist"])
+    )
+    if mode_key == "alr5":
+        styled_df = styled_df.map(  # pyright: ignore[reportAttributeAccessIssue]
+            _color_aitch_alr5_gradient, subset=["Aitch Dist"],
+        )
+    else:
+        aitch_styler = partial(
+            _color_aitch_with_thresholds,
+            thresholds=_aitch_thresholds(mode_key),
+        )
+        styled_df = styled_df.map(  # pyright: ignore[reportAttributeAccessIssue]
+            aitch_styler, subset=["Aitch Dist"],
+        )
     if _has_euclidean(mode_key):
         styled_df = styled_df.map(
             color_eucl_dist, subset=["Eucl Dist"],
@@ -1564,25 +1639,25 @@ def display_scatter_plot(
 
     fig = px.scatter(
         plot_df,
-        x="Geo Dist Num",
-        y="Aitch Dist",
+        x="Aitch Dist",
+        y="Geo Dist Num",
         color=color_col,
         hover_data=hover_cols,
         title=(
-            "Scatter Plot of Geographical Distance "
-            "vs. Aitchison Distance"
+            "Scatter Plot of Aitchison Distance "
+            "vs. Geographical Distance"
         ),
         color_discrete_map=color_map if color_map else {},
     )
 
-    for ref in [
-        GEO_VERY_CLOSE_KM, GEO_CLOSE_KM, GEO_MODERATE_KM,
-    ]:
+    for ref in _aitch_thresholds(mode_key):
         fig.add_vline(
             x=ref, line_dash="dash",
             line_color="black", opacity=0.5,
         )
-    for ref in _aitch_thresholds(mode_key):
+    for ref in [
+        GEO_VERY_CLOSE_KM, GEO_CLOSE_KM, GEO_MODERATE_KM,
+    ]:
         fig.add_hline(
             y=ref, line_dash="dash",
             line_color="black", opacity=0.5,
@@ -1600,8 +1675,8 @@ def display_scatter_plot(
         paper_bgcolor="white",
         plot_bgcolor="white",
         font={"color": "black"},
-        xaxis_title="Geographical Distance (km)",
-        yaxis_title="Aitchison Distance",
+        xaxis_title="Aitchison Distance",
+        yaxis_title="Geographical Distance (km)",
         margin={"l": 40, "r": 40, "t": 40, "b": 40},
         legend_title=color_col if color_col else "Legend",
     )
@@ -2381,15 +2456,21 @@ def _execute_batch_query(
     freq_df["Min_Aitch"] = np.round(
         freq_df["Min_Aitch"], 2,
     )
-    aitch_styler = partial(
-        _color_aitch_with_thresholds,
-        thresholds=_aitch_thresholds(mode_key),
+    styled_freq = freq_df.style.format(
+        {"Avg_Aitch": "{:.2f}", "Min_Aitch": "{:.2f}"},
     )
-    styled_freq = (
-        freq_df.style
-        .map(aitch_styler, subset=["Avg_Aitch", "Min_Aitch"])
-        .format({"Avg_Aitch": "{:.2f}", "Min_Aitch": "{:.2f}"})
-    )
+    if mode_key == "alr5":
+        styled_freq = styled_freq.map(
+            _color_aitch_alr5_gradient, subset=["Avg_Aitch", "Min_Aitch"],
+        )
+    else:
+        aitch_styler = partial(
+            _color_aitch_with_thresholds,
+            thresholds=_aitch_thresholds(mode_key),
+        )
+        styled_freq = styled_freq.map(
+            aitch_styler, subset=["Avg_Aitch", "Min_Aitch"],
+        )
     st.dataframe(styled_freq, use_container_width=True)
 
     # Combined results
@@ -2693,14 +2774,19 @@ def _execute_comparison(
         if "Avg Aitch" in comp_df.columns
         else []
     )
-    aitch_color_fn = partial(
-        _color_aitch_with_thresholds,
-        thresholds=_aitch_thresholds(mode_key),
-    )
     for col in aitch_cols + avg_cols:
-        styled = styled.map(
-            aitch_color_fn, subset=[col],
-        )
+        if mode_key == "alr5":
+            styled = styled.map(
+                _color_aitch_alr5_gradient, subset=[col],
+            )
+        else:
+            aitch_color_fn = partial(
+                _color_aitch_with_thresholds,
+                thresholds=_aitch_thresholds(mode_key),
+            )
+            styled = styled.map(
+                aitch_color_fn, subset=[col],
+            )
 
     st.table(styled)
     st.caption(
