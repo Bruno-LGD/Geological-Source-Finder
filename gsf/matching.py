@@ -264,26 +264,8 @@ def get_top_matches_multimode(
     base_df.reset_index(drop=True, inplace=True)
     base_df.index += 1
 
-    # Add confidence column (before Geo Dist)
-    metadata_cols = ["Accession #", "Site", "Region"]
-    avail_meta = [
-        c for c in metadata_cols
-        if c in base_target.columns
-    ]
-    metadata_df = (
-        base_target[avail_meta]
-        .drop_duplicates(subset=["Accession #"])
-        .copy()
-    )
-    metadata_df["Accession #"] = (
-        metadata_df["Accession #"].astype(str)
-    )
-    base_df = add_confidence_column(
-        base_df, full_dist_data, metadata_df,
-        enabled_modes, acc_col="Accession #",
-    )
-
-    # Compute geodesic distances for top results
+    # Compute geodesic distances for top results (before confidence,
+    # so the proximity component can use Geo Dist)
     if direction == "artefact_to_geology":
         # Use any mode's query_sample for site lookup
         q_sample = query_samples[sort_mode]
@@ -340,6 +322,26 @@ def get_top_matches_multimode(
                 target_coord_lookup.get(site),
             )
         )
+
+    # Add confidence column (after Geo Dist, so proximity can use it)
+    metadata_cols = ["Accession #", "Site", "Region"]
+    avail_meta = [
+        c for c in metadata_cols
+        if c in base_target.columns
+    ]
+    metadata_df = (
+        base_target[avail_meta]
+        .drop_duplicates(subset=["Accession #"])
+        .copy()
+    )
+    metadata_df["Accession #"] = (
+        metadata_df["Accession #"].astype(str)
+    )
+    base_df = add_confidence_column(
+        base_df, full_dist_data, metadata_df,
+        enabled_modes, acc_col="Accession #",
+        geo_dist_col="Geo Dist",
+    )
 
     if direction == "artefact_to_geology":
         base_df = base_df.rename(columns={

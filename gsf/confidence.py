@@ -1,11 +1,21 @@
-"""Confidence scoring for GSF match results.
+"""Confidence scoring for GSF match results — v3.
 
 Quantifies the reliability of each artefact-to-source match as a
-percentage (0–100 %) based on three components:
+percentage (0–100 %) based on four components:
 
 1. Base Distance Score  — exponential decay from Aitchison distance
 2. Agreement & Rank Consistency — cross-mode tier and rank agreement
 3. Ambiguity / Separation — rank, gap, density, geographic coherence
+4. Proximity Plausibility — logistic score from Haversine (Geo Dist)
+
+v3 changes vs v2:
+  - Mode-specific density thresholds calibrated to empirical percentiles
+  - Mode-specific gap thresholds scaled by dimensionality
+  - Finer gradient in tier agreement (inner-good / good / acceptable)
+  - Base weight: All Elements bumped to 25% (from 20%)
+  - Geo-coherence returns 80 (not 50) when zero competitors
+  - New Component 4: proximity plausibility from Haversine distance
+  - Updated composite weights: 30/25/35/10 (with proximity)
 
 See the confidence-scoring skill documentation for full details.
 """
@@ -27,11 +37,40 @@ DECAY_CONSTANTS: dict[str, float] = {
     "all": 0.23,
 }
 
-# "Good" Aitchison thresholds per mode (for tier agreement)
+# Tier agreement thresholds per mode
 GOOD_THRESHOLDS: dict[str, float] = {
     "alr5": 1.0,
     "trace": 2.0,
     "all": 3.0,
+}
+ACCEPT_THRESHOLDS: dict[str, float] = {
+    "alr5": 2.0,
+    "trace": 4.0,
+    "all": 6.0,
+}
+# Finer sub-band within "good" — top third
+GOOD_INNER: dict[str, float] = {
+    "alr5": 0.50,
+    "trace": 1.00,
+    "all": 1.50,
+}
+
+# ---------------------------------------------------------------------------
+# Mode-specific density thresholds (from empirical percentiles)
+# ---------------------------------------------------------------------------
+DENSITY_THRESHOLDS: dict[str, list[int]] = {
+    "alr5":  [9,  15, 24, 35],
+    "trace": [5,  10, 20, 35],
+    "all":   [10, 20, 30, 45],
+}
+
+# ---------------------------------------------------------------------------
+# Mode-specific gap thresholds (scaled by dimensionality)
+# ---------------------------------------------------------------------------
+GAP_THRESHOLDS: dict[str, list[float]] = {
+    "alr5":  [0.25, 0.10, 0.03],
+    "trace": [0.20, 0.08, 0.025],
+    "all":   [0.15, 0.06, 0.02],
 }
 
 # ---------------------------------------------------------------------------
@@ -39,16 +78,16 @@ GOOD_THRESHOLDS: dict[str, float] = {
 # ---------------------------------------------------------------------------
 _BASE_WEIGHT_MAP: dict[frozenset[str], dict[str, float]] = {
     frozenset({"alr5", "trace", "all"}): {
-        "alr5": 0.50, "trace": 0.30, "all": 0.20,
+        "alr5": 0.50, "trace": 0.25, "all": 0.25,
     },
     frozenset({"alr5", "trace"}): {
         "alr5": 0.60, "trace": 0.40,
     },
     frozenset({"alr5", "all"}): {
-        "alr5": 0.65, "all": 0.35,
+        "alr5": 0.60, "all": 0.40,
     },
     frozenset({"trace", "all"}): {
-        "trace": 0.60, "all": 0.40,
+        "trace": 0.55, "all": 0.45,
     },
 }
 
@@ -85,32 +124,47 @@ def _get_base_weights(
 def _tier_agreement(
     distances: dict[str, float],
 ) -> float:
+    """v3: four tiers — inner-good (100), good (90), acceptable (70),
+    mixed (40).  Disagreement penalty halves the score."""
     modes = list(distances.keys())
     if len(modes) < 2:
         return 0.0
+
+    all_inner_good = all(
+        distances[m] < GOOD_INNER.get(m, 0.5)
+        for m in modes
+    )
+    if all_inner_good:
+        return 100.0
 
     all_good = all(
         distances[m] < GOOD_THRESHOLDS.get(m, 2.0)
         for m in modes
     )
     if all_good:
-        return 100.0
+        return 90.0
 
     all_acceptable = all(
-        distances[m] < 2.0 * GOOD_THRESHOLDS.get(m, 2.0)
+        distances[m] < ACCEPT_THRESHOLDS.get(m, 4.0)
         for m in modes
     )
     if all_acceptable:
-        return 75.0
+        return 70.0
 
-    # Check for disagreement (one excellent, another poor)
-    scores = [
-        _base_distance_score(distances[m], m) for m in modes
-    ]
-    if max(scores) > 70 and min(scores) < 35:
-        return 40.0 * 0.5  # penalty
+    # Mixed results — base score 40
+    tier_s = 40.0
 
-    return 40.0
+    # Disagreement penalty: one mode excellent but another poor
+    if "alr5" in distances and "trace" in distances:
+        a, t = distances["alr5"], distances["trace"]
+        if (a < 0.5 and t > 4.0) or (t < 1.0 and a > 2.0):
+            tier_s *= 0.5
+    if "alr5" in distances and "all" in distances:
+        a, e = distances["alr5"], distances["all"]
+        if (a < 0.5 and e > 6.0) or (e < 1.5 and a > 2.0):
+            tier_s *= 0.5
+
+    return tier_s
 
 
 def _rank_consistency(ranks: dict[str, int]) -> float:
@@ -148,27 +202,31 @@ def _rank_score(rank: int) -> float:
     return 10.0
 
 
-def _gap_score(d1: float, d2: float) -> float:
+def _gap_score(d1: float, d2: float, mode: str) -> float:
+    """v3: mode-specific gap thresholds."""
     if d1 <= 0:
         return 100.0
     gap = (d2 - d1) / d1
-    if gap >= 0.25:
+    gt = GAP_THRESHOLDS.get(mode, [0.25, 0.10, 0.03])
+    if gap >= gt[0]:
         return 100.0
-    if gap >= 0.10:
+    if gap >= gt[1]:
         return 70.0
-    if gap >= 0.03:
+    if gap >= gt[2]:
         return 40.0
     return 15.0
 
 
-def _density_score(count: int) -> float:
-    if count <= 5:
+def _density_score(count: int, mode: str) -> float:
+    """v3: mode-specific density thresholds."""
+    dt = DENSITY_THRESHOLDS.get(mode, [5, 10, 20, 35])
+    if count <= dt[0]:
         return 100.0
-    if count <= 10:
+    if count <= dt[1]:
         return 80.0
-    if count <= 20:
+    if count <= dt[2]:
         return 55.0
-    if count <= 35:
+    if count <= dt[3]:
         return 35.0
     return 15.0
 
@@ -178,9 +236,12 @@ def _geo_coherence_score(
     competitors: list[str],
     metadata_df: pd.DataFrame,
 ) -> float:
-    """Score geographic coherence among nearby competitors."""
+    """Score geographic coherence among nearby competitors.
+
+    v3: returns 80.0 when zero competitors (isolated match is positive).
+    """
     if not competitors:
-        return 50.0
+        return 80.0
 
     target_row = metadata_df[
         metadata_df["Accession #"] == target_acc
@@ -228,7 +289,11 @@ def _ambiguity_per_mode(
     full_dist_df: pd.DataFrame,
     metadata_df: pd.DataFrame,
 ) -> float:
-    """Compute ambiguity score for one mode's distance vector."""
+    """Compute ambiguity score for one mode's distance vector.
+
+    v3: passes mode to gap_score and density_score for mode-specific
+    thresholds.
+    """
     sorted_df = full_dist_df.sort_values(
         "distance",
     ).reset_index(drop=True)
@@ -264,12 +329,31 @@ def _ambiguity_per_mode(
 
     return (
         0.25 * _rank_score(rank)
-        + 0.30 * _gap_score(d1, d2)
-        + 0.20 * _density_score(density_count)
+        + 0.30 * _gap_score(d1, d2, mode)
+        + 0.20 * _density_score(density_count, mode)
         + 0.25 * _geo_coherence_score(
             target_acc, competitors, metadata_df,
         )
     )
+
+
+# --- Proximity plausibility -------------------------------------------
+
+def _proximity_score(geo_dist_km: float | None) -> float | None:
+    """Component 4: logistic score from Haversine distance.
+
+    score = 30 + 70 / (1 + exp(0.012 * (d - 150)))
+
+    At  40 km → ~86,  100 km → ~68,  150 km → ~65,
+       300 km → ~39,  500 km → ~32.  Floor ≈ 30.
+
+    Returns None if Geo Dist is not available.
+    """
+    if geo_dist_km is None or (isinstance(geo_dist_km, float) and math.isnan(geo_dist_km)):
+        return None
+    if geo_dist_km < 0:
+        return None
+    return 30.0 + 70.0 / (1.0 + math.exp(0.012 * (geo_dist_km - 150.0)))
 
 
 # ===================================================================
@@ -282,8 +366,15 @@ def compute_row_confidence(
     mode_ranks: dict[str, int],
     full_dist_data: dict[str, pd.DataFrame],
     metadata_df: pd.DataFrame,
+    geo_dist_km: float | None = None,
 ) -> int:
     """Compute confidence score for a single result row.
+
+    Parameters
+    ----------
+    geo_dist_km : float or None
+        Haversine distance in km between artefact site and geology
+        sample location.  Pass None when not available.
 
     Returns an integer 0–100.
     """
@@ -337,19 +428,41 @@ def compute_row_confidence(
     else:
         ambiguity = 25.0
 
-    # Final weighted combination
+    # 4. Proximity Plausibility
+    prox = _proximity_score(geo_dist_km)
+    has_prox = prox is not None
+
+    # Final weighted combination (v3 weights)
     if n >= 3:
-        conf = (
-            0.35 * base + 0.30 * agreement
-            + 0.35 * ambiguity
-        )
+        if has_prox:
+            conf = (
+                0.30 * base + 0.25 * agreement
+                + 0.35 * ambiguity + 0.10 * prox
+            )
+        else:
+            conf = (
+                0.35 * base + 0.30 * agreement
+                + 0.35 * ambiguity
+            )
     elif n == 2:
-        conf = (
-            0.35 * base + 0.25 * agreement
-            + 0.40 * ambiguity
-        )
+        if has_prox:
+            conf = (
+                0.30 * base + 0.20 * agreement
+                + 0.40 * ambiguity + 0.10 * prox
+            )
+        else:
+            conf = (
+                0.35 * base + 0.25 * agreement
+                + 0.40 * ambiguity
+            )
     else:
-        conf = 0.55 * base + 0.45 * ambiguity
+        if has_prox:
+            conf = (
+                0.50 * base + 0.40 * ambiguity
+                + 0.10 * prox
+            )
+        else:
+            conf = 0.55 * base + 0.45 * ambiguity
 
     return max(0, min(100, round(conf)))
 
@@ -360,13 +473,25 @@ def add_confidence_column(
     metadata_df: pd.DataFrame,
     enabled_modes: list[str],
     acc_col: str = "Accession #",
+    geo_dist_col: str | None = "Geo Dist",
 ) -> pd.DataFrame:
     """Insert a 'Conf' column into *results_df*.
+
+    Parameters
+    ----------
+    geo_dist_col : str or None
+        Column name holding Haversine distance in km.  If present in
+        *results_df*, the proximity component is included.
 
     The column is placed just before 'Geo Dist' if it exists,
     otherwise at the end.
     """
     scores: list[int] = []
+
+    has_geo = (
+        geo_dist_col is not None
+        and geo_dist_col in results_df.columns
+    )
 
     for _, row in results_df.iterrows():
         target_acc = str(row[acc_col])
@@ -398,13 +523,30 @@ def add_confidence_column(
                 except ValueError:
                     mode_ranks[mode] = len(sorted_accs)
 
+        # Extract Geo Dist for proximity component
+        geo_dist: float | None = None
+        if has_geo:
+            try:
+                val = row[geo_dist_col]
+                if pd.notna(val):
+                    geo_dist = float(val)
+            except (ValueError, TypeError):
+                pass
+
         scores.append(compute_row_confidence(
             target_acc, mode_distances, mode_ranks,
             full_dist_data, metadata_df,
+            geo_dist_km=geo_dist,
         ))
 
     df = results_df.copy()
     cols = list(df.columns)
+
+    # Remove existing Conf column if present (to avoid duplicates)
+    if "Conf" in cols:
+        df = df.drop(columns=["Conf"])
+        cols = list(df.columns)
+
     insert_pos = (
         cols.index("Geo Dist")
         if "Geo Dist" in cols
