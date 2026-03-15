@@ -12,7 +12,6 @@ from gsf.constants import (
     COLORS,
     CONF_COLORS,
     CONF_HIGH,
-    CONF_LOW,
     CONF_MODERATE,
     CONF_VERY_HIGH,
     EUCL_MODERATE,
@@ -29,14 +28,22 @@ from gsf.constants import (
 )
 
 
+def _text_color_for_bg(hex_bg: str) -> str:
+    """Return white or dark text depending on background luminance."""
+    h = hex_bg.lstrip("#")
+    r, g, b = int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16)
+    luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255
+    return "#FAFAF7" if luminance < 0.55 else "#2C2825"
+
+
 def highlight_geo_dist(s: pd.Series) -> list[str]:
-    """Apply background color to Geo Dist cells."""
+    """Apply background color to Geo Dist cells (right-aligned)."""
     styles = []
     for val in s:
         try:
             num = float(str(val).replace(" km", ""))
         except (ValueError, TypeError, AttributeError):
-            styles.append("")
+            styles.append("text-align: right")
             continue
         if num < GEO_VERY_CLOSE_KM:
             color = COLORS["very_strong"]
@@ -46,8 +53,11 @@ def highlight_geo_dist(s: pd.Series) -> list[str]:
             color = COLORS["moderate"]
         else:
             color = COLORS["weak"]
+        text_c = _text_color_for_bg(color)
         styles.append(
-            f"background-color: {color}; {CELL_STYLE};"
+            f"background-color: {color};"
+            f" color: {text_c}; {CELL_STYLE};"
+            " text-align: right"
         )
     return styles
 
@@ -70,9 +80,10 @@ def _color_dist_cell(
         color = COLORS["moderate"]
     else:
         color = COLORS["weak"]
+    text_c = _text_color_for_bg(color)
     return (
-        f"background-color: {color}; {CELL_STYLE};"
-        " border-radius: 0px"
+        f"background-color: {color};"
+        f" color: {text_c}; {CELL_STYLE}"
     )
 
 
@@ -98,37 +109,34 @@ def color_aitch_with_thresholds(
         if v < i * step:
             color = c
             break
+    text_c = _text_color_for_bg(color)
     return (
-        f"background-color: {color}; {CELL_STYLE};"
-        " border-radius: 0px"
+        f"background-color: {color};"
+        f" color: {text_c}; {CELL_STYLE}"
     )
 
 
-# Per-zone gradient pairs for ALR-5: (light_color, dark_color)
-# Each zone keeps its identity (blue/green/peach/coral) while darker
-# shades indicate worse matches within the zone.
+# Per-zone gradient pairs for ALR-5 (earth-tone palette)
+# Each zone transitions from lighter to darker within its band.
 _ALR5_ZONE_GRADIENTS: list[
     tuple[float, float, tuple[int, int, int], tuple[int, int, int]]
 ] = [
     # (zone_start, zone_end, light_rgb, dark_rgb)
-    (0.0, ALR5_AITCH_VERY_STRONG, (173, 216, 230), (70, 130, 180)),
+    (0.0, ALR5_AITCH_VERY_STRONG, (106, 156, 168), (52, 98, 112)),
     (
         ALR5_AITCH_VERY_STRONG,
         ALR5_AITCH_STRONG,
-        (144, 238, 144),
-        (46, 139, 87),
+        (146, 176, 118), (82, 118, 58),
     ),
     (
         ALR5_AITCH_STRONG,
         ALR5_AITCH_MODERATE,
-        (255, 218, 185),
-        (210, 105, 30),
+        (214, 186, 132), (168, 132, 62),
     ),
     (
         ALR5_AITCH_MODERATE,
         float("inf"),
-        (240, 128, 128),
-        (178, 34, 34),
+        (186, 118, 112), (138, 62, 52),
     ),
 ]
 
@@ -157,38 +165,33 @@ def color_aitch_alr5_gradient(val: Any) -> str:  # noqa: ANN401
         v = float(val)
     except (ValueError, TypeError):
         return ""
+    hex_bg = alr5_zone_color(v)
+    text_c = _text_color_for_bg(hex_bg)
     return (
-        f"background-color: {alr5_zone_color(v)}; {CELL_STYLE};"
-        " border-radius: 0px"
+        f"background-color: {hex_bg};"
+        f" color: {text_c}; {CELL_STYLE}"
     )
 
 
 def color_confidence(val: Any) -> str:  # noqa: ANN401
-    """Apply background color to a Conf cell."""
+    """Apply background color to a Conf cell (4 bands matching Excel)."""
     try:
         v = float(val)
     except (ValueError, TypeError):
         return ""
-    if v >= CONF_VERY_HIGH:
+    if v > CONF_VERY_HIGH:
         color = CONF_COLORS["very_high"]
-        text_color = "white"
     elif v >= CONF_HIGH:
         color = CONF_COLORS["high"]
-        text_color = "black"
     elif v >= CONF_MODERATE:
         color = CONF_COLORS["moderate"]
-        text_color = "black"
-    elif v >= CONF_LOW:
-        color = CONF_COLORS["low"]
-        text_color = "black"
     else:
-        color = CONF_COLORS["very_low"]
-        text_color = "black"
+        color = CONF_COLORS["low"]
+    text_c = _text_color_for_bg(color)
     return (
         f"background-color: {color};"
-        f" color: {text_color};"
-        " border: 1px solid gray;"
-        " border-radius: 0px"
+        f" color: {text_c};"
+        f" {CELL_STYLE}"
     )
 
 

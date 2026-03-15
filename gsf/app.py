@@ -29,20 +29,165 @@ from gsf.queries import (
 
 logging.basicConfig(level=logging.INFO)
 
+# ---------------------------------------------------------------------------
+# Global CSS for academic / scientific styling
+# ---------------------------------------------------------------------------
+_GLOBAL_CSS = """
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap');
+
+/* Global typography */
+html, body, [class*="css"] {
+    font-family: 'Source Sans 3', 'Source Sans Pro', sans-serif;
+    color: #2C2825;
+}
+
+/* Main title */
+h1 {
+    font-family: 'Crimson Pro', 'Georgia', serif !important;
+    font-weight: 700 !important;
+    color: #2C2825 !important;
+    letter-spacing: -0.02em !important;
+    border-bottom: 2px solid #8B6914 !important;
+    padding-bottom: 0.3em !important;
+}
+
+/* Section headers (h2) */
+h2, [data-testid="stSubheader"] h2 {
+    font-family: 'Crimson Pro', 'Georgia', serif !important;
+    font-weight: 600 !important;
+    color: #3D3530 !important;
+    font-size: 1.5rem !important;
+    border-bottom: 1px solid #D4CCC0 !important;
+    padding-bottom: 0.2em !important;
+    margin-top: 1.5em !important;
+}
+
+/* h3 subheadings */
+h3 {
+    font-family: 'Crimson Pro', 'Georgia', serif !important;
+    font-weight: 600 !important;
+    color: #4A443E !important;
+    font-size: 1.2rem !important;
+}
+
+/* Sidebar headers */
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3 {
+    font-family: 'Crimson Pro', 'Georgia', serif !important;
+    font-size: 1.1rem !important;
+    letter-spacing: 0.05em !important;
+    text-transform: uppercase !important;
+    color: #5A4F45 !important;
+    border-bottom: none !important;
+}
+
+/* Tab labels */
+button[data-baseweb="tab"] {
+    font-family: 'Source Sans 3', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    letter-spacing: 0.02em !important;
+    text-transform: uppercase !important;
+}
+button[data-baseweb="tab"][aria-selected="true"] {
+    border-bottom: 3px solid #8B6914 !important;
+    color: #2C2825 !important;
+}
+button[data-baseweb="tab"][aria-selected="false"] {
+    color: #7A7068 !important;
+}
+
+/* Expander headers */
+[data-testid="stExpander"] summary span {
+    font-family: 'Source Sans 3', sans-serif !important;
+    font-weight: 600 !important;
+    color: #4A443E !important;
+}
+
+/* Captions and small text */
+[data-testid="stCaption"], .stCaption {
+    font-family: 'Source Sans 3', sans-serif !important;
+    font-size: 0.8rem !important;
+    color: #7A7068 !important;
+}
+
+/* Download buttons */
+[data-testid="stDownloadButton"] button {
+    font-family: 'Source Sans 3', sans-serif !important;
+    font-weight: 500 !important;
+    border: 1px solid #8B6914 !important;
+    color: #8B6914 !important;
+    background: transparent !important;
+    border-radius: 3px !important;
+    transition: all 0.2s ease !important;
+}
+[data-testid="stDownloadButton"] button:hover {
+    background: #8B6914 !important;
+    color: #FAFAF7 !important;
+}
+
+/* Expanders */
+[data-testid="stExpander"] {
+    border: 1px solid #D4CCC0 !important;
+    border-radius: 4px !important;
+}
+
+/* Selectbox and inputs */
+[data-testid="stSelectbox"] > div > div,
+[data-testid="stMultiSelect"] > div > div,
+[data-testid="stNumberInput"] input,
+[data-testid="stTextInput"] input {
+    border-color: #C4B9A8 !important;
+    border-radius: 3px !important;
+}
+
+/* Info/warning/error boxes - more muted */
+[data-testid="stAlert"] {
+    border-radius: 3px !important;
+    font-size: 0.9rem !important;
+}
+
+/* Dividers */
+hr {
+    border-color: #D4CCC0 !important;
+}
+
+/* Progress bar */
+[role="progressbar"] > div {
+    background-color: #8B6914 !important;
+}
+</style>
+"""
+
 
 def main() -> None:
     """Application entry point."""
+    # Inject global CSS
+    st.markdown(_GLOBAL_CSS, unsafe_allow_html=True)
+
     # Render sidebar to get settings (element mode)
     with st.sidebar:
-        st.header("About")
+        # Branding block
         st.markdown(
-            "**GSF - Geology Source Finder** matches "
-            "archaeological artefacts to potential "
-            "geological sources using trace element "
-            "ratio comparison."
+            '<p style="font-family: \'Crimson Pro\', serif; '
+            'font-size: 1.3rem; font-weight: 700; color: #2C2825; '
+            'letter-spacing: -0.01em; margin-bottom: 0.1em;">'
+            'GSF</p>'
+            '<p style="font-family: \'Source Sans 3\', sans-serif; '
+            'font-size: 0.82rem; color: #7A7068; line-height: 1.5; '
+            'margin-top: 0;">'
+            'Matching archaeological artefacts to potential geological '
+            'sources using compositional distance analysis of trace '
+            'element ratios.'
+            '</p>',
+            unsafe_allow_html=True,
         )
         st.divider()
-        st.header("Element Modes")
+
+        # Analysis Configuration
+        st.markdown("### Analysis Configuration")
         use_alr5 = st.checkbox(
             "ALR-5 (5 log-ratios)",
             value=True,
@@ -93,155 +238,169 @@ def main() -> None:
         st.divider()
         saved_config = load_config()
 
-        # --- Local photos folder ---
-        saved_dir = (
-            saved_config.get("photos_base_dir", "") or ""
-        )
-        photos_base_dir = st.text_input(
-            "Local Photos Folder:",
-            value=saved_dir,
-            help=(
-                "Local path to the folder containing "
-                "artefact photographs (e.g. a OneDrive "
-                "sync folder)."
-            ),
-            key="photos_dir",
-        ) or ""
-        if photos_base_dir != saved_dir:
-            save_config(
-                {**saved_config, "photos_base_dir": photos_base_dir}
+        # --- Photo Configuration (collapsible) ---
+        with st.expander("Photo Configuration", expanded=False):
+            # Local photos folder
+            saved_dir = (
+                saved_config.get("photos_base_dir", "") or ""
             )
+            photos_base_dir = st.text_input(
+                "Local Photos Folder:",
+                value=saved_dir,
+                help=(
+                    "Local path to the folder containing "
+                    "artefact photographs (e.g. a OneDrive "
+                    "sync folder)."
+                ),
+                key="photos_dir",
+            ) or ""
+            if photos_base_dir != saved_dir:
+                save_config(
+                    {**saved_config, "photos_base_dir": photos_base_dir}
+                )
 
-        # --- OneDrive (Graph API) ---
-        st.markdown("---")
-        st.markdown("**OneDrive (online)**")
+            # OneDrive (Graph API)
+            st.markdown("---")
+            st.markdown("**OneDrive (online)**")
 
-        saved_share = (
-            saved_config.get("onedrive_folder_url", "")
-            or ""
-        )
-        share_url = st.text_input(
-            "OneDrive Shared Folder URL:",
-            value=saved_share,
-            help=(
-                "The 1drv.ms sharing link to the root "
-                "photos folder in OneDrive."
-            ),
-            key="onedrive_url",
-        ) or ""
-        if share_url != saved_share:
-            save_config(
-                {**saved_config, "onedrive_folder_url": share_url}
+            saved_share = (
+                saved_config.get("onedrive_folder_url", "")
+                or ""
             )
+            share_url = st.text_input(
+                "OneDrive Shared Folder URL:",
+                value=saved_share,
+                help=(
+                    "The 1drv.ms sharing link to the root "
+                    "photos folder in OneDrive."
+                ),
+                key="onedrive_url",
+            ) or ""
+            if share_url != saved_share:
+                save_config(
+                    {**saved_config, "onedrive_folder_url": share_url}
+                )
 
-        saved_client = (
-            saved_config.get("azure_client_id", "") or ""
-        )
-        client_id = st.text_input(
-            "Azure App Client ID:",
-            value=saved_client,
-            help=(
-                "Register a free Azure AD app at "
-                "portal.azure.com, enable public client "
-                "flows, add Files.Read permission, then "
-                "paste the Application (client) ID here."
-            ),
-            key="azure_client_id",
-            type="password",
-        ) or ""
-        if client_id != saved_client:
-            save_config(
-                {**saved_config, "azure_client_id": client_id}
+            saved_client = (
+                saved_config.get("azure_client_id", "") or ""
             )
+            client_id = st.text_input(
+                "Azure App Client ID:",
+                value=saved_client,
+                help=(
+                    "Register a free Azure AD app at "
+                    "portal.azure.com, enable public client "
+                    "flows, add Files.Read permission, then "
+                    "paste the Application (client) ID here."
+                ),
+                key="azure_client_id",
+                type="password",
+            ) or ""
+            if client_id != saved_client:
+                save_config(
+                    {**saved_config, "azure_client_id": client_id}
+                )
 
-        # Auth status and sign-in
-        access_token = ""
-        if client_id and share_url:
-            access_token = (
-                get_valid_access_token(client_id) or ""
-            )
-            if access_token:
-                st.success("OneDrive: signed in")
-                if st.button(
-                    "Sign out", key="graph_signout",
-                ):
-                    st.session_state.pop(
-                        "graph_token_data", None,
-                    )
-                    path = get_token_cache_path()
-                    if os.path.exists(path):
-                        os.remove(path)
-                    st.rerun()
-            else:
-                dc = st.session_state.get("device_code_flow")
-                if dc:
-                    st.info(
-                        f"Go to **{dc['verification_uri']}** "
-                        f"and enter code: "
-                        f"**{dc['user_code']}**"
-                    )
-                    if time.time() > dc.get("expires_at", 0):
-                        st.error("Code expired. Try again.")
-                        st.session_state.pop(
-                            "device_code_flow", None,
-                        )
-                    elif st.button(
-                        "Check sign-in status",
-                        key="graph_poll",
-                    ):
-                        try:
-                            result = poll_for_token(
-                                client_id, dc["device_code"],
-                            )
-                        except ValueError as exc:
-                            st.error(str(exc))
-                            st.session_state.pop(
-                                "device_code_flow", None,
-                            )
-                            result = None
-                        if result:
-                            result["expires_at"] = (
-                                time.time()
-                                + result.get("expires_in", 3600)
-                            )
-                            st.session_state[
-                                "graph_token_data"
-                            ] = result
-                            st.session_state.pop(
-                                "device_code_flow", None,
-                            )
-                            save_token_cache(result)
-                            st.rerun()
-                        else:
-                            st.warning(
-                                "Not ready yet. Complete "
-                                "sign-in in browser, then "
-                                "check again."
-                            )
-                else:
+            # Auth status and sign-in
+            access_token = ""
+            if client_id and share_url:
+                access_token = (
+                    get_valid_access_token(client_id) or ""
+                )
+                if access_token:
+                    st.success("OneDrive: signed in")
                     if st.button(
-                        "Sign in to OneDrive",
-                        key="graph_signin",
+                        "Sign out", key="graph_signout",
                     ):
-                        flow = start_device_code_flow(
-                            client_id,
+                        st.session_state.pop(
+                            "graph_token_data", None,
                         )
-                        if flow:
-                            flow["expires_at"] = (
-                                time.time()
-                                + flow.get("expires_in", 900)
+                        path = get_token_cache_path()
+                        if os.path.exists(path):
+                            os.remove(path)
+                        st.rerun()
+                else:
+                    dc = st.session_state.get("device_code_flow")
+                    if dc:
+                        st.info(
+                            f"Go to **{dc['verification_uri']}** "
+                            f"and enter code: "
+                            f"**{dc['user_code']}**"
+                        )
+                        if time.time() > dc.get("expires_at", 0):
+                            st.error("Code expired. Try again.")
+                            st.session_state.pop(
+                                "device_code_flow", None,
                             )
-                            st.session_state[
-                                "device_code_flow"
-                            ] = flow
-                            st.rerun()
-                        else:
-                            st.error(
-                                "Could not start sign-in. "
-                                "Check the Client ID."
+                        elif st.button(
+                            "Check sign-in status",
+                            key="graph_poll",
+                        ):
+                            try:
+                                result = poll_for_token(
+                                    client_id, dc["device_code"],
+                                )
+                            except ValueError as exc:
+                                st.error(str(exc))
+                                st.session_state.pop(
+                                    "device_code_flow", None,
+                                )
+                                result = None
+                            if result:
+                                result["expires_at"] = (
+                                    time.time()
+                                    + result.get("expires_in", 3600)
+                                )
+                                st.session_state[
+                                    "graph_token_data"
+                                ] = result
+                                st.session_state.pop(
+                                    "device_code_flow", None,
+                                )
+                                save_token_cache(result)
+                                st.rerun()
+                            else:
+                                st.warning(
+                                    "Not ready yet. Complete "
+                                    "sign-in in browser, then "
+                                    "check again."
+                                )
+                    else:
+                        if st.button(
+                            "Sign in to OneDrive",
+                            key="graph_signin",
+                        ):
+                            flow = start_device_code_flow(
+                                client_id,
                             )
+                            if flow:
+                                flow["expires_at"] = (
+                                    time.time()
+                                    + flow.get("expires_in", 900)
+                                )
+                                st.session_state[
+                                    "device_code_flow"
+                                ] = flow
+                                st.rerun()
+                            else:
+                                st.error(
+                                    "Could not start sign-in. "
+                                    "Check the Client ID."
+                                )
 
-    st.title("GSF - Geology Source Finder")
+    # Branded header
+    st.markdown(
+        '<div style="margin-bottom: 0.5em;">'
+        '<h1 style="margin-bottom: 0.1em;">'
+        'Geology Source Finder</h1>'
+        '<p style="font-family: \'Source Sans 3\', sans-serif; '
+        'color: #7A7068; font-size: 0.95rem; margin-top: 0; '
+        'font-style: italic;">'
+        'Archaeological Provenance Analysis through '
+        'Trace Element Geochemistry'
+        '</p></div>',
+        unsafe_allow_html=True,
+    )
 
     # Load data for all enabled modes
     mode_datasets: dict[

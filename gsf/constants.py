@@ -45,15 +45,19 @@ GEO_DIST_ROUND_TO_KM = 10
 DEFAULT_TOP_N = 20
 MAX_TOP_N = 100
 
-# Color scheme for threshold visualization
+# ---------------------------------------------------------------------------
+# Academic earth-tone color palette
+# ---------------------------------------------------------------------------
+
+# Color scheme for threshold visualization (4-tier earth tones)
 COLORS = {
-    "very_strong": "#ADD8E6",  # Light blue
-    "strong": "#90EE90",       # Light green
-    "moderate": "#FFDAB9",     # Peach
-    "weak": "#F08080",         # Light coral
+    "very_strong": "#4A7C8A",  # Slate teal
+    "strong": "#7A9A5E",       # Sage green
+    "moderate": "#C9A96E",     # Sandstone
+    "weak": "#A65D57",         # Terra cotta
 }
 
-CELL_STYLE = "color: black; border: 1px solid gray"
+CELL_STYLE = "color: #2C2825; font-weight: 500; border: 1px solid #2C2825; text-align: right"
 
 # Mode labels for column headers
 MODE_LABELS: dict[str, str] = {
@@ -71,27 +75,27 @@ def aitch_col(mode_key: str) -> str:
     return f"Aitch ({MODE_LABELS[mode_key]})"
 
 
-# Lithology color map for scatter plots
+# Lithology color map for scatter plots (muted geological tones)
 LITHOLOGY_COLOR_MAP: dict[str, str] = {
-    "Ophite-THOL": "#FF0000",
-    "Ophite-ALK": "#8B0000",
-    "Amphibolite": "#0000FF",
-    "Eclogite": "#EE82EE",
-    "Metabasite": "#00FF00",
-    "Basalt-ALK": "#000000",
-    "Gabbro-THOL": "#808080",
-    "Gabbro-CALC": "#D3D3D3",
-    "Gabbro-ALK": "#696969",
-    "Metagabbro": "#90EE90",
+    "Ophite-THOL": "#B5453A",   # Muted brick red
+    "Ophite-ALK": "#7A3230",    # Dark garnet
+    "Amphibolite": "#4A6FA5",   # Steel blue
+    "Eclogite": "#8B6FAD",      # Muted purple
+    "Metabasite": "#5E8C61",    # Forest sage
+    "Basalt-ALK": "#3C3C3C",    # Charcoal
+    "Gabbro-THOL": "#8A8A8A",   # Medium gray
+    "Gabbro-CALC": "#B8B0A2",   # Warm light gray
+    "Gabbro-ALK": "#6B6460",    # Warm dark gray
+    "Metagabbro": "#7AAD7D",    # Light sage
 }
 
 # Region color map for scatter plots
 REGION_COLOR_MAP: dict[str, str] = {
-    "Upper Guadalquivir": "orange",
-    "Southeast": "dodgerblue",
-    "Subbaetic": "red",
-    "Middle Guadalquivir": "limegreen",
-    "Lower Guadalquivir": "mediumpurple",
+    "Upper Guadalquivir": "#C9873A",  # Amber ochre
+    "Southeast": "#4A6FA5",           # Steel blue
+    "Subbaetic": "#B5453A",           # Brick red
+    "Middle Guadalquivir": "#5E8C61", # Forest sage
+    "Lower Guadalquivir": "#7B6B99",  # Muted lavender
 }
 
 
@@ -116,39 +120,37 @@ def has_euclidean(mode_key: str) -> bool:
 # Paired-color step size per mode
 AITCH_STEP: dict[str, float] = {"alr5": 0.5, "trace": 1.0, "all": 1.5}
 
-# Map marker colors — one per band, matching Excel conditional formatting
+# Map marker colors — one per band (earth-tone palette)
 MARKER_COLORS = [
-    "lightskyblue",    # band 1 — blue
-    "mediumseagreen",  # band 2 — green
-    "goldenrod",       # band 3 — yellow / gold
+    "#4A7C8A",       # band 1 — slate teal
+    "#7A9A5E",       # band 2 — sage green
+    "#C9A96E",       # band 3 — sandstone
 ]
-MARKER_OVERFLOW = "tomato"  # band 4+ — red
+MARKER_OVERFLOW = "#A65D57"  # band 4+ — terra cotta
 
-# Table cell background colors — matching Excel conditional formatting
+# Table cell background colors (earth-tone palette)
 CELL_COLORS = [
-    "#ADD8E6",  # band 1 — light blue
-    "#90EE90",  # band 2 — light green
-    "#FFDAB9",  # band 3 — peach
+    "#4A7C8A",  # band 1 — slate teal
+    "#7A9A5E",  # band 2 — sage green
+    "#C9A96E",  # band 3 — sandstone
 ]
-CELL_OVERFLOW = "#F08080"  # band 4+ — light coral
+CELL_OVERFLOW = "#A65D57"  # band 4+ — terra cotta
 
 # Excel fill hex (same palette, no # prefix)
 EXCEL_COLORS = [c.lstrip("#") for c in CELL_COLORS]
 EXCEL_OVERFLOW = CELL_OVERFLOW.lstrip("#")
 
 # Confidence score band thresholds and colors
-CONF_VERY_HIGH = 85   # >= 85%
-CONF_HIGH = 70        # 70–84%
-CONF_MODERATE = 50    # 50–69%
-CONF_LOW = 35         # 35–49%
-# < 35% = Very Low
+CONF_VERY_HIGH = 75   # > 75%
+CONF_HIGH = 60        # 60-75%
+CONF_MODERATE = 45    # 45-60%
+CONF_LOW = 45         # kept for import compat; styling uses 4 bands
 
 CONF_COLORS: dict[str, str] = {
-    "very_high": "#2E8B57",  # Sea green
-    "high": "#90EE90",       # Light green
-    "moderate": "#FFDAB9",   # Peach
-    "low": "#F4A460",        # Sandy brown
-    "very_low": "#F08080",   # Light coral
+    "very_high": "#3D7A5F",  # Muted forest green
+    "high": "#7A9A5E",       # Sage
+    "moderate": "#C9A96E",   # Sandstone
+    "low": "#A65D57",        # Terra cotta
 }
 
 CONF_EXCEL_COLORS: dict[str, str] = {
@@ -161,4 +163,51 @@ MAP_BOUNDS = {
     "east":   1.5,
     "south": 33.5,
     "north": 41.5,
+}
+
+# ---------------------------------------------------------------------------
+# Plotly chart styling (publication-quality defaults)
+# ---------------------------------------------------------------------------
+
+PLOTLY_FONT = {
+    "family": "Source Sans 3, Source Sans Pro, Helvetica, Arial, sans-serif",
+    "color": "#2C2825",
+    "size": 13,
+}
+
+PLOTLY_LAYOUT = {
+    "font": PLOTLY_FONT,
+    "title": {
+        "font": {
+            "family": "Crimson Pro, Georgia, serif",
+            "size": 18,
+            "color": "#2C2825",
+        },
+        "x": 0.0,
+        "xanchor": "left",
+    },
+    "paper_bgcolor": "#FAFAF7",
+    "plot_bgcolor": "#FAFAF7",
+    "margin": {"l": 60, "r": 30, "t": 60, "b": 50},
+    "legend": {
+        "font": {"size": 11},
+        "bgcolor": "rgba(250,250,247,0.9)",
+        "bordercolor": "#D4CCC0",
+        "borderwidth": 1,
+    },
+}
+
+PLOTLY_AXIS_STYLE = {
+    "showline": True,
+    "linecolor": "#2C2825",
+    "linewidth": 1,
+    "ticks": "outside",
+    "tickfont": {"color": "#2C2825", "size": 11},
+    "title_font": {"size": 13, "color": "#3D3530"},
+    "showgrid": True,
+    "gridcolor": "#E8E2D8",
+    "gridwidth": 0.5,
+    "griddash": "dot",
+    "zeroline": False,
+    "mirror": False,
 }

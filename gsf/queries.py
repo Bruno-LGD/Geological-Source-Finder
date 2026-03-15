@@ -20,7 +20,6 @@ from gsf.matching import get_top_matches_multimode
 from gsf.photos import get_artefact_images, prefetch_artefact_images
 from gsf.styling import (
     color_aitch_with_thresholds,
-    color_aitch_alr5_gradient,
 )
 from gsf.viz import (
     display_artefact_photos,
@@ -163,19 +162,26 @@ def execute_query(
     total_ratios = count_total_ratio_columns(source_df)
     valid_ratios = len(get_ratio_columns(sample))
     if valid_ratios < total_ratios:
-        st.warning(
-            f"Data Quality ({MODE_LABELS[sort_mode]}): "
-            f"{valid_ratios}/{total_ratios}"
-            " ratio columns available. "
-            f"Missing {total_ratios - valid_ratios} "
-            "values."
+        dq_border = "#A65D57"
+        dq_extra = (
+            f" Missing {total_ratios - valid_ratios} values."
         )
     else:
-        st.info(
-            f"Data Quality ({MODE_LABELS[sort_mode]}): "
-            f"{valid_ratios}/{total_ratios}"
-            " ratio columns available (complete)."
-        )
+        dq_border = "#7A9A5E"
+        dq_extra = " (complete)"
+    st.markdown(
+        f'<div style="background: #F2EDE4; padding: 0.5em 1em; '
+        f'border-left: 3px solid {dq_border}; '
+        f'border-radius: 0 4px 4px 0; '
+        f'font-size: 0.88rem; margin-bottom: 1em; '
+        f"font-family: 'Source Sans 3', sans-serif;\">"
+        f'<strong>Data Quality</strong> '
+        f'({MODE_LABELS[sort_mode]}): '
+        f'{valid_ratios}/{total_ratios} '
+        f'ratio columns available{dq_extra}'
+        f'</div>',
+        unsafe_allow_html=True,
+    )
 
     # Resolve query samples and target dfs for all modes
     query_samples: dict[str, pd.Series] = {}
@@ -263,7 +269,7 @@ def execute_query(
             share_url=share_url,
         )
 
-    # Radar chart uses sort mode's data
+    # Deviation heatmap uses sort mode's data
     sort_target_df = target_dfs[sort_mode]
     display_radar_chart(
         query_samples[sort_mode], results_df,
@@ -468,20 +474,14 @@ def execute_batch_query(
     styled_freq = freq_df.style.format(
         {"Avg_Aitch": "{:.2f}", "Min_Aitch": "{:.2f}"},
     )
-    if sort_mode == "alr5":
-        styled_freq = styled_freq.map(
-            color_aitch_alr5_gradient,
-            subset=["Avg_Aitch", "Min_Aitch"],
-        )
-    else:
-        aitch_styler = partial(
-            color_aitch_with_thresholds,
-            mode_key=sort_mode,
-        )
-        styled_freq = styled_freq.map(
-            aitch_styler,
-            subset=["Avg_Aitch", "Min_Aitch"],
-        )
+    aitch_styler = partial(
+        color_aitch_with_thresholds,
+        mode_key=sort_mode,
+    )
+    styled_freq = styled_freq.map(
+        aitch_styler,
+        subset=["Avg_Aitch", "Min_Aitch"],
+    )
     st.dataframe(styled_freq, use_container_width=True)
 
     # Combined results
@@ -796,7 +796,7 @@ def execute_comparison(
     ) -> list[str]:
         if row["Shared Count"] == len(all_results):
             return [
-                "background-color: #D4EDDA"
+                "background-color: #E8EDE2"
             ] * len(row)
         return [""] * len(row)
 
@@ -809,18 +809,13 @@ def execute_comparison(
         else []
     )
     for col in comp_aitch_cols + avg_cols:
-        if sort_mode == "alr5":
-            styled = styled.map(
-                color_aitch_alr5_gradient, subset=[col],
-            )
-        else:
-            aitch_color_fn = partial(
-                color_aitch_with_thresholds,
-                mode_key=sort_mode,
-            )
-            styled = styled.map(
-                aitch_color_fn, subset=[col],
-            )
+        aitch_color_fn = partial(
+            color_aitch_with_thresholds,
+            mode_key=sort_mode,
+        )
+        styled = styled.map(
+            aitch_color_fn, subset=[col],
+        )
 
     st.table(styled)
     st.caption(

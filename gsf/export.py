@@ -10,7 +10,6 @@ from openpyxl.styles import PatternFill, Font, Border, Side
 from gsf.constants import (
     CONF_EXCEL_COLORS,
     CONF_HIGH,
-    CONF_LOW,
     CONF_MODERATE,
     CONF_VERY_HIGH,
     GEO_CLOSE_KM,
@@ -22,7 +21,6 @@ from gsf.constants import (
     EXCEL_OVERFLOW,
     aitch_col,
 )
-from gsf.styling import alr5_zone_color
 
 
 def _get_fill_for_value(
@@ -34,11 +32,6 @@ def _get_fill_for_value(
         v = float(val)
     except (ValueError, TypeError):
         return None
-    if mode_key == "alr5":
-        hex_color = alr5_zone_color(v).lstrip("#").upper()
-        return PatternFill(
-            start_color=hex_color, fill_type="solid",
-        )
     step = AITCH_STEP.get(mode_key, 0.8)
     hex_color = EXCEL_OVERFLOW
     for i, c in enumerate(EXCEL_COLORS, start=1):
@@ -51,21 +44,19 @@ def _get_fill_for_value(
 
 
 def _get_conf_fill(val: Any) -> PatternFill | None:  # noqa: ANN401
-    """Return a PatternFill for a Conf percentage value."""
+    """Return a PatternFill for a Conf percentage value (4 bands)."""
     try:
         v = float(val)
     except (ValueError, TypeError):
         return None
-    if v >= CONF_VERY_HIGH:
+    if v > CONF_VERY_HIGH:
         c = CONF_EXCEL_COLORS["very_high"]
     elif v >= CONF_HIGH:
         c = CONF_EXCEL_COLORS["high"]
     elif v >= CONF_MODERATE:
         c = CONF_EXCEL_COLORS["moderate"]
-    elif v >= CONF_LOW:
-        c = CONF_EXCEL_COLORS["low"]
     else:
-        c = CONF_EXCEL_COLORS["very_low"]
+        c = CONF_EXCEL_COLORS["low"]
     return PatternFill(start_color=c, fill_type="solid")
 
 
@@ -76,13 +67,13 @@ def _get_geo_fill(val: Any) -> PatternFill | None:  # noqa: ANN401
     except (ValueError, TypeError, AttributeError):
         return None
     if num < GEO_VERY_CLOSE_KM:
-        c = "ADD8E6"
+        c = EXCEL_COLORS[0]
     elif num < GEO_CLOSE_KM:
-        c = "90EE90"
+        c = EXCEL_COLORS[1]
     elif num < GEO_MODERATE_KM:
-        c = "FFDAB9"
+        c = EXCEL_COLORS[2]
     else:
-        c = "F08080"
+        c = EXCEL_OVERFLOW
     return PatternFill(start_color=c, fill_type="solid")
 
 
@@ -116,7 +107,7 @@ def create_styled_excel(
         ws["A1"] = (
             f"Query: {query_accession} — {query_site}"
         )
-        ws["A1"].font = Font(bold=True, size=12)
+        ws["A1"].font = Font(bold=True, size=12, name="Georgia")
         dir_label = (
             "Artefact -> Geology"
             if direction == "artefact_to_geology"
