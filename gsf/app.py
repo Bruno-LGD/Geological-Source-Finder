@@ -42,6 +42,14 @@ html, body, [class*="css"] {
     color: #2C2825;
 }
 
+/* Preserve Streamlit's icon font (Material Symbols) */
+[data-testid="stIconMaterial"],
+[data-testid="stExpanderIconCheck"],
+[data-testid="stExpanderIconError"],
+[data-testid="stExpanderIcon"] {
+    font-family: 'Material Symbols Rounded' !important;
+}
+
 /* Main title */
 h1 {
     font-family: 'Crimson Pro', 'Georgia', serif !important;
@@ -104,6 +112,12 @@ button[data-baseweb="tab"][aria-selected="false"] {
     font-family: 'Source Sans 3', sans-serif !important;
     font-weight: 600 !important;
     color: #4A443E !important;
+}
+/* Re-override icon spans inside expanders */
+[data-testid="stExpander"] summary [data-testid="stIconMaterial"] {
+    font-family: 'Material Symbols Rounded' !important;
+    font-weight: 400 !important;
+    color: inherit !important;
 }
 
 /* Captions and small text */
