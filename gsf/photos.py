@@ -19,6 +19,7 @@ _PATH_PREFIXES: dict[str, str] = {
     "Los Millares/": "UGR assemblages/Los Millares/",
     "El Malagón/": "UGR assemblages/El Malagón/",
     "Museo Almería/": "Museo Almería pictures/",
+    "Descontextualizado/": "UGR assemblages/Descontextualizado/",
 }
 
 
