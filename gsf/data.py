@@ -74,6 +74,7 @@ def _load_alr5_df(
 @st.cache_data(show_spinner=False)
 def load_data(
     element_mode: str = "trace",
+    external_data_dir: str = "",
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """Load required Excel files from a 'Data' folder.
 
@@ -81,14 +82,27 @@ def load_data(
         element_mode: "trace" for 16 ratio columns,
             "all" for 22 ratio columns,
             "alr5" for 5 ALR log-ratio coordinates.
+        external_data_dir: optional path to an external
+            data folder (e.g. the PhD/Data directory).
+            Checked first; falls back to the local
+            Data/ folder if empty or files not found.
 
     Returns:
         (artefact_df, geology_df, geo_coords_df, arch_coords_df)
     """
-    possible_dirs = [
+    # Build search directories: external first, then local
+    search_dirs: list[str] = []
+    if external_data_dir:
+        search_dirs.append(external_data_dir)
+        sub = os.path.join(
+            external_data_dir, "Main database",
+        )
+        if os.path.isdir(sub):
+            search_dirs.append(sub)
+    search_dirs.extend([
         os.path.join(_PROJECT_ROOT, "Data"),
         os.path.join(_PROJECT_ROOT, "..", "Data"),
-    ]
+    ])
 
     if element_mode == "all":
         filenames = {
@@ -97,57 +111,56 @@ def load_data(
             "coords": "Coordinates sheet.xlsx",
         }
     else:
-        # Both "trace" and "alr5" use the Trace Elements files
         filenames = {
             "artefact": "AXEs metabasite data (Trace Elements).xlsx",
             "geology": "Geology samples data (Trace Elements).xlsx",
             "coords": "Coordinates sheet.xlsx",
         }
 
-    found_data_dir = None
-    for d in possible_dirs:
-        paths = [os.path.join(d, f) for f in filenames.values()]
-        if all(os.path.exists(p) for p in paths):
-            found_data_dir = d
-            logger.info("Data found in directory: %s", d)
-            break
+    # Resolve each file independently across search dirs
+    # (PhD folder splits files: Main database/ vs Data/)
+    resolved: dict[str, str] = {}
+    for key, fname in filenames.items():
+        for d in search_dirs:
+            candidate = os.path.join(d, fname)
+            if os.path.exists(candidate):
+                resolved[key] = candidate
+                logger.info(
+                    "Resolved %s → %s", fname, candidate,
+                )
+                break
 
-    if not found_data_dir:
+    missing = [
+        filenames[k] for k in filenames if k not in resolved
+    ]
+    if missing:
         raise FileNotFoundError(
-            f"Required files not found in: {possible_dirs}\n"
+            f"Required files not found: {missing}\n"
+            f"Searched in: {search_dirs}\n"
             "Place the Excel files in a 'Data' folder "
-            "next to this script."
+            "next to this script, or configure an "
+            "external data source in the sidebar."
         )
 
     try:
         if element_mode == "alr5":
             artefact_df = _load_alr5_df(
-                os.path.join(
-                    found_data_dir, filenames["artefact"],
-                ),
-                "AXEs ppm data",
+                resolved["artefact"], "AXEs ppm data",
             )
             geology_df = _load_alr5_df(
-                os.path.join(
-                    found_data_dir, filenames["geology"],
-                ),
-                "Geology ppm data",
+                resolved["geology"], "Geology ppm data",
             )
         else:
             artefact_df = pd.read_excel(
-                os.path.join(
-                    found_data_dir, filenames["artefact"],
-                ),
+                resolved["artefact"],
                 sheet_name="AXEs Ratios",
             )
             geology_df = pd.read_excel(
-                os.path.join(
-                    found_data_dir, filenames["geology"],
-                ),
+                resolved["geology"],
                 sheet_name="Geology ratios",
             )
         coords_sheets = pd.read_excel(
-            os.path.join(found_data_dir, filenames["coords"]),
+            resolved["coords"],
             sheet_name=[
                 "Geology Samples Coord",
                 "Archaeology Sites Coord",

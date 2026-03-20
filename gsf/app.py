@@ -252,6 +252,46 @@ def main() -> None:
         st.divider()
         saved_config = load_config()
 
+        # --- Data Source Configuration ---
+        with st.expander(
+            "Data Source", expanded=False,
+        ):
+            saved_data_dir = (
+                saved_config.get("external_data_dir", "")
+                or ""
+            )
+            external_data_dir = st.text_input(
+                "External Data Folder:",
+                value=saved_data_dir,
+                help=(
+                    "Path to a folder containing the AXEs, "
+                    "Geology, and Coordinates Excel files "
+                    "(e.g. your PhD/Data folder). Files can "
+                    "be in the folder itself or in a "
+                    "'Main database' subfolder. Leave empty "
+                    "to use the built-in Data/ folder."
+                ),
+                key="external_data_dir",
+            ) or ""
+            if external_data_dir != saved_data_dir:
+                save_config(
+                    {
+                        **saved_config,
+                        "external_data_dir": external_data_dir,
+                    }
+                )
+                saved_config = load_config()
+                # Clear cached data so it reloads from the
+                # new source on next run
+                load_data.clear()
+            if external_data_dir:
+                st.caption(
+                    f"Reading data from: "
+                    f"`{external_data_dir}`"
+                )
+            else:
+                st.caption("Using built-in Data/ folder")
+
         # --- Photo Configuration (collapsible) ---
         with st.expander("Photo Configuration", expanded=False):
             # Local photos folder
@@ -424,7 +464,10 @@ def main() -> None:
     arch_coords_df: pd.DataFrame | None = None
     try:
         for mode in enabled_modes:
-            art_df, geo_df, gc_df, ac_df = load_data(mode)
+            art_df, geo_df, gc_df, ac_df = load_data(
+                mode,
+                external_data_dir=external_data_dir,
+            )
             mode_datasets[mode] = (art_df, geo_df)
             if geo_coords_df is None:
                 geo_coords_df = gc_df
