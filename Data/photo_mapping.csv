@@ -1,56 +1,128 @@
-Accession #,Site,Type,Image_1,Image_2,Image_3,Image_4,Image_5,Image_6,Match_Confidence,Notes
+﻿Accession #,Site,Type,Image_1,Image_2,Image_3,Image_4,Image_5,Image_6,Match_Confidence,Notes
+1-165,Valencina,AXE,Valencina Museum/VDC 1-165 (1).jpg,Valencina Museum/VDC 1-165 (2).jpg,Valencina Museum/VDC 1-165 (3).jpg,Valencina Museum/VDC 1-165 (4).jpg,,,High,Valencina Museum (Apr 2024)
+1-166,Valencina,AXE,Valencina Museum/VDC 1-166 (1).jpg,Valencina Museum/VDC 1-166 (2).jpg,Valencina Museum/VDC 1-166 (3).jpg,Valencina Museum/VDC 1-166 (4).jpg,,,High,Valencina Museum (Apr 2024)
+1-167,Valencina,AXE,Valencina Museum/VDC 1-167 (1).jpg,Valencina Museum/VDC 1-167 (2).jpg,Valencina Museum/VDC 1-167 (3).jpg,Valencina Museum/VDC 1-167 (4).jpg,,,High,Valencina Museum (Apr 2024)
+1-79,Valencina,AXE,Valencina Museum/VDC 1-79 (1).jpg,Valencina Museum/VDC 1-79 (2).jpg,Valencina Museum/VDC 1-79 (3).jpg,Valencina Museum/VDC 1-79 (4).jpg,,,High,Valencina Museum (Apr 2024)
+1-81,Valencina,AXE,Valencina Museum/VDC 1-81 (1).jpg,Valencina Museum/VDC 1-81 (2).jpg,Valencina Museum/VDC 1-81 (3).jpg,Valencina Museum/VDC 1-81 (4).jpg,,,High,Valencina Museum (Apr 2024)
+1-85,Valencina,AXE,Valencina Museum/VDC 1-85 (1).jpg,Valencina Museum/VDC 1-85 (2).jpg,Valencina Museum/VDC 1-85 (3).jpg,Valencina Museum/VDC 1-85 (4).jpg,,,High,Valencina Museum (Apr 2024)
+1-86,Valencina,AXE,Valencina Museum/VDC 1-86 (1).jpg,Valencina Museum/VDC 1-86 (2).jpg,Valencina Museum/VDC 1-86 (3).jpg,Valencina Museum/VDC 1-86 (4).jpg,,,High,Valencina Museum (Apr 2024)
+1-87,Valencina,AXE,Valencina Museum/VDC 1-87 (1).jpg,Valencina Museum/VDC 1-87 (2).jpg,Valencina Museum/VDC 1-87 (3).jpg,Valencina Museum/VDC 1-87 (4).jpg,,,High,Valencina Museum (Apr 2024)
+1-88,Valencina,AXE,Valencina Museum/VDC 1-88 (1).jpg,Valencina Museum/VDC 1-88 (2).jpg,Valencina Museum/VDC 1-88 (3).jpg,,,,High,Valencina Museum (Apr 2024)
+1-89,Valencina,AXE,Valencina Museum/VDC 1-89 (1).jpg,Valencina Museum/VDC 1-89 (2).jpg,Valencina Museum/VDC 1-89 (3).jpg,Valencina Museum/VDC 1-89 (4).jpg,,,High,Valencina Museum (Apr 2024)
+1-90,Valencina,AXE,Valencina Museum/VDC 1-90 (1).jpg,Valencina Museum/VDC 1-90 (2).jpg,Valencina Museum/VDC 1-90 (3).jpg,Valencina Museum/VDC 1-90 (4).jpg,,,High,Valencina Museum (Apr 2024)
+1-91,Valencina,AXE,Valencina Museum/VDC 1-91 (1).jpg,Valencina Museum/VDC 1-91 (2).jpg,Valencina Museum/VDC 1-91 (3).jpg,Valencina Museum/VDC 1-91 (4).jpg,,,High,Valencina Museum (Apr 2024)
+1-92,Valencina,AXE,Valencina Museum/VDC 1-92 (1).jpg,Valencina Museum/VDC 1-92 (2).jpg,Valencina Museum/VDC 1-92 (3).jpg,Valencina Museum/VDC 1-92 (4).jpg,,,High,Valencina Museum (Apr 2024)
+1-93,Valencina,AXE,Valencina Museum/VDC 1-93 (1).jpg,Valencina Museum/VDC 1-93 (2).jpg,Valencina Museum/VDC 1-93 (3).jpg,Valencina Museum/VDC 1-93 (4).jpg,,,High,Valencina Museum (Apr 2024)
+1-94,Valencina,AXE,Valencina Museum/VDC 1-94 (1).jpg,Valencina Museum/VDC 1-94 (2).jpg,Valencina Museum/VDC 1-94 (3).jpg,Valencina Museum/VDC 1-94 (4).jpg,,,High,Valencina Museum (Apr 2024)
+1-95,Valencina,AXE,Valencina Museum/VDC 1-95 (1).jpg,Valencina Museum/VDC 1-95 (2).jpg,Valencina Museum/VDC 1-95 (3).jpg,Valencina Museum/VDC 1-95 (4).jpg,,,High,Valencina Museum (Apr 2024)
+1-96,Valencina,AXE,Valencina Museum/VDC 1-96 (1).jpg,Valencina Museum/VDC 1-96 (2).jpg,Valencina Museum/VDC 1-96 (3).jpg,Valencina Museum/VDC 1-96 (4).jpg,,,High,Valencina Museum (Apr 2024)
+1-97,Valencina,AXE,Valencina Museum/VDC 1-97 (1).jpg,Valencina Museum/VDC 1-97 (2).jpg,Valencina Museum/VDC 1-97 (3).jpg,Valencina Museum/VDC 1-97 (4).jpg,,,High,Valencina Museum (Apr 2024)
 10489,Hinojares,AXE,Jaén Museum/10489 (1).jpg,Jaén Museum/10489 (2).jpg,Jaén Museum/10489 (3).jpg,Jaén Museum/10489 (4).jpg,,,High,auto-matched
 10590,Pedroches,AXE,Córdoba Museum/Pedroches 10590 (1).jpg,Córdoba Museum/Pedroches 10590 (2).jpg,Córdoba Museum/Pedroches 10590 (3).jpg,Córdoba Museum/Pedroches 10590 (4).jpg,,,High,structured
 10591,Pedroches,AXE,Córdoba Museum/Pedroches 10591 (1).jpg,Córdoba Museum/Pedroches 10591 (2).jpg,Córdoba Museum/Pedroches 10591 (3).jpg,Córdoba Museum/Pedroches 10591 (4).jpg,,,High,structured
-11033,Malagón,AXE,El Malagón/Raw/CB 11033 (1).JPG,El Malagón/Raw/CB 11033 (2).JPG,El Malagón/Raw/CB 11033 (3).JPG,,,,High,El Malagón/Raw
+11033,Malagón,AXE,UGR assemblages/El Malagón/Raw/CB 11033 (1).JPG,UGR assemblages/El Malagón/Raw/CB 11033 (2).JPG,UGR assemblages/El Malagón/Raw/CB 11033 (3).JPG,,,,High,El Malagón/Raw
 11680,Martos,AXE,Jaén Museum/11680 (1).jpg,Jaén Museum/11680 (2).jpg,Jaén Museum/11680 (3).jpg,Jaén Museum/11680 (4).jpg,,,High,auto-matched
-124/81/91,Montefrío,AXE,Descontextualizado/Raw/MF 124-81-91 (1).jpg,Descontextualizado/Raw/MF 124-81-91 (2).jpg,Descontextualizado/Raw/MF 124-81-91 (3).jpg,,,,High,Descontextualizado/Raw
-12845,Blanquizares,AXE,Museo Almería/Blanquizares 12845.jpg,Museo Almería/Blanquizares 12845 (2).jpg,Museo Almería/Blanquizares 12845 (3).jpg,,,,High,auto-matched
-12869,Blanquizares,AXE,Museo Almería/Blanquizares 12869.jpg,Museo Almería/Blanquizares 12869 (2).jpg,,,,,High,auto-matched
-12870,Blanquizares,AXE,Museo Almería/Blanquizares 12870.jpg,Museo Almería/Blanquizares 12870 (2).jpg,Museo Almería/Blanquizares 12870 (3).jpg,,,,High,auto-matched
-12871,Blanquizares,AXE,Museo Almería/Blanquizares 12871.jpg,Museo Almería/Blanquizares 12871 (2).jpg,Museo Almería/Blanquizares 12871 (3).jpg,,,,High,auto-matched
-12872,Blanquizares,AXE,Museo Almería/Blanquizares 12872.jpg,Museo Almería/Blanquizares 12872 (2).jpg,Museo Almería/Blanquizares 12872 (3).jpg,,,,High,auto-matched
-12873,Blanquizares,AXE,Museo Almería/Blanquizares 12873.jpg,Museo Almería/Blanquizares 12873 (2).jpg,,,,,High,auto-matched
+12/4,Valencina,AXE,Valencina Museum/12-4 (1).jpg,Valencina Museum/12-4 (2).jpg,Valencina Museum/12-4 (3).jpg,Valencina Museum/12-4 (4).jpg,,,High,Valencina Museum (Feb 2026)
+120,Valencina,AXE,Valencina Museum/120 (1).jpg,Valencina Museum/120 (2).jpg,Valencina Museum/120 (3).jpg,,,,High,Valencina Museum (Feb 2026)
+124/81/91,Montefrío,AXE,UGR assemblages/Descontextualizado/Raw/MF 124-81-91 (1).jpg,UGR assemblages/Descontextualizado/Raw/MF 124-81-91 (2).jpg,UGR assemblages/Descontextualizado/Raw/MF 124-81-91 (3).jpg,,,,High,Descontextualizado/Raw
+126,Valencina,AXE,Valencina Museum/126 (1).jpg,,,,,,High,Valencina Museum (Feb 2026)
+12845,Blanquizares,AXE,Museo Almería pictures/Blanquizares 12845.jpg,Museo Almería pictures/Blanquizares 12845 (2).jpg,Museo Almería pictures/Blanquizares 12845 (3).jpg,,,,High,auto-matched
+12869,Blanquizares,AXE,Museo Almería pictures/Blanquizares 12869.jpg,Museo Almería pictures/Blanquizares 12869 (2).jpg,,,,,High,auto-matched
+12870,Blanquizares,AXE,Museo Almería pictures/Blanquizares 12870.jpg,Museo Almería pictures/Blanquizares 12870 (2).jpg,Museo Almería pictures/Blanquizares 12870 (3).jpg,,,,High,auto-matched
+12871,Blanquizares,AXE,Museo Almería pictures/Blanquizares 12871.jpg,Museo Almería pictures/Blanquizares 12871 (2).jpg,Museo Almería pictures/Blanquizares 12871 (3).jpg,,,,High,auto-matched
+12872,Blanquizares,AXE,Museo Almería pictures/Blanquizares 12872.jpg,Museo Almería pictures/Blanquizares 12872 (2).jpg,Museo Almería pictures/Blanquizares 12872 (3).jpg,,,,High,auto-matched
+12873,Blanquizares,AXE,Museo Almería pictures/Blanquizares 12873.jpg,Museo Almería pictures/Blanquizares 12873 (2).jpg,,,,,High,auto-matched
+13/9,Valencina,AXE,Valencina Museum/13-9 (1).jpg,Valencina Museum/13-9 (2).jpg,Valencina Museum/13-9 (3).jpg,,,,High,Valencina Museum (Feb 2026)
+131,Valencina,AXE,,,,,,,,Valencina Museum - no photo taken
+131,Valencina,AXE,Valencina Museum/131 (1).jpg,,,,,,High,auto-matched from Valencina Museum folder
+133,Valencina,AXE,Valencina Museum/133 (1).jpg,Valencina Museum/133 (2).jpg,Valencina Museum/133 (3).jpg,,,,High,Valencina Museum (Feb 2026)
+134,Valencina,AXE,Valencina Museum/134 (1).jpg,Valencina Museum/134 (2).jpg,Valencina Museum/134 (3).jpg,,,,High,Valencina Museum (Feb 2026)
 1371,Cástulo,MAC,Linares Museum/Cástulo 1371 (1).jpg,Linares Museum/Cástulo 1371 (2).jpg,Linares Museum/Cástulo 1371 (3).jpg,,,,High,structured
 1372,Cástulo,MAC,Linares Museum/Cástulo 1372 (1).jpg,Linares Museum/Cástulo 1372 (2).jpg,Linares Museum/Cástulo 1372 (3).jpg,,,,High,structured
-14439,Cueva Castillico,AXE,Museo Almería/Castillico 14439 (1).jpg,Museo Almería/Castillico 14439 (2).jpg,Museo Almería/Castillico 14439 (3).jpg,,,,High,auto-matched
+14/472,Valencina,AXE,Valencina Museum/14-472 (1).jpg,Valencina Museum/14-472 (2).jpg,Valencina Museum/14-472 (3).jpg,,,,High,Valencina Museum (Feb 2026)
+14/579,Valencina,AXE,Valencina Museum/14-579 (1).jpg,Valencina Museum/14-579 (2).jpg,Valencina Museum/14-579 (3).jpg,,,,High,Valencina Museum (Feb 2026)
+14439,Cueva Castillico,AXE,Museo Almería pictures/Castillico 14439 (1).jpg,Museo Almería pictures/Castillico 14439 (2).jpg,Museo Almería pictures/Castillico 14439 (3).jpg,,,,High,auto-matched
 146,MUbe DEC,AXE,Úbeda Museum/MUbe 146 (1).jpg,Úbeda Museum/MUbe 146 (2).jpg,Úbeda Museum/MUbe 146 (3).jpg,Úbeda Museum/MUbe 146 (4).jpg,,,High,structured
 147,MUbe DEC,AXE,Úbeda Museum/MUbe 147 (1).jpg,Úbeda Museum/MUbe 147 (2).jpg,Úbeda Museum/MUbe 147 (3).jpg,Úbeda Museum/MUbe 147 (4).jpg,,,High,structured
+15,Valencina,AXE,Valencina Museum/15 (1).jpg,Valencina Museum/15 (2).jpg,Valencina Museum/15 (3).jpg,,,,High,Valencina Museum (Feb 2026)
 151,MUbe DEC,AXE,Úbeda Museum/MUbe 151 (1).jpg,Úbeda Museum/MUbe 151 (2).jpg,Úbeda Museum/MUbe 151 (3).jpg,Úbeda Museum/MUbe 151 (4).jpg,,,High,structured
-15256,Venta de la Rata,AXE,Museo Almería/Venta Rata 15256.jpg,Museo Almería/Venta Rata 15256 (2).jpg,Museo Almería/Venta Rata 15256 (3).jpg,,,,High,auto-matched
-15257,Venta de la Rata,AXE,Museo Almería/Venta Rata 15257.jpg,Museo Almería/Venta Rata 15257 (2).jpg,Museo Almería/Venta Rata 15257 (3).jpg,,,,High,auto-matched
-15258,Venta de la Rata,AXE,Museo Almería/Venta Rata 15258.jpg,Museo Almería/Venta Rata 15258 (2).jpg,Museo Almería/Venta Rata 15258 (3).jpg,,,,High,auto-matched
-15259,Venta de la Rata,AXE,Museo Almería/Venta Rata 15259.jpg,Museo Almería/Venta Rata 15259 (2).jpg,Museo Almería/Venta Rata 15259 (3).jpg,,,,High,auto-matched
-15260,Venta de la Rata,AXE,Museo Almería/Venta Rata 15260.jpg,Museo Almería/Venta Rata 15260 (2).jpg,Museo Almería/Venta Rata 15260 (3).jpg,,,,High,auto-matched
-15261,Venta de la Rata,AXE,Museo Almería/Venta Rata 15261.jpg,Museo Almería/Venta Rata 15261 (2).jpg,Museo Almería/Venta Rata 15261 (3).jpg,,,,High,auto-matched
-15262,Venta de la Rata,AXE,Museo Almería/Venta Rata 15262.jpg,Museo Almería/Venta Rata 15262 (2).jpg,,,,,High,auto-matched
-15263,Venta de la Rata,AXE,Museo Almería/Venta Rata 15263.jpg,Museo Almería/Venta Rata 15263 (2).jpg,Museo Almería/Venta Rata 15263 (3).jpg,,,,High,auto-matched
-15264,Venta de la Rata,AXE,Museo Almería/Venta Rata 15264.jpg,Museo Almería/Venta Rata 15264 (2).jpg,Museo Almería/Venta Rata 15264 (3).jpg,,,,High,auto-matched
-15265,Venta de la Rata,AXE,Museo Almería/Venta Rata 15265.jpg,Museo Almería/Venta Rata 15265 (2).jpg,Museo Almería/Venta Rata 15265 (3).jpg,,,,High,auto-matched
-15266,Venta de la Rata,AXE,Museo Almería/Venta Rata 15266.jpg,Museo Almería/Venta Rata 15266 (2).jpg,Museo Almería/Venta Rata 15266 (3).jpg,,,,High,auto-matched
-15267,Venta de la Rata,AXE,Museo Almería/Venta Rata 15267.jpg,Museo Almería/Venta Rata 15267 (2).jpg,Museo Almería/Venta Rata 15267 (3).jpg,,,,High,auto-matched
-15269,Venta de la Rata,AXE,Museo Almería/Venta Rata 15269.jpg,Museo Almería/Venta Rata 15269 (2).jpg,Museo Almería/Venta Rata 15269 (3).jpg,,,,High,auto-matched
-15270,Venta de la Rata,AXE,Museo Almería/Venta Rata 15270.jpg,Museo Almería/Venta Rata 15270 (2).jpg,Museo Almería/Venta Rata 15270 (3).jpg,,,,High,auto-matched
-15348,Blanquizares,AXE,Museo Almería/Blanquizares 15348.jpg,Museo Almería/Blanquizares 15348 (2).jpg,Museo Almería/Blanquizares 15348 (3).jpg,,,,High,auto-matched
-15349,Blanquizares,AXE,Museo Almería/Blanquizares 15349.jpg,Museo Almería/Blanquizares 15349 (2).jpg,Museo Almería/Blanquizares 15349 (3).jpg,,,,High,auto-matched
-15350,Blanquizares,AXE,Museo Almería/Blanquizares 15350.jpg,Museo Almería/Blanquizares 15350 (2).jpg,Museo Almería/Blanquizares 15350 (3).jpg,,,,High,auto-matched
-15351,Blanquizares,AXE,Museo Almería/Blanquizares 15351.jpg,Museo Almería/Blanquizares 15351 (2).jpg,Museo Almería/Blanquizares 15351 (3).jpg,,,,High,auto-matched
-15352,Blanquizares,AXE,Museo Almería/Blanquizares 15352.jpg,Museo Almería/Blanquizares 15352 (2).jpg,Museo Almería/Blanquizares 15352 (3).jpg,,,,High,auto-matched
-15353,Blanquizares,AXE,Museo Almería/Blanquizares 15353.jpg,Museo Almería/Blanquizares 15353 (2).jpg,Museo Almería/Blanquizares 15353 (3).jpg,,,,High,auto-matched
+15256,Venta de la Rata,AXE,Museo Almería pictures/Venta Rata 15256.jpg,Museo Almería pictures/Venta Rata 15256 (2).jpg,Museo Almería pictures/Venta Rata 15256 (3).jpg,,,,High,auto-matched
+15257,Venta de la Rata,AXE,Museo Almería pictures/Venta Rata 15257.jpg,Museo Almería pictures/Venta Rata 15257 (2).jpg,Museo Almería pictures/Venta Rata 15257 (3).jpg,,,,High,auto-matched
+15258,Venta de la Rata,AXE,Museo Almería pictures/Venta Rata 15258.jpg,Museo Almería pictures/Venta Rata 15258 (2).jpg,Museo Almería pictures/Venta Rata 15258 (3).jpg,,,,High,auto-matched
+15259,Venta de la Rata,AXE,Museo Almería pictures/Venta Rata 15259.jpg,Museo Almería pictures/Venta Rata 15259 (2).jpg,Museo Almería pictures/Venta Rata 15259 (3).jpg,,,,High,auto-matched
+15260,Venta de la Rata,AXE,Museo Almería pictures/Venta Rata 15260.jpg,Museo Almería pictures/Venta Rata 15260 (2).jpg,Museo Almería pictures/Venta Rata 15260 (3).jpg,,,,High,auto-matched
+15261,Venta de la Rata,AXE,Museo Almería pictures/Venta Rata 15261.jpg,Museo Almería pictures/Venta Rata 15261 (2).jpg,Museo Almería pictures/Venta Rata 15261 (3).jpg,,,,High,auto-matched
+15262,Venta de la Rata,AXE,Museo Almería pictures/Venta Rata 15262.jpg,Museo Almería pictures/Venta Rata 15262 (2).jpg,,,,,High,auto-matched
+15263,Venta de la Rata,AXE,Museo Almería pictures/Venta Rata 15263.jpg,Museo Almería pictures/Venta Rata 15263 (2).jpg,Museo Almería pictures/Venta Rata 15263 (3).jpg,,,,High,auto-matched
+15264,Venta de la Rata,AXE,Museo Almería pictures/Venta Rata 15264.jpg,Museo Almería pictures/Venta Rata 15264 (2).jpg,Museo Almería pictures/Venta Rata 15264 (3).jpg,,,,High,auto-matched
+15265,Venta de la Rata,AXE,Museo Almería pictures/Venta Rata 15265.jpg,Museo Almería pictures/Venta Rata 15265 (2).jpg,Museo Almería pictures/Venta Rata 15265 (3).jpg,,,,High,auto-matched
+15266,Venta de la Rata,AXE,Museo Almería pictures/Venta Rata 15266.jpg,Museo Almería pictures/Venta Rata 15266 (2).jpg,Museo Almería pictures/Venta Rata 15266 (3).jpg,,,,High,auto-matched
+15267,Venta de la Rata,AXE,Museo Almería pictures/Venta Rata 15267.jpg,Museo Almería pictures/Venta Rata 15267 (2).jpg,Museo Almería pictures/Venta Rata 15267 (3).jpg,,,,High,auto-matched
+15269,Venta de la Rata,AXE,Museo Almería pictures/Venta Rata 15269.jpg,Museo Almería pictures/Venta Rata 15269 (2).jpg,Museo Almería pictures/Venta Rata 15269 (3).jpg,,,,High,auto-matched
+15270,Venta de la Rata,AXE,Museo Almería pictures/Venta Rata 15270.jpg,Museo Almería pictures/Venta Rata 15270 (2).jpg,Museo Almería pictures/Venta Rata 15270 (3).jpg,,,,High,auto-matched
+15348,Blanquizares,AXE,Museo Almería pictures/Blanquizares 15348.jpg,Museo Almería pictures/Blanquizares 15348 (2).jpg,Museo Almería pictures/Blanquizares 15348 (3).jpg,,,,High,auto-matched
+15349,Blanquizares,AXE,Museo Almería pictures/Blanquizares 15349.jpg,Museo Almería pictures/Blanquizares 15349 (2).jpg,Museo Almería pictures/Blanquizares 15349 (3).jpg,,,,High,auto-matched
+15350,Blanquizares,AXE,Museo Almería pictures/Blanquizares 15350.jpg,Museo Almería pictures/Blanquizares 15350 (2).jpg,Museo Almería pictures/Blanquizares 15350 (3).jpg,,,,High,auto-matched
+15351,Blanquizares,AXE,Museo Almería pictures/Blanquizares 15351.jpg,Museo Almería pictures/Blanquizares 15351 (2).jpg,Museo Almería pictures/Blanquizares 15351 (3).jpg,,,,High,auto-matched
+15352,Blanquizares,AXE,Museo Almería pictures/Blanquizares 15352.jpg,Museo Almería pictures/Blanquizares 15352 (2).jpg,Museo Almería pictures/Blanquizares 15352 (3).jpg,,,,High,auto-matched
+15353,Blanquizares,AXE,Museo Almería pictures/Blanquizares 15353.jpg,Museo Almería pictures/Blanquizares 15353 (2).jpg,Museo Almería pictures/Blanquizares 15353 (3).jpg,,,,High,auto-matched
 1564,Castillo de Locubín,AXE,Jaén Museum/1564 (1).jpg,Jaén Museum/1564 (2).jpg,Jaén Museum/1564 (3).jpg,Jaén Museum/1564 (4).jpg,,,High,auto-matched
+1572,MJ DEC,AXE,Jaén Museum/1572 (1).jpg,Jaén Museum/1572 (2).jpg,Jaén Museum/1572 (3).jpg,Jaén Museum/1572 (4).jpg,,,High,sillimanite-auto
+1599,MJ DEC,AXE,Jaén Museum/1599 (1).jpg,Jaén Museum/1599 (2).jpg,Jaén Museum/1599 (3).jpg,Jaén Museum/1599 (4).jpg,,,High,sillimanite-auto
+16,Valencina,AXE,Valencina Museum/16 (1).jpg,,,,,,High,Valencina Museum (Feb 2026)
 1603,MJ DEC,AXE,Jaén Museum/1603 (1).jpg,Jaén Museum/1603 (2).jpg,Jaén Museum/1603 (3).jpg,Jaén Museum/1603 (4).jpg,,,High,auto-matched
+1604,MJ DEC,AXE,Jaén Museum/1604 (1).jpg,Jaén Museum/1604 (2).jpg,Jaén Museum/1604 (3).jpg,Jaén Museum/1604 (4).jpg,,,High,sillimanite-auto
+1605,MJ DEC,AXE,Jaén Museum/1605 (1).jpg,Jaén Museum/1605 (2).jpg,Jaén Museum/1605 (3).jpg,Jaén Museum/1605 (4).jpg,,,High,sillimanite-auto
+1607,MJ DEC,AXE,Jaén Museum/1607 (1).jpg,Jaén Museum/1607 (2).jpg,Jaén Museum/1607 (3).jpg,Jaén Museum/1607 (4).jpg,,,High,sillimanite-auto
+1610,MJ DEC,AXE,Jaén Museum/1610 (1).jpg,Jaén Museum/1610 (2).jpg,Jaén Museum/1610 (3).jpg,Jaén Museum/1610 (4).jpg,,,High,sillimanite-auto
+1611,MJ DEC,AXE,Jaén Museum/1611 (1).jpg,Jaén Museum/1611 (2).jpg,Jaén Museum/1611 (3).jpg,Jaén Museum/1611 (4).jpg,,,High,sillimanite-auto
+1613,MJ DEC,AXE,Jaén Museum/1613 (1).jpg,Jaén Museum/1613 (2).jpg,Jaén Museum/1613 (3).jpg,Jaén Museum/1613 (4).jpg,,,High,sillimanite-auto
+1614,MJ DEC,AXE,Jaén Museum/1614 (1).jpg,Jaén Museum/1614 (2).jpg,Jaén Museum/1614 (3).jpg,Jaén Museum/1614 (4).jpg,,,High,sillimanite-auto
+1621,MJ DEC,AXE,Jaén Museum/1621 (1).jpg,Jaén Museum/1621 (2).jpg,Jaén Museum/1621 (3).jpg,Jaén Museum/1621 (4).jpg,,,High,sillimanite-auto
+1622,MJ DEC,AXE,Jaén Museum/1622 (1).jpg,Jaén Museum/1622 (2).jpg,Jaén Museum/1622 (3).jpg,Jaén Museum/1622 (4).jpg,,,High,sillimanite-auto
+1624,MJ DEC,AXE,Jaén Museum/1624 (1).jpg,Jaén Museum/1624 (2).jpg,Jaén Museum/1624 (3).jpg,Jaén Museum/1624 (4).jpg,,,High,sillimanite-auto
+1625,MJ DEC,AXE,Jaén Museum/1625 (1).jpg,Jaén Museum/1625 (2).jpg,Jaén Museum/1625 (3).jpg,Jaén Museum/1625 (4).jpg,,,High,sillimanite-auto
+1626,MJ DEC,AXE,Jaén Museum/1626 (1).jpg,Jaén Museum/1626 (2).jpg,Jaén Museum/1626 (3).jpg,Jaén Museum/1626 (4).jpg,,,High,sillimanite-auto
+1627,MJ DEC,AXE,Jaén Museum/1627 (1).jpg,Jaén Museum/1627 (2).jpg,Jaén Museum/1627 (3).jpg,Jaén Museum/1627 (4).jpg,,,High,sillimanite-auto
+1628,MJ DEC,AXE,Jaén Museum/1628 (1).jpg,Jaén Museum/1628 (2).jpg,Jaén Museum/1628 (3).jpg,Jaén Museum/1628 (4).jpg,,,High,sillimanite-auto
+1629,MJ DEC,AXE,Jaén Museum/1629 (1).jpg,Jaén Museum/1629 (2).jpg,Jaén Museum/1629 (3).jpg,Jaén Museum/1629 (4).jpg,,,High,sillimanite-auto
+1630,MJ DEC,AXE,Jaén Museum/1630 (1).jpg,Jaén Museum/1630 (2).jpg,Jaén Museum/1630 (3).jpg,Jaén Museum/1630 (4).jpg,,,High,sillimanite-auto
+1631,MJ DEC,AXE,Jaén Museum/1631 (1).jpg,Jaén Museum/1631 (2).jpg,Jaén Museum/1631 (3).jpg,Jaén Museum/1631 (4).jpg,,,High,sillimanite-auto
+1632,MJ DEC,AXE,Jaén Museum/1632 (1).jpg,Jaén Museum/1632 (2).jpg,Jaén Museum/1632 (3).jpg,Jaén Museum/1632 (4).jpg,,,High,sillimanite-auto
+1633,MJ DEC,AXE,Jaén Museum/1633 (1).jpg,Jaén Museum/1633 (2).jpg,Jaén Museum/1633 (3).jpg,Jaén Museum/1633 (4).jpg,,,High,sillimanite-auto
+1635,MJ DEC,AXE,Jaén Museum/1635 (1).jpg,Jaén Museum/1635 (2).jpg,Jaén Museum/1635 (3).jpg,Jaén Museum/1635 (4).jpg,,,High,sillimanite-auto
+1636,MJ DEC,AXE,Jaén Museum/1636 (1).jpg,Jaén Museum/1636 (2).jpg,Jaén Museum/1636 (3).jpg,Jaén Museum/1636 (4).jpg,,,High,sillimanite-auto
+1637,MJ DEC,AXE,Jaén Museum/1637 (1).jpg,Jaén Museum/1637 (2).jpg,Jaén Museum/1637 (3).jpg,Jaén Museum/1637 (4).jpg,,,High,sillimanite-auto
+1638,MJ DEC,AXE,Jaén Museum/1638 (1).jpg,Jaén Museum/1638 (2).jpg,Jaén Museum/1638 (3).jpg,Jaén Museum/1638 (4).jpg,,,High,sillimanite-auto
+1639,MJ DEC,AXE,Jaén Museum/1639 (1).jpg,Jaén Museum/1639 (2).jpg,Jaén Museum/1639 (3).jpg,Jaén Museum/1639 (4).jpg,,,High,sillimanite-auto
+1643,MJ DEC,AXE,Jaén Museum/1643 (1).jpg,Jaén Museum/1643 (2).jpg,Jaén Museum/1643 (3).jpg,Jaén Museum/1643 (4).jpg,,,High,sillimanite-auto
+1644,MJ DEC,AXE,Jaén Museum/1644 (1).jpg,Jaén Museum/1644 (2).jpg,Jaén Museum/1644 (3).jpg,Jaén Museum/1644 (4).jpg,,,High,sillimanite-auto
+1646,MJ DEC,AXE,Jaén Museum/1646 (1).jpg,Jaén Museum/1646 (2).jpg,Jaén Museum/1646 (3).jpg,Jaén Museum/1646 (4).jpg,,,High,sillimanite-auto
+1648,MJ DEC,AXE,Jaén Museum/1648 (1).jpg,Jaén Museum/1648 (2).jpg,Jaén Museum/1648 (3).jpg,Jaén Museum/1648 (4).jpg,,,High,sillimanite-auto
+1649,MJ DEC,AXE,Jaén Museum/1649 (1).jpg,Jaén Museum/1649 (2).jpg,Jaén Museum/1649 (3).jpg,Jaén Museum/1649 (4).jpg,,,High,sillimanite-auto
+1652,MJ DEC,AXE,Jaén Museum/1652 (1).jpg,Jaén Museum/1652 (2).jpg,Jaén Museum/1652 (3).jpg,Jaén Museum/1652 (4).jpg,,,High,sillimanite-auto
+1659,MJ DEC,AXE,Jaén Museum/1659 (1).jpg,Jaén Museum/1659 (2).jpg,Jaén Museum/1659 (3).jpg,Jaén Museum/1659 (4).jpg,,,High,sillimanite-auto
+1665,MJ DEC,AXE,Jaén Museum/1665 (1).jpg,Jaén Museum/1665 (2).jpg,Jaén Museum/1665 (3).jpg,Jaén Museum/1665 (4).jpg,,,High,sillimanite-auto
 1668,MJ DEC,AXE,Jaén Museum/1668 (1).jpg,Jaén Museum/1668 (2).jpg,Jaén Museum/1668 (3).jpg,Jaén Museum/1668 (4).jpg,,,High,auto-matched
+17/186,Valencina,AXE,Valencina Museum/17-186 (1).jpg,Valencina Museum/17-186 (2).jpg,Valencina Museum/17-186 (3).jpg,,,,High,Valencina Museum (Feb 2026)
+17/807,Valencina,AXE,Valencina Museum/17-807 (1).jpg,Valencina Museum/17-807 (2).jpg,Valencina Museum/17-807 (3).jpg,,,,High,Valencina Museum (Feb 2026)
+17/808,Valencina,AXE,Valencina Museum/17-808 (1).jpg,Valencina Museum/17-808 (2).jpg,Valencina Museum/17-808 (3).jpg,,,,High,Valencina Museum (Feb 2026)
+18/326,Valencina,AXE,Valencina Museum/18-326 (1).jpg,Valencina Museum/18-326 (2).jpg,Valencina Museum/18-326 (3).jpg,,,,High,Valencina Museum (Feb 2026)
+18/379,Valencina,AXE,Valencina Museum/18-379 (1).jpg,Valencina Museum/18-379 (2).jpg,Valencina Museum/18-379 (3).jpg,,,,High,Valencina Museum (Feb 2026)
 1803,Mengíbar,AXE,Jaén Museum/1803 (1).jpg,Jaén Museum/1803 (2).jpg,Jaén Museum/1803 (3).jpg,Jaén Museum/1803 (4).jpg,,,High,auto-matched
 1805,MJ DEC,AXE,Jaén Museum/1805 (1).jpg,Jaén Museum/1805 (2).jpg,Jaén Museum/1805 (3).jpg,Jaén Museum/1805 (4).jpg,,,High,auto-matched
 1812,Mengíbar,AXE,Jaén Museum/1812 (1).jpg,Jaén Museum/1812 (2).jpg,Jaén Museum/1812 (3).jpg,Jaén Museum/1812 (4).jpg,,,High,auto-matched
 1813,Mágina,AXE,Jaén Museum/1813 (1).jpg,Jaén Museum/1813 (2).jpg,Jaén Museum/1813 (3).jpg,Jaén Museum/1813 (4).jpg,,,High,auto-matched
 19232,Marroquíes Bajos,AXE,Jaén Museum/19232 (1).jpg,Jaén Museum/19232 (2).jpg,Jaén Museum/19232 (3).jpg,Jaén Museum/19232 (4).jpg,,,High,auto-matched
 19233,Martos,AXE,Jaén Museum/19233 (1).jpg,Jaén Museum/19233 (2).jpg,Jaén Museum/19233 (3).jpg,Jaén Museum/19233 (4).jpg,,,High,auto-matched
+19234,Marroquíes Bajos,AXE,Jaén Museum/19234 (1).jpg,Jaén Museum/19234 (2).jpg,Jaén Museum/19234 (3).jpg,Jaén Museum/19234 (4).jpg,,,High,sillimanite-auto
 19235,Martos,AXE,Jaén Museum/19235 (1).jpg,Jaén Museum/19235 (2).jpg,Jaén Museum/19235 (3).jpg,Jaén Museum/19235 (4).jpg,,,High,auto-matched
 19238,Marroquíes Bajos,AXE,Jaén Museum/19238 (1).jpg,Jaén Museum/19238 (2).jpg,Jaén Museum/19238 (3).jpg,Jaén Museum/19238 (4).jpg,,,High,auto-matched
 19241,Martos,AXE,Jaén Museum/19241 (1).jpg,Jaén Museum/19241 (2).jpg,Jaén Museum/19241 (3).jpg,Jaén Museum/19241 (4).jpg,,,High,auto-matched
 19247,Marroquíes Bajos,AXE,Jaén Museum/19247 (1).jpg,Jaén Museum/19247 (2).jpg,Jaén Museum/19247 (3).jpg,Jaén Museum/19247 (4).jpg,,,High,auto-matched
 19249,Marroquíes Bajos,AXE,Jaén Museum/19249 (1).jpg,Jaén Museum/19249 (2).jpg,Jaén Museum/19249 (3).jpg,Jaén Museum/19249 (4).jpg,,,High,auto-matched
+19250,MJ DEC,AXE,Jaén Museum/19250 (1).jpg,Jaén Museum/19250 (2).jpg,Jaén Museum/19250 (3).jpg,Jaén Museum/19250 (4).jpg,,,High,sillimanite-auto
+19251,MJ DEC,AXE,Jaén Museum/19251 (1).jpg,Jaén Museum/19251 (2).jpg,Jaén Museum/19251 (3).jpg,Jaén Museum/19251 (4).jpg,,,High,sillimanite-auto
 19265,Marroquíes Bajos,AXE,Jaén Museum/19265 (1).jpg,Jaén Museum/19265 (2).jpg,Jaén Museum/19265 (3).jpg,Jaén Museum/19265 (4).jpg,,,High,auto-matched
 19275,Marroquíes Bajos,AXE,Jaén Museum/19275 (1).jpg,Jaén Museum/19275 (2).jpg,Jaén Museum/19275 (3).jpg,Jaén Museum/19275 (4).jpg,,,High,auto-matched
 19277,Martos,AXE,Jaén Museum/19277 (1).jpg,Jaén Museum/19277 (2).jpg,Jaén Museum/19277 (3).jpg,Jaén Museum/19277 (4).jpg,,,High,auto-matched
@@ -81,6 +153,10 @@ Accession #,Site,Type,Image_1,Image_2,Image_3,Image_4,Image_5,Image_6,Match_Conf
 19851,Marroquíes Bajos,AXE,Jaén Museum/19851 (1).jpg,Jaén Museum/19851 (2).jpg,Jaén Museum/19851 (3).jpg,Jaén Museum/19851 (4).jpg,,,High,auto-matched
 19858,Marroquíes Bajos,AXE,Jaén Museum/19858 (1).jpg,Jaén Museum/19858 (2).jpg,Jaén Museum/19858 (3).jpg,Jaén Museum/19858 (4).jpg,,,High,auto-matched
 19861,Marroquíes Bajos,AXE,Jaén Museum/19861 (1).jpg,Jaén Museum/19861 (2).jpg,Jaén Museum/19861 (3).jpg,,,,High,auto-matched
+2-2,Valencina,AXE,Valencina Museum/VDC 2-2 (1).jpg,Valencina Museum/VDC 2-2 (2).jpg,Valencina Museum/VDC 2-2 (3).jpg,Valencina Museum/VDC 2-2 (4).jpg,,,High,Valencina Museum (Apr 2024)
+2/16 (side A),Valencina,AXE,Valencina Museum/2-16 (1).jpg,Valencina Museum/2-16 (2).jpg,Valencina Museum/2-16 (3).jpg,,,,High,Valencina Museum (Feb 2026)
+2/16 (side B),Valencina,AXE,Valencina Museum/2-16 (1).jpg,Valencina Museum/2-16 (2).jpg,Valencina Museum/2-16 (3).jpg,,,,High,Valencina Museum (Feb 2026)
+2/26,Valencina,AXE,,,,,,,,Valencina Museum - no photo taken
 20012,Marroquíes Bajos,AXE,Jaén Museum/20012 (1).jpg,Jaén Museum/20012 (2).jpg,Jaén Museum/20012 (3).jpg,Jaén Museum/20012 (4).jpg,,,High,auto-matched
 20044,Marroquíes Bajos,AXE,Jaén Museum/20044 (1).jpg,Jaén Museum/20044 (2).jpg,Jaén Museum/20044 (3).jpg,Jaén Museum/20044 (4).jpg,,,High,auto-matched
 20049,Marroquíes Bajos,AXE,Jaén Museum/20049 (1).jpg,Jaén Museum/20049 (2).jpg,Jaén Museum/20049 (3).jpg,Jaén Museum/20049 (4).jpg,,,High,auto-matched
@@ -92,6 +168,7 @@ Accession #,Site,Type,Image_1,Image_2,Image_3,Image_4,Image_5,Image_6,Match_Conf
 20093,Marroquíes Bajos,AXE,Jaén Museum/20093 (1).jpg,Jaén Museum/20093 (2).jpg,Jaén Museum/20093 (3).jpg,Jaén Museum/20093 (4).jpg,,,High,auto-matched
 20094,Marroquíes Bajos,AXE,Jaén Museum/20094 (1).jpg,Jaén Museum/20094 (2).jpg,Jaén Museum/20094 (3).jpg,Jaén Museum/20094 (4).jpg,,,High,auto-matched
 20103,Marroquíes Bajos,AXE,Jaén Museum/20103 (1).jpg,Jaén Museum/20103 (2).jpg,Jaén Museum/20103 (3).jpg,Jaén Museum/20103 (4).jpg,,,High,auto-matched
+20128,Ubeda,AXE,Jaén Museum/20128 (1).jpg,Jaén Museum/20128 (2).jpg,Jaén Museum/20128 (3).jpg,Jaén Museum/20128 (4).jpg,,,High,sillimanite-auto
 20129,Marroquíes Bajos,AXE,Jaén Museum/20129 (1).jpg,Jaén Museum/20129 (2).jpg,Jaén Museum/20129 (3).jpg,Jaén Museum/20129 (4).jpg,,,High,auto-matched
 20134,Úbeda,AXE,Jaén Museum/20134 (1).jpg,Jaén Museum/20134 (2).jpg,Jaén Museum/20134 (3).jpg,Jaén Museum/20134 (4).jpg,,,High,auto-matched
 20135,Úbeda,AXE,Jaén Museum/20135 (1).jpg,Jaén Museum/20135 (2).jpg,Jaén Museum/20135 (3).jpg,Jaén Museum/20135 (4).jpg,,,High,auto-matched
@@ -126,6 +203,7 @@ Accession #,Site,Type,Image_1,Image_2,Image_3,Image_4,Image_5,Image_6,Match_Conf
 20353,Marroquíes Bajos,AXE,Jaén Museum/20353 (1).jpg,Jaén Museum/20353 (2).jpg,Jaén Museum/20353 (3).jpg,Jaén Museum/20353 (4).jpg,,,High,auto-matched
 20354,Marroquíes Bajos,AXE,Jaén Museum/20354 (1).jpg,Jaén Museum/20354 (2).jpg,Jaén Museum/20354 (3).jpg,,,,High,auto-matched
 20355,Marroquíes Bajos,AXE,Jaén Museum/20355 (1).jpg,Jaén Museum/20355 (2).jpg,Jaén Museum/20355 (3).jpg,Jaén Museum/20355 (4).jpg,,,High,auto-matched
+20408,Marroquíes Bajos,AXE,Jaén Museum/20408 (1).jpg,Jaén Museum/20408 (2).jpg,Jaén Museum/20408 (3).jpg,Jaén Museum/20408 (4).jpg,,,High,sillimanite-auto
 20409,Marroquíes Bajos,AXE,Jaén Museum/20409 (1).jpg,Jaén Museum/20409 (2).jpg,Jaén Museum/20409 (3).jpg,Jaén Museum/20409 (4).jpg,,,High,auto-matched
 20421,Martos,AXE,Jaén Museum/20421 (1).jpg,Jaén Museum/20421 (2).jpg,Jaén Museum/20421 (3).jpg,Jaén Museum/20421 (4).jpg,,,High,auto-matched
 20422,Martos,AXE,Jaén Museum/20422 (1).jpg,Jaén Museum/20422 (2).jpg,Jaén Museum/20422 (3).jpg,Jaén Museum/20422 (4).jpg,,,High,auto-matched
@@ -141,25 +219,41 @@ Accession #,Site,Type,Image_1,Image_2,Image_3,Image_4,Image_5,Image_6,Match_Conf
 20456,Martos,AXE,Jaén Museum/20456 (1).jpg,Jaén Museum/20456 (2).jpg,Jaén Museum/20456 (3).jpg,Jaén Museum/20456 (4).jpg,Jaén Museum/20456 (5).jpg,,High,auto-matched
 20462,Martos,AXE,Jaén Museum/20462 (1).jpg,Jaén Museum/20462 (2).jpg,Jaén Museum/20462 (3).jpg,Jaén Museum/20462 (4).jpg,,,High,auto-matched
 20463,Martos,AXE,Jaén Museum/20463 (1).jpg,Jaén Museum/20463 (2).jpg,Jaén Museum/20463 (3).jpg,Jaén Museum/20463 (4).jpg,,,High,auto-matched
-209,Valencina,AXE,Valencina Museum/209 (1).jpg,Montefrío/Raw/209 (1).JPG,Montefrío/Raw/209 (2).JPG,Montefrío/Raw/209 (3).JPG,,,Medium,"auto-matched; Valencina Museum (Feb 2026). Images 2-4 are from Montefrío (DIFFERENT artefact, same accession number at different museum)"
+207,Valencina,AXE,Valencina Museum/207 (1).jpg,,,,,,High,Valencina Museum (Feb 2026)
+209,Valencina,AXE,Valencina Museum/209 (1).jpg,UGR assemblages/Montefrío/Raw/209 (1).JPG,UGR assemblages/Montefrío/Raw/209 (2).JPG,UGR assemblages/Montefrío/Raw/209 (3).JPG,,,Medium,"auto-matched; Valencina Museum (Feb 2026). Images 2-4 are from Montefrío (DIFFERENT artefact, same accession number at different museum)"
+21,Valencina,AXE,Valencina Museum/21 (1).jpg,Valencina Museum/21 (2).jpg,Valencina Museum/21 (3).jpg,Valencina Museum/21 (4).jpg,,,High,Valencina Museum (Feb 2026)
+212,Valencina,AXE,Valencina Museum/212 (1).jpg,Valencina Museum/212 (2).jpg,,,,,High,Valencina Museum (Feb 2026)
+214,Valencina,AXE,Valencina Museum/214 (1).jpg,,,,,,High,Valencina Museum (Feb 2026)
+22,Valencina,AXE,Valencina Museum/22 (1).jpg,Valencina Museum/22 (2).jpg,Valencina Museum/22 (3).jpg,,,,High,Valencina Museum (Feb 2026)
 221,MUbe DEC,AXE,Úbeda Museum/MUbe 221 (1).jpg,Úbeda Museum/MUbe 221 (2).jpg,Úbeda Museum/MUbe 221 (3).jpg,Úbeda Museum/MUbe 221 (4).jpg,,,High,structured
+229,Valencina,AXE,Valencina Museum/229 (1).jpg,Valencina Museum/229 (2).jpg,Valencina Museum/229 (3).jpg,,,,High,Valencina Museum (Feb 2026)
+23054,Millares,AXE,Documentación Paco/Museo Almería/Chilena/23054.jpg,TFM pictures/Fotos/Raw/23054.jpg,TFM pictures/Láminas/23054.jpg,,,,Medium,Documentación Paco/TFM photos only (no standard museum photos)
 23130,Castellar,AXE,Jaén Museum/23130 (1).jpg,Jaén Museum/23130 (2).jpg,Jaén Museum/23130 (3).jpg,Jaén Museum/23130 (4).jpg,,,High,auto-matched
 23131,Castellar,AXE,Jaén Museum/23131 (1).jpg,Jaén Museum/23131 (2).jpg,Jaén Museum/23131 (3).jpg,Jaén Museum/23131 (4).jpg,,,High,auto-matched
+23173,Millares,AXE,Documentación Paco/Museo Almería/Chilena/23173.jpg,TFM pictures/Fotos/Raw/23173.jpg,TFM pictures/Láminas/23173.jpg,,,,Medium,Documentación Paco/TFM photos only (no standard museum photos)
+23174,Millares,AXE,Documentación Paco/Museo Almería/Chilena/23174.jpg,TFM pictures/Fotos/Raw/23174.jpg,TFM pictures/Láminas/23174.jpg,,,,Medium,Documentación Paco/TFM photos only (no standard museum photos)
+23219,Los Millares,AXE,TFM pictures/Fotos/23219.jpg,,,,,,Medium,sillimanite-TFM-single-photo
+23220,Millares,AXE,Documentación Paco/Museo Almería/Chilena/23220.jpg,TFM pictures/Fotos/Raw/23220.jpg,TFM pictures/Láminas/23220.jpg,,,,Medium,Documentación Paco/TFM photos only (no standard museum photos)
+234,MUbe DEC,AXE,Úbeda Museum/MUbe 234 (1).jpg,Úbeda Museum/MUbe 234 (2).jpg,Úbeda Museum/MUbe 234 (3).jpg,Úbeda Museum/MUbe 234 (4).jpg,,,High,sillimanite-MUbe
+23410,Millares,AXE,Documentación Paco/Museo Almería/Chilena/23410.jpg,TFM pictures/Fotos/Raw/23410.jpg,TFM pictures/Láminas/23410.jpg,,,,Medium,Documentación Paco/TFM photos only (no standard museum photos)
 23508,Marroquíes Bajos,AXE,Jaén Museum/23508 (1).jpg,Jaén Museum/23508 (2).jpg,Jaén Museum/23508 (3).jpg,Jaén Museum/23508 (4).jpg,,,High,auto-matched
 23545,Marroquíes Bajos,AXE,Jaén Museum/23545 (1).jpg,Jaén Museum/23545 (2).jpg,Jaén Museum/23545 (3).jpg,Jaén Museum/23545 (4).jpg,,,High,auto-matched
 23556,Marroquíes Bajos,AXE,Jaén Museum/23556 (1).jpg,Jaén Museum/23556 (2).jpg,Jaén Museum/23556 (3).jpg,Jaén Museum/23556 (4).jpg,,,High,auto-matched
 23558,Marroquíes Bajos,AXE,Jaén Museum/23558 (1).jpg,Jaén Museum/23558 (2).jpg,Jaén Museum/23558 (3).jpg,Jaén Museum/23558 (4).jpg,,,High,auto-matched
-2443,Malagón,AXE,El Malagón/Raw/CB 2443 (1).JPG,El Malagón/Raw/CB 2443 (2).JPG,El Malagón/Raw/CB 2443 (3).JPG,,,,High,El Malagón/Raw
+23966,Los Millares,AXE,Museo Almería pictures/LM 23966.jpg,Museo Almería pictures/LM 23966 (2).jpg,Museo Almería pictures/LM 23966 (3).jpg,,,,High,sillimanite-LM
+2443,Malagón,AXE,UGR assemblages/El Malagón/Raw/CB 2443 (1).JPG,UGR assemblages/El Malagón/Raw/CB 2443 (2).JPG,UGR assemblages/El Malagón/Raw/CB 2443 (3).JPG,,,,High,El Malagón/Raw
 257,MUbe DEC,AXE,Úbeda Museum/MUbe 257 (1).jpg,Úbeda Museum/MUbe 257 (2).jpg,Úbeda Museum/MUbe 257 (3).jpg,Úbeda Museum/MUbe 257 (4).jpg,,,High,structured
 258,MUbe DEC,AXE,Úbeda Museum/MUbe 258 (1).jpg,Úbeda Museum/MUbe 258 (2).jpg,Úbeda Museum/MUbe 258 (3).jpg,Úbeda Museum/MUbe 258 (4).jpg,,,High,structured
+260,Úbeda,AXE,Úbeda Museum/MUbe 260 (1).jpg,Úbeda Museum/MUbe 260 (2).jpg,Úbeda Museum/MUbe 260 (3).jpg,Úbeda Museum/MUbe 260 (4).jpg,,,High,auto-matched from Úbeda Museum folder
 263,MUbe DEC,AXE,Úbeda Museum/MUbe 263 (1).jpg,Úbeda Museum/MUbe 263 (2).jpg,Úbeda Museum/MUbe 263 (3).jpg,Úbeda Museum/MUbe 263 (4).jpg,,,High,structured
 26554,Marroquíes Bajos,AXE,Jaén Museum/26554 (1).jpg,Jaén Museum/26554 (2).jpg,Jaén Museum/26554 (3).jpg,Jaén Museum/26554 (4).jpg,,,High,auto-matched
 26573,Martos,AXE,Jaén Museum/26573 (1).jpg,Jaén Museum/26573 (2).jpg,Jaén Museum/26573 (3).jpg,Jaén Museum/26573 (4).jpg,,,High,auto-matched
 26580,MJ DEC,AXE,Jaén Museum/26580 (1).jpg,Jaén Museum/26580 (2).jpg,Jaén Museum/26580 (3).jpg,Jaén Museum/26580 (4).jpg,,,High,auto-matched
 26587,Marroquíes Bajos,AXE,Jaén Museum/26587 (1).jpg,Jaén Museum/26587 (2).jpg,Jaén Museum/26587 (3).jpg,Jaén Museum/26587 (4).jpg,,,High,auto-matched
-266-1,Montefrío,AXE,Montefrío/Raw/266-1 (1).JPG,Montefrío/Raw/266-1 (2).JPG,Montefrío/Raw/266-1 (3).JPG,,,,High,auto-matched
+266-1,Montefrío,AXE,UGR assemblages/Montefrío/Raw/266-1 (1).JPG,UGR assemblages/Montefrío/Raw/266-1 (2).JPG,UGR assemblages/Montefrío/Raw/266-1 (3).JPG,,,,High,auto-matched
 26640,Marroquíes Bajos,AXE,Jaén Museum/26640 (1).jpg,Jaén Museum/26640 (2).jpg,Jaén Museum/26640 (3).jpg,Jaén Museum/26640 (4).jpg,,,High,auto-matched
 26771,Marroquíes Bajos,AXE,Jaén Museum/26771 (1).jpg,Jaén Museum/26771 (2).jpg,Jaén Museum/26771 (3).jpg,Jaén Museum/26771 (4).jpg,,,High,auto-matched
+268,Torreperogil,AXE,Úbeda Museum/MUbe 268 (1).jpg,Úbeda Museum/MUbe 268 (2).jpg,Úbeda Museum/MUbe 268 (3).jpg,Úbeda Museum/MUbe 268 (4).jpg,,,High,sillimanite-MUbe
 26860,Marroquíes Bajos,AXE,Jaén Museum/26860 (1).jpg,Jaén Museum/26860 (2).jpg,Jaén Museum/26860 (3).jpg,Jaén Museum/26860 (4).jpg,,,High,auto-matched
 26861,Quesada,AXE,Jaén Museum/26861 (1).jpg,Jaén Museum/26861 (2).jpg,Jaén Museum/26861 (3).jpg,Jaén Museum/26861 (4).jpg,,,High,auto-matched
 26866,Marroquíes Bajos,AXE,Jaén Museum/26866 (1).jpg,Jaén Museum/26866 (2).jpg,Jaén Museum/26866 (3).jpg,Jaén Museum/26866 (4).jpg,,,High,auto-matched
@@ -199,6 +293,7 @@ Accession #,Site,Type,Image_1,Image_2,Image_3,Image_4,Image_5,Image_6,Match_Conf
 2762,Castellar,AXE,Jaén Museum/2762 (1).jpg,Jaén Museum/2762 (2).jpg,Jaén Museum/2762 (3).jpg,Jaén Museum/2762 (4).jpg,,,High,auto-matched
 2793,Castellar,AXE,Jaén Museum/2793 (1).jpg,Jaén Museum/2793 (2).jpg,Jaén Museum/2793 (3).jpg,Jaén Museum/2793 (4).jpg,,,High,auto-matched
 27942,Las Aguilillas,AXE,Córdoba Museum/Las Aguilillas 27942 (1).jpg,Córdoba Museum/Las Aguilillas 27942 (2).jpg,Córdoba Museum/Las Aguilillas 27942 (3).jpg,Córdoba Museum/Las Aguilillas 27942 (4).jpg,,,High,structured
+27950,MCor DEC,AXE,Córdoba Museum/MCor 27950 (1).jpg,Córdoba Museum/MCor 27950 (2).jpg,Córdoba Museum/MCor 27950 (3).jpg,Córdoba Museum/MCor 27950 (4).jpg,,,High,sillimanite-MCor
 27962,MCor DEC,AXE,Córdoba Museum/MCor 27962 (1).jpg,Córdoba Museum/MCor 27962 (2).jpg,Córdoba Museum/MCor 27962 (3).jpg,Córdoba Museum/MCor 27962 (4).jpg,,,High,structured
 27971,MCor DEC,AXE,Córdoba Museum/MCor 27971 (1).jpg,Córdoba Museum/MCor 27971 (2).jpg,Córdoba Museum/MCor 27971 (3).jpg,Córdoba Museum/MCor 27971 (4).jpg,,,High,structured
 27972,MCor DEC,AXE,Córdoba Museum/MCor 27972 (1).jpg,Córdoba Museum/MCor 27972 (2).jpg,Córdoba Museum/MCor 27972 (3).jpg,Córdoba Museum/MCor 27972 (4).jpg,,,High,structured
@@ -223,53 +318,59 @@ Accession #,Site,Type,Image_1,Image_2,Image_3,Image_4,Image_5,Image_6,Match_Conf
 30137,Torreperogil,AXE,Jaén Museum/30137 (1).jpg,Jaén Museum/30137 (2).jpg,Jaén Museum/30137 (3).jpg,Jaén Museum/30137 (4).jpg,,,High,auto-matched
 30174,Úbeda,AXE,Jaén Museum/30174 (1).jpg,Jaén Museum/30174 (2).jpg,Jaén Museum/30174 (3).jpg,Jaén Museum/30174 (4).jpg,,,High,auto-matched
 3176,Baños de la Encina,AXE,Linares Museum/Baños Encina 3176 (1).jpg,Linares Museum/Baños Encina 3176 (2).jpg,Linares Museum/Baños Encina 3176 (3).jpg,Linares Museum/Baños Encina 3176 (4).jpg,,,High,structured
-3179,Malagón,AXE,El Malagón/Raw/CB 3179 (1).JPG,El Malagón/Raw/CB 3179 (2).JPG,El Malagón/Raw/CB 3179 (3).JPG,,,,High,El Malagón/Raw
+3179,Malagón,AXE,UGR assemblages/El Malagón/Raw/CB 3179 (1).JPG,UGR assemblages/El Malagón/Raw/CB 3179 (2).JPG,UGR assemblages/El Malagón/Raw/CB 3179 (3).JPG,,,,High,El Malagón/Raw
 3246,Martos,AXE,Jaén Museum/3246 (1).jpg,Jaén Museum/3246 (2).jpg,Jaén Museum/3246 (3).jpg,Jaén Museum/3246 (4).jpg,,,High,auto-matched
 3251,Marroquíes Bajos,AXE,Jaén Museum/3251 (1).jpg,Jaén Museum/3251 (2).jpg,Jaén Museum/3251 (3).jpg,Jaén Museum/3251 (4).jpg,,,High,auto-matched
 3252,Marroquíes Bajos,AXE,Jaén Museum/3252 (1).jpg,Jaén Museum/3252 (2).jpg,Jaén Museum/3252 (3).jpg,Jaén Museum/3252 (4).jpg,,,High,auto-matched
 3326,Baños de la Encina,AXE,Linares Museum/Baños Encina 3326 (1).jpg,Linares Museum/Baños Encina 3326 (2).jpg,Linares Museum/Baños Encina 3326 (3).jpg,Linares Museum/Baños Encina 3326 (4).jpg,,,High,structured
 3331,Baños de la Encina,AXE,Linares Museum/Baños Encina 3331 (1).jpg,Linares Museum/Baños Encina 3331 (2).jpg,Linares Museum/Baños Encina 3331 (3).jpg,Linares Museum/Baños Encina 3331 (4).jpg,,,High,structured
-3405,Montefrío,AXE,Montefrío/Raw/3405 (1).JPG,Montefrío/Raw/3405 (2).JPG,Montefrío/Raw/3405 (3).JPG,,,,High,auto-matched
-341,Millares,AXE,Museo Almería/LM 341 (1).jpg,Museo Almería/LM 341 (2).jpg,Museo Almería/LM 341 (3).jpg,,,,Medium,auto-matched
+3405,Montefrío,AXE,UGR assemblages/Montefrío/Raw/3405 (1).JPG,UGR assemblages/Montefrío/Raw/3405 (2).JPG,UGR assemblages/Montefrío/Raw/3405 (3).JPG,,,,High,auto-matched
+341,Millares,AXE,Museo Almería pictures/LM 341 (1).jpg,Museo Almería pictures/LM 341 (2).jpg,Museo Almería pictures/LM 341 (3).jpg,,,,Medium,auto-matched
 3462,Castellar,AXE,Jaén Museum/3462 (1).jpg,Jaén Museum/3462 (2).jpg,Jaén Museum/3462 (3).jpg,Jaén Museum/3462 (4).jpg,,,High,auto-matched
 3463,Castellar,AXE,Jaén Museum/3463 (1).jpg,Jaén Museum/3463 (2).jpg,Jaén Museum/3463 (3).jpg,Jaén Museum/3463 (4).jpg,,,High,auto-matched
 3464,Castellar,AXE,Jaén Museum/3464 (1).jpg,Jaén Museum/3464 (2).jpg,Jaén Museum/3464 (3).jpg,Jaén Museum/3464 (4).jpg,,,High,auto-matched
 3465,Castellar,AXE,Jaén Museum/3465 (1).jpg,Jaén Museum/3465 (2).jpg,Jaén Museum/3465 (3).jpg,Jaén Museum/3465 (4).jpg,,,High,auto-matched
 3466,Castellar,AXE,Jaén Museum/3466 (1).jpg,Jaén Museum/3466 (2).jpg,Jaén Museum/3466 (3).jpg,Jaén Museum/3466 (4).jpg,,,High,auto-matched
-3467,Castellar,AXE,Jaén Museum/3467 (1).jpg,Jaén Museum/3467 (2).jpg,Jaén Museum/3467 (3).jpg,Jaén Museum/3467 (4).jpg,El Malagón/Raw/CB 3467 (1).JPG,El Malagón/Raw/CB 3467 (2).JPG,High,auto-matched; El Malagón/Raw/CB 3467 (3).JPG
+3467,Castellar,AXE,Jaén Museum/3467 (1).jpg,Jaén Museum/3467 (2).jpg,Jaén Museum/3467 (3).jpg,Jaén Museum/3467 (4).jpg,UGR assemblages/El Malagón/Raw/CB 3467 (1).JPG,UGR assemblages/El Malagón/Raw/CB 3467 (2).JPG,High,auto-matched; El Malagón/Raw/CB 3467 (3).JPG
 3468,Castellar,AXE,Jaén Museum/3468 (1).jpg,Jaén Museum/3468 (2).jpg,Jaén Museum/3468 (3).jpg,Jaén Museum/3468 (4).jpg,,,High,auto-matched
 3469,Castellar,AXE,Jaén Museum/3469 (1).jpg,Jaén Museum/3469 (2).jpg,Jaén Museum/3469 (3).jpg,Jaén Museum/3469 (4).jpg,,,High,auto-matched
 3470,Castellar,AXE,Jaén Museum/3470 (1).jpg,Jaén Museum/3470 (2).jpg,Jaén Museum/3470 (3).jpg,Jaén Museum/3470 (4).jpg,,,High,auto-matched
-3639,Terrera Ventura,AXE,Museo Almería/TV 3639.jpg,Museo Almería/TV 3639 (2).jpg,Museo Almería/TV 3639 (3).jpg,,,,High,auto-matched
-3640,Terrera Ventura,AXE,Museo Almería/TV 3640.jpg,Museo Almería/TV 3640 (2).jpg,Museo Almería/TV 3640 (3).jpg,,,,High,auto-matched
+35,Valencina,AXE,Valencina Museum/35 (1).jpg,Valencina Museum/35 (2).jpg,Valencina Museum/35 (3).jpg,,,,High,Valencina Museum (Feb 2026)
+3639,Terrera Ventura,AXE,Museo Almería pictures/TV 3639.jpg,Museo Almería pictures/TV 3639 (2).jpg,Museo Almería pictures/TV 3639 (3).jpg,,,,High,auto-matched
+3640,Terrera Ventura,AXE,Museo Almería pictures/TV 3640.jpg,Museo Almería pictures/TV 3640 (2).jpg,Museo Almería pictures/TV 3640 (3).jpg,,,,High,auto-matched
+3667,Baeza,AXE,Jaén Museum/3667 (1).jpg,Jaén Museum/3667 (2).jpg,Jaén Museum/3667 (3).jpg,,,,High,sillimanite-auto
 3688,Marroquíes Bajos,AXE,Jaén Museum/3688 (1).jpg,Jaén Museum/3688 (2).jpg,Jaén Museum/3688 (3).jpg,Jaén Museum/3688 (4).jpg,,,High,auto-matched
 3691,Marroquíes Bajos,AXE,Jaén Museum/3691 (1).jpg,Jaén Museum/3691 (2).jpg,Jaén Museum/3691 (3).jpg,Jaén Museum/3691 (4).jpg,,,High,auto-matched
-3873,Terrera Ventura,AXE,Museo Almería/TV 3873.jpg,Museo Almería/TV 3873 (2).jpg,Museo Almería/TV 3873 (3).jpg,,,,High,auto-matched
-3914,Terrera Ventura,AXE,Museo Almería/TV 3914.jpg,Museo Almería/TV 3914 (2).jpg,Museo Almería/TV 3914 (3).jpg,,,,High,auto-matched
-3961,Terrera Ventura,AXE,Museo Almería/TV 3961.jpg,Museo Almería/TV 3961 (2).jpg,Museo Almería/TV 3961 (3).jpg,,,,High,auto-matched
-3983,Terrera Ventura,AXE,Museo Almería/TV 3983.jpg,Museo Almería/TV 3983 (2).jpg,Museo Almería/TV 3983 (3).jpg,,,,High,auto-matched
+3873,Terrera Ventura,AXE,Museo Almería pictures/TV 3873.jpg,Museo Almería pictures/TV 3873 (2).jpg,Museo Almería pictures/TV 3873 (3).jpg,,,,High,auto-matched
+3914,Terrera Ventura,AXE,Museo Almería pictures/TV 3914.jpg,Museo Almería pictures/TV 3914 (2).jpg,Museo Almería pictures/TV 3914 (3).jpg,,,,High,auto-matched
+3961,Terrera Ventura,AXE,Museo Almería pictures/TV 3961.jpg,Museo Almería pictures/TV 3961 (2).jpg,Museo Almería pictures/TV 3961 (3).jpg,,,,High,auto-matched
+3983,Terrera Ventura,AXE,Museo Almería pictures/TV 3983.jpg,Museo Almería pictures/TV 3983 (2).jpg,Museo Almería pictures/TV 3983 (3).jpg,,,,High,auto-matched
 41,MLin DEC,AXE,Linares Museum/MLin 41 (1).jpg,Linares Museum/MLin 41 (2).jpg,Linares Museum/MLin 41 (3).jpg,Linares Museum/MLin 41 (4).jpg,,,High,structured
-4170,Terrera Ventura,AXE,Museo Almería/TV 4170.jpg,Museo Almería/TV 4170 (2).jpg,,,,,High,auto-matched
-4218,Terrera Ventura,AXE,Museo Almería/TV 4218.jpg,Museo Almería/TV 4218 (2).jpg,Museo Almería/TV 4218 (3).jpg,,,,High,auto-matched
+4170,Terrera Ventura,AXE,Museo Almería pictures/TV 4170.jpg,Museo Almería pictures/TV 4170 (2).jpg,,,,,High,auto-matched
+4218,Terrera Ventura,AXE,Museo Almería pictures/TV 4218.jpg,Museo Almería pictures/TV 4218 (2).jpg,Museo Almería pictures/TV 4218 (3).jpg,,,,High,auto-matched
 43,MLin DEC,AXE,Linares Museum/MLin 43 (1).jpg,Linares Museum/MLin 43 (2).jpg,Linares Museum/MLin 43 (3).jpg,Linares Museum/MLin 43 (4).jpg,,,High,structured
-4347,Malagón,PPUL,El Malagón/Raw/CB 4347 (1).JPG,El Malagón/Raw/CB 4347 (2).JPG,El Malagón/Raw/CB 4347 (3).JPG,,,,High,El Malagón/Raw
+4347,Malagón,PPUL,UGR assemblages/El Malagón/Raw/CB 4347 (1).JPG,UGR assemblages/El Malagón/Raw/CB 4347 (2).JPG,UGR assemblages/El Malagón/Raw/CB 4347 (3).JPG,,,,High,El Malagón/Raw
+4436/4,Papauvas,AXE,Huelva museum pictures/4436-4 (1).jpg,Huelva museum pictures/4436-4 (2).jpg,Huelva museum pictures/4436-4 (3).jpg,,,,High,auto-matched Huelva Museum 02-03-2026
 4441,Los Gabrieles,AXE,Huelva museum pictures/4441 (1).jpg,Huelva museum pictures/4441 (2).jpg,Huelva museum pictures/4441 (3).jpg,,,,High,Huelva Museum
-4547,Malagón,PPUL,El Malagón/Raw/CB 4547 (1).JPG,El Malagón/Raw/CB 4547 (2).JPG,El Malagón/Raw/CB 4547 (3).JPG,,,,High,El Malagón/Raw
+4547,Malagón,PPUL,UGR assemblages/El Malagón/Raw/CB 4547 (1).JPG,UGR assemblages/El Malagón/Raw/CB 4547 (2).JPG,UGR assemblages/El Malagón/Raw/CB 4547 (3).JPG,,,,High,El Malagón/Raw
 47,MLin DEC,AXE,Linares Museum/MLin 47 (1).jpg,Linares Museum/MLin 47 (2).jpg,Linares Museum/MLin 47 (3).jpg,Linares Museum/MLin 47 (4).jpg,,,High,structured
 48,MLin DEC,AXE,Linares Museum/MLin 48 (1).jpg,Linares Museum/MLin 48 (2).jpg,Linares Museum/MLin 48 (3).jpg,Linares Museum/MLin 48 (4).jpg,,,High,structured
 4881,Marroquíes Bajos,AXE,Jaén Museum/4881 (1).jpg,Jaén Museum/4881 (2).jpg,Jaén Museum/4881 (3).jpg,Jaén Museum/4881 (4).jpg,,,High,auto-matched
+4891,MJ DEC,AXE,Jaén Museum/4891 (1).jpg,Jaén Museum/4891 (2).jpg,Jaén Museum/4891 (3).jpg,Jaén Museum/4891 (4).jpg,,,High,sillimanite-auto
 49,MLin DEC,AXE,Linares Museum/MLin 49 (1).jpg,Linares Museum/MLin 49 (2).jpg,Linares Museum/MLin 49 (3).jpg,Linares Museum/MLin 49 (4).jpg,,,High,structured
 50,MLin DEC,AXE,Linares Museum/MLin 50 (1).jpg,Linares Museum/MLin 50 (2).jpg,Linares Museum/MLin 50 (3).jpg,Linares Museum/MLin 50 (4).jpg,,,High,structured
 51,MLin DEC,AXE,Linares Museum/MLin 51 (1).jpg,Linares Museum/MLin 51 (2).jpg,Linares Museum/MLin 51 (3).jpg,Linares Museum/MLin 51 (4).jpg,,,High,structured
 5133,Marroquíes Bajos,AXE,Jaén Museum/5133 (1).jpg,Jaén Museum/5133 (2).jpg,Jaén Museum/5133 (3).jpg,Jaén Museum/5133 (4).jpg,,,High,auto-matched
-5135,Marroquíes Bajos,AXE,Jaén Museum/5135 (1).jpg,Jaén Museum/5135 (2).jpg,Jaén Museum/5135 (3).jpg,Jaén Museum/5135 (4).jpg,El Malagón/Raw/CB 5135 (1).JPG,El Malagón/Raw/CB 5135 (2).JPG,High,auto-matched; El Malagón/Raw/CB 5135 (3).JPG
-51356,Raja de Ortega,AXE,Museo Almería/Raja Ortega 51356.jpg,Museo Almería/Raja Ortega 51356 (2).jpg,Museo Almería/Raja Ortega 51356 (3).jpg,,,,Medium,auto-matched
-51359,Raja de Ortega,AXE,Museo Almería/Raja Ortega 51359.jpg,Museo Almería/Raja Ortega 51359 (2).jpg,Museo Almería/Raja Ortega 51359 (3).jpg,,,,Medium,auto-matched
-51360,Raja de Ortega,AXE,Museo Almería/Raja Ortega 51360.jpg,Museo Almería/Raja Ortega 51360 (2).jpg,Museo Almería/Raja Ortega 51360 (3).jpg,,,,Medium,auto-matched
-51362,Cerro Chinchillas,AXE,Museo Almería/Chinchillas 51362.jpg,Museo Almería/Chinchillas 51362 (2).jpg,Museo Almería/Chinchillas 51362 (3).jpg,,,,Medium,auto-matched
-52462,Cerro Chinchillas,AXE,Museo Almería/Chinchillas 52462.jpg,Museo Almería/Chinchillas 52462 (2).jpg,Museo Almería/Chinchillas 52462 (3).jpg,,,,Medium,auto-matched
-542,Malagón,AXE,El Malagón/Raw/CB  542 (1).JPG,El Malagón/Raw/CB 542 (2).JPG,El Malagón/Raw/CB 542 (3).JPG,,,,High,El Malagón/Raw
+5135,Marroquíes Bajos,AXE,Jaén Museum/5135 (1).jpg,Jaén Museum/5135 (2).jpg,Jaén Museum/5135 (3).jpg,Jaén Museum/5135 (4).jpg,UGR assemblages/El Malagón/Raw/CB 5135 (1).JPG,UGR assemblages/El Malagón/Raw/CB 5135 (2).JPG,High,auto-matched; El Malagón/Raw/CB 5135 (3).JPG
+51356,Raja de Ortega,AXE,Museo Almería pictures/Raja Ortega 51356.jpg,Museo Almería pictures/Raja Ortega 51356 (2).jpg,Museo Almería pictures/Raja Ortega 51356 (3).jpg,,,,Medium,auto-matched
+51359,Raja de Ortega,AXE,Museo Almería pictures/Raja Ortega 51359.jpg,Museo Almería pictures/Raja Ortega 51359 (2).jpg,Museo Almería pictures/Raja Ortega 51359 (3).jpg,,,,Medium,auto-matched
+51360,Raja de Ortega,AXE,Museo Almería pictures/Raja Ortega 51360.jpg,Museo Almería pictures/Raja Ortega 51360 (2).jpg,Museo Almería pictures/Raja Ortega 51360 (3).jpg,,,,Medium,auto-matched
+51362,Cerro Chinchillas,AXE,Museo Almería pictures/Chinchillas 51362.jpg,Museo Almería pictures/Chinchillas 51362 (2).jpg,Museo Almería pictures/Chinchillas 51362 (3).jpg,,,,Medium,auto-matched
+51366,Chinchillas,AXE,Museo Almería pictures/Chinchillas 51366.jpg,Museo Almería pictures/Chinchillas 51366 (2).jpg,Museo Almería pictures/Chinchillas 51366 (3).jpg,,,,High,sillimanite-Chinchillas
+52462,Cerro Chinchillas,AXE,Museo Almería pictures/Chinchillas 52462.jpg,Museo Almería pictures/Chinchillas 52462 (2).jpg,Museo Almería pictures/Chinchillas 52462 (3).jpg,,,,Medium,auto-matched
+542,Malagón,AXE,UGR assemblages/El Malagón/Raw/CB  542 (1).JPG,UGR assemblages/El Malagón/Raw/CB 542 (2).JPG,UGR assemblages/El Malagón/Raw/CB 542 (3).JPG,,,,High,El Malagón/Raw
 56,MLin DEC,HAM,Linares Museum/MLin 56 (1).jpg,Linares Museum/MLin 56 (2).jpg,Linares Museum/MLin 56 (3).jpg,,,,High,structured
+56/2348,Cejo del Pantano,AXE,IoA Collection (UCL)/CDP 56-2348 (1).jpg,IoA Collection (UCL)/CDP 56-2348 (2).jpg,IoA Collection (UCL)/CDP 56-2348 (3).jpg,,,,High,auto-matched
 5719,Marroquíes Bajos,AXE,Jaén Museum/5719 (1).jpg,Jaén Museum/5719 (2).jpg,Jaén Museum/5719 (3).jpg,Jaén Museum/5719 (4).jpg,,,High,auto-matched
 5758,Marroquíes Bajos,AXE,Jaén Museum/5758 (1).jpg,Jaén Museum/5758 (2).jpg,Jaén Museum/5758 (3).jpg,Jaén Museum/5758 (4).jpg,,,High,auto-matched
 5764,Marroquíes Bajos,AXE,Jaén Museum/5764 (1).jpg,Jaén Museum/5764 (2).jpg,Jaén Museum/5764 (3).jpg,Jaén Museum/5764 (4).jpg,,,High,auto-matched
@@ -283,94 +384,111 @@ Accession #,Site,Type,Image_1,Image_2,Image_3,Image_4,Image_5,Image_6,Match_Conf
 5842,Marroquíes Bajos,AXE,Jaén Museum/5842 (1).jpg,Jaén Museum/5842 (2).jpg,Jaén Museum/5842 (3).jpg,Jaén Museum/5842 (4).jpg,,,High,auto-matched
 5879,Marroquíes Bajos,MCH,Jaén Museum/5879 (1).jpg,Jaén Museum/5879 (2).jpg,Jaén Museum/5879 (3).jpg,Jaén Museum/5879 (4).jpg,,,High,auto-matched
 6018,Mágina,AXE,Jaén Museum/6018 (1).jpg,Jaén Museum/6018 (2).jpg,Jaén Museum/6018 (3).jpg,Jaén Museum/6018 (4).jpg,,,High,auto-matched
-6053-5,Millares,AXE,Los Millares/Raw/6053-5 (1).JPG,Los Millares/Raw/6053-5 (2).JPG,Los Millares/Raw/6053-5 (3).JPG,,,,Medium,auto-matched
+6053-5,Millares,AXE,UGR assemblages/Los Millares/Raw/6053-5 (1).JPG,UGR assemblages/Los Millares/Raw/6053-5 (2).JPG,UGR assemblages/Los Millares/Raw/6053-5 (3).JPG,,,,Medium,auto-matched
+6071/2,Papauvas,AXE,Huelva museum pictures/6071-2 (1).jpg,Huelva museum pictures/6071-2 (2).jpg,Huelva museum pictures/6071-2 (3).jpg,Huelva museum pictures/6071-2 (4).jpg,,,High,manual-add: slash-to-dash filename convention
+6073/2,Papauvas,AXE,Huelva museum pictures/6073-2 (1).jpg,Huelva museum pictures/6073-2 (2).jpg,Huelva museum pictures/6073-2 .jpg,,,,High,auto-matched Huelva Museum 02-03-2026
 61,MLin DEC,HAM,Linares Museum/MLin 61 (1).jpg,Linares Museum/MLin 61 (2).jpg,Linares Museum/MLin 61 (3).jpg,,,,High,structured
-61027,Montefrío,AXE,Montefrío/Raw/61027 (1).JPG,Montefrío/Raw/61027 (2).JPG,Montefrío/Raw/61027 (3).JPG,,,,High,auto-matched
-61187,Montefrío,AXE,Montefrío/Raw/61187 (1).JPG,Montefrío/Raw/61187 (2).JPG,,,,,High,auto-matched
-61272,Montefrío,AXE,Montefrío/Raw/61272 (1).JPG,Montefrío/Raw/61272 (2).JPG,Montefrío/Raw/61272 (3).JPG,,,,High,auto-matched
-61300,Montefrío,AXE,Montefrío/Raw/61300 (1).JPG,Montefrío/Raw/61300 (2).JPG,Montefrío/Raw/61300 (3).JPG,,,,High,auto-matched
-61304,Montefrío,AXE,Montefrío/Raw/61304 (1).JPG,Montefrío/Raw/61304 (2).JPG,Montefrío/Raw/61304 (3).JPG,,,,High,auto-matched
-61506,Montefrío,AXE,Montefrío/Raw/61506 (1).JPG,Montefrío/Raw/61506 (2).JPG,Montefrío/Raw/61506 (3).JPG,,,,High,auto-matched
-6155-1,Montefrío,AXE,Montefrío/Raw/6155-1 (1).JPG,Montefrío/Raw/6155-1 (2).JPG,Montefrío/Raw/6155-1 (3).JPG,,,,High,auto-matched
-6155-11,Montefrío,PPUL,Montefrío/Raw/6155-11 (1).JPG,Montefrío/Raw/6155-11 (2).JPG,Montefrío/Raw/6155-11 (3).JPG,,,,High,auto-matched
-6155-19,Montefrío,AXE,Montefrío/Raw/6155-19 (1).JPG,Montefrío/Raw/6155-19 (2).JPG,Montefrío/Raw/6155-19 (3).JPG,,,,High,auto-matched
-6155-2,Montefrío,AXE,Montefrío/Raw/6155-2 (1).JPG,Montefrío/Raw/6155-2 (2).JPG,Montefrío/Raw/6155-2 (3).JPG,,,,High,auto-matched
-6155-21,Montefrío,AXE,Montefrío/Raw/6155-21 (1).JPG,Montefrío/Raw/6155-21 (2).JPG,Montefrío/Raw/6155-21 (3).JPG,,,,High,auto-matched
-6155-22,Montefrío,AXE,Montefrío/Raw/6155-22 (1).JPG,Montefrío/Raw/6155-22 (2).JPG,Montefrío/Raw/6155-22 (3).JPG,,,,High,auto-matched
-6155-24,Montefrío,PPUL,Montefrío/Raw/6155-24 (1).JPG,Montefrío/Raw/6155-24 (2).JPG,Montefrío/Raw/6155-24 (3).JPG,,,,High,auto-matched
-6155-3,Montefrío,AXE,Montefrío/Raw/6155-3 (1).JPG,Montefrío/Raw/6155-3 (2).JPG,Montefrío/Raw/6155-3 (3).JPG,,,,High,auto-matched
-6155-4,Montefrío,AXE,Montefrío/Raw/6155-4 (1).JPG,Montefrío/Raw/6155-4 (2).JPG,Montefrío/Raw/6155-4 (3).JPG,,,,High,auto-matched
-6155-7,Montefrío,AXE,Montefrío/Raw/6155-7 (1).JPG,Montefrío/Raw/6155-7 (2).JPG,Montefrío/Raw/6155-7 (3).JPG,,,,High,auto-matched
-61681,Montefrío,AXE,Montefrío/Raw/61681 (1).JPG,Montefrío/Raw/61681 (2).JPG,Montefrío/Raw/61681 (3).JPG,,,,High,auto-matched
-61810,Montefrío,AXE,Montefrío/Raw/61810 (1).JPG,Montefrío/Raw/61810 (2).JPG,Montefrío/Raw/61810 (3).JPG,,,,High,auto-matched
-61945,Montefrío,AXE,Montefrío/Raw/61945 (1).JPG,Montefrío/Raw/61945 (2).JPG,Montefrío/Raw/61945 (3).JPG,,,,High,auto-matched
-6199-1,Montefrío,AXE,Montefrío/Raw/6199-1 (1).JPG,Montefrío/Raw/6199-1 (2).JPG,Montefrío/Raw/6199-1 (3).JPG,,,,High,auto-matched
-62057,Montefrío,AXE,Montefrío/Raw/62057 (1).JPG,Montefrío/Raw/62057 (2).JPG,Montefrío/Raw/62057 (3).JPG,,,,High,auto-matched
-62068,Montefrío,AXE,Montefrío/Raw/62068 (1).JPG,Montefrío/Raw/62068 (2).JPG,Montefrío/Raw/62068 (3).JPG,,,,High,auto-matched
-62103,Montefrío,AXE,Montefrío/Raw/62103 (1).JPG,Montefrío/Raw/62103 (2).JPG,Montefrío/Raw/62103 (3).JPG,,,,High,auto-matched
-62133,Montefrío,AXE,Montefrío/Raw/62133 (1).JPG,Montefrío/Raw/62133 (2).JPG,Montefrío/Raw/62133 (3).JPG,,,,High,auto-matched
-62343,Montefrío,AXE,Montefrío/Raw/62343 (1).JPG,Montefrío/Raw/62343 (2).JPG,Montefrío/Raw/62343 (3).JPG,,,,High,auto-matched
-62389,Montefrío,AXE,Montefrío/Raw/62389 (1).JPG,Montefrío/Raw/62389 (2).JPG,Montefrío/Raw/62389 (3).JPG,,,,High,auto-matched
-62660,Montefrío,AXE,Montefrío/Raw/62660 (1).JPG,Montefrío/Raw/62660 (2).JPG,Montefrío/Raw/62660 (3).JPG,,,,High,auto-matched
+61027,Montefrío,AXE,UGR assemblages/Montefrío/Raw/61027 (1).JPG,UGR assemblages/Montefrío/Raw/61027 (2).JPG,UGR assemblages/Montefrío/Raw/61027 (3).JPG,,,,High,auto-matched
+61187,Montefrío,AXE,UGR assemblages/Montefrío/Raw/61187 (1).JPG,UGR assemblages/Montefrío/Raw/61187 (2).JPG,,,,,High,auto-matched
+61272,Montefrío,AXE,UGR assemblages/Montefrío/Raw/61272 (1).JPG,UGR assemblages/Montefrío/Raw/61272 (2).JPG,UGR assemblages/Montefrío/Raw/61272 (3).JPG,,,,High,auto-matched
+61300,Montefrío,AXE,UGR assemblages/Montefrío/Raw/61300 (1).JPG,UGR assemblages/Montefrío/Raw/61300 (2).JPG,UGR assemblages/Montefrío/Raw/61300 (3).JPG,,,,High,auto-matched
+61304,Montefrío,AXE,UGR assemblages/Montefrío/Raw/61304 (1).JPG,UGR assemblages/Montefrío/Raw/61304 (2).JPG,UGR assemblages/Montefrío/Raw/61304 (3).JPG,,,,High,auto-matched
+61506,Montefrío,AXE,UGR assemblages/Montefrío/Raw/61506 (1).JPG,UGR assemblages/Montefrío/Raw/61506 (2).JPG,UGR assemblages/Montefrío/Raw/61506 (3).JPG,,,,High,auto-matched
+6155-1,Montefrío,AXE,UGR assemblages/Montefrío/Raw/6155-1 (1).JPG,UGR assemblages/Montefrío/Raw/6155-1 (2).JPG,UGR assemblages/Montefrío/Raw/6155-1 (3).JPG,,,,High,auto-matched
+6155-11,Montefrío,PPUL,UGR assemblages/Montefrío/Raw/6155-11 (1).JPG,UGR assemblages/Montefrío/Raw/6155-11 (2).JPG,UGR assemblages/Montefrío/Raw/6155-11 (3).JPG,,,,High,auto-matched
+6155-19,Montefrío,AXE,UGR assemblages/Montefrío/Raw/6155-19 (1).JPG,UGR assemblages/Montefrío/Raw/6155-19 (2).JPG,UGR assemblages/Montefrío/Raw/6155-19 (3).JPG,,,,High,auto-matched
+6155-2,Montefrío,AXE,UGR assemblages/Montefrío/Raw/6155-2 (1).JPG,UGR assemblages/Montefrío/Raw/6155-2 (2).JPG,UGR assemblages/Montefrío/Raw/6155-2 (3).JPG,,,,High,auto-matched
+6155-21,Montefrío,AXE,UGR assemblages/Montefrío/Raw/6155-21 (1).JPG,UGR assemblages/Montefrío/Raw/6155-21 (2).JPG,UGR assemblages/Montefrío/Raw/6155-21 (3).JPG,,,,High,auto-matched
+6155-22,Montefrío,AXE,UGR assemblages/Montefrío/Raw/6155-22 (1).JPG,UGR assemblages/Montefrío/Raw/6155-22 (2).JPG,UGR assemblages/Montefrío/Raw/6155-22 (3).JPG,,,,High,auto-matched
+6155-24,Montefrío,PPUL,UGR assemblages/Montefrío/Raw/6155-24 (1).JPG,UGR assemblages/Montefrío/Raw/6155-24 (2).JPG,UGR assemblages/Montefrío/Raw/6155-24 (3).JPG,,,,High,auto-matched
+6155-3,Montefrío,AXE,UGR assemblages/Montefrío/Raw/6155-3 (1).JPG,UGR assemblages/Montefrío/Raw/6155-3 (2).JPG,UGR assemblages/Montefrío/Raw/6155-3 (3).JPG,,,,High,auto-matched
+6155-4,Montefrío,AXE,UGR assemblages/Montefrío/Raw/6155-4 (1).JPG,UGR assemblages/Montefrío/Raw/6155-4 (2).JPG,UGR assemblages/Montefrío/Raw/6155-4 (3).JPG,,,,High,auto-matched
+6155-5,Montefrío,AXE,UGR assemblages/Montefrío/Raw/6155-5 (1).jpg,UGR assemblages/Montefrío/Raw/6155-5 (2).jpg,UGR assemblages/Montefrío/Raw/6155-5 (3).jpg,,,,High,sillimanite-auto
+6155-6,Montefrío,AXE,UGR assemblages/Montefrío/Raw/6155-6 (1).jpg,UGR assemblages/Montefrío/Raw/6155-6 (2).jpg,UGR assemblages/Montefrío/Raw/6155-6 (3).jpg,,,,High,sillimanite-auto
+6155-7,Montefrío,AXE,UGR assemblages/Montefrío/Raw/6155-7 (1).JPG,UGR assemblages/Montefrío/Raw/6155-7 (2).JPG,UGR assemblages/Montefrío/Raw/6155-7 (3).JPG,,,,High,auto-matched
+61681,Montefrío,AXE,UGR assemblages/Montefrío/Raw/61681 (1).JPG,UGR assemblages/Montefrío/Raw/61681 (2).JPG,UGR assemblages/Montefrío/Raw/61681 (3).JPG,,,,High,auto-matched
+61810,Montefrío,AXE,UGR assemblages/Montefrío/Raw/61810 (1).JPG,UGR assemblages/Montefrío/Raw/61810 (2).JPG,UGR assemblages/Montefrío/Raw/61810 (3).JPG,,,,High,auto-matched
+61945,Montefrío,AXE,UGR assemblages/Montefrío/Raw/61945 (1).JPG,UGR assemblages/Montefrío/Raw/61945 (2).JPG,UGR assemblages/Montefrío/Raw/61945 (3).JPG,,,,High,auto-matched
+6199-1,Montefrío,AXE,UGR assemblages/Montefrío/Raw/6199-1 (1).JPG,UGR assemblages/Montefrío/Raw/6199-1 (2).JPG,UGR assemblages/Montefrío/Raw/6199-1 (3).JPG,,,,High,auto-matched
+62057,Montefrío,AXE,UGR assemblages/Montefrío/Raw/62057 (1).JPG,UGR assemblages/Montefrío/Raw/62057 (2).JPG,UGR assemblages/Montefrío/Raw/62057 (3).JPG,,,,High,auto-matched
+62068,Montefrío,AXE,UGR assemblages/Montefrío/Raw/62068 (1).JPG,UGR assemblages/Montefrío/Raw/62068 (2).JPG,UGR assemblages/Montefrío/Raw/62068 (3).JPG,,,,High,auto-matched
+62103,Montefrío,AXE,UGR assemblages/Montefrío/Raw/62103 (1).JPG,UGR assemblages/Montefrío/Raw/62103 (2).JPG,UGR assemblages/Montefrío/Raw/62103 (3).JPG,,,,High,auto-matched
+62133,Montefrío,AXE,UGR assemblages/Montefrío/Raw/62133 (1).JPG,UGR assemblages/Montefrío/Raw/62133 (2).JPG,UGR assemblages/Montefrío/Raw/62133 (3).JPG,,,,High,auto-matched
+62343,Montefrío,AXE,UGR assemblages/Montefrío/Raw/62343 (1).JPG,UGR assemblages/Montefrío/Raw/62343 (2).JPG,UGR assemblages/Montefrío/Raw/62343 (3).JPG,,,,High,auto-matched
+62389,Montefrío,AXE,UGR assemblages/Montefrío/Raw/62389 (1).JPG,UGR assemblages/Montefrío/Raw/62389 (2).JPG,UGR assemblages/Montefrío/Raw/62389 (3).JPG,,,,High,auto-matched
+62660,Montefrío,AXE,UGR assemblages/Montefrío/Raw/62660 (1).JPG,UGR assemblages/Montefrío/Raw/62660 (2).JPG,UGR assemblages/Montefrío/Raw/62660 (3).JPG,,,,High,auto-matched
 63,MLin DEC,HAM,Linares Museum/MLin 63 (1).jpg,Linares Museum/MLin 63 (2).jpg,Linares Museum/MLin 63 (3).jpg,Linares Museum/MLin 63 (4).jpg,,,High,structured
-63008,Montefrío,AXE,Montefrío/Raw/63008 (1).JPG,Montefrío/Raw/63008 (2).JPG,Montefrío/Raw/63008 (3).JPG,,,,High,auto-matched
-63450,Montefrío,AXE,Montefrío/Raw/63450 (1).JPG,Montefrío/Raw/63450 (2).JPG,Montefrío/Raw/63450 (3).JPG,,,,High,auto-matched
-63452,Montefrío,AXE,Montefrío/Raw/63452 (1).JPG,Montefrío/Raw/63452 (2).JPG,Montefrío/Raw/63452 (3).JPG,,,,High,auto-matched
-63482,Montefrío,AXE,Montefrío/Raw/63482 (1).JPG,Montefrío/Raw/63482 (2).JPG,Montefrío/Raw/63482 (3).JPG,,,,High,auto-matched
-63503,Montefrío,AXE,Montefrío/Raw/63503 (1).JPG,Montefrío/Raw/63503 (2).JPG,Montefrío/Raw/63503 (3).JPG,,,,High,auto-matched
-63592,Montefrío,AXE,Montefrío/Raw/63592 (1).JPG,Montefrío/Raw/63592 (2).JPG,Montefrío/Raw/63592 (3).JPG,,,,High,auto-matched
-63712,Montefrío,AXE,Montefrío/Raw/63712 (1).JPG,Montefrío/Raw/63712 (2).JPG,Montefrío/Raw/63712 (3).JPG,,,,High,auto-matched
-63752,Montefrío,AXE,Montefrío/Raw/63752 (1).JPG,Montefrío/Raw/63752 (2).JPG,Montefrío/Raw/63752 (3).JPG,,,,High,auto-matched
-638,Malagón,AXE,El Malagón/Raw/CB RPPUL-2 or 638 (1).JPG,El Malagón/Raw/CB RPPUL-2 or 638 (2).JPG,El Malagón/Raw/CB RPPUL-2 or 638 (3).JPG,El Malagón/Raw/CB RPPUL-2 or 638 (4).JPG,,,High,El Malagón/Raw
-63873,Montefrío,AXE,Montefrío/Raw/63873 (1).JPG,Montefrío/Raw/63873 (2).JPG,Montefrío/Raw/63873 (3).JPG,,,,High,auto-matched
-63968,Montefrío,AXE,Montefrío/Raw/63968 (1).JPG,Montefrío/Raw/63968 (2).JPG,Montefrío/Raw/63968 (3).JPG,,,,High,auto-matched
-64190-1,Montefrío,AXE,Montefrío/Raw/64190-1 (1).JPG,Montefrío/Raw/64190-1 (2).JPG,Montefrío/Raw/64190-1 (3).JPG,,,,High,auto-matched
-64549,Montefrío,AXE,Montefrío/Raw/64549 (1).JPG,Montefrío/Raw/64549 (2).JPG,Montefrío/Raw/64549 (3).JPG,,,,High,auto-matched
-64574,Montefrío,AXE,Montefrío/Raw/64574 (1).JPG,Montefrío/Raw/64574 (2).JPG,Montefrío/Raw/64574 (3).JPG,,,,High,auto-matched
-64695,Montefrío,AXE,Montefrío/Raw/64695 (1).JPG,Montefrío/Raw/64695 (2).JPG,Montefrío/Raw/64695 (3).JPG,,,,High,auto-matched
-64711,Montefrío,AXE,Montefrío/Raw/64711 (1).JPG,Montefrío/Raw/64711 (2).JPG,Montefrío/Raw/64711 (3).JPG,,,,High,auto-matched
-64726,Montefrío,AXE,Montefrío/Raw/64726 (1).JPG,Montefrío/Raw/64726 (2).JPG,,,,,High,auto-matched
-65340,Montefrío,AXE,Montefrío/Raw/65340 (1).JPG,Montefrío/Raw/65340 (2).JPG,Montefrío/Raw/65340 (3).JPG,,,,High,auto-matched
-65531,Montefrío,AXE,Descontextualizado/Raw/MF 65531 (1).jpg,Descontextualizado/Raw/MF 65531 (2).jpg,Descontextualizado/Raw/MF 65531 (3).jpg,,,,High,Descontextualizado/Raw
-65549,Montefrío,AXE,Montefrío/Raw/65549 (1).JPG,Montefrío/Raw/65549 (2).JPG,Montefrío/Raw/65549 (3).JPG,,,,High,auto-matched
-65740,Montefrío,AXE,Montefrío/Raw/65740 (1).JPG,Montefrío/Raw/65740 (2).JPG,Montefrío/Raw/65740 (3).JPG,,,,High,auto-matched
-65822,Montefrío,AXE,Montefrío/Raw/65822 (1).JPG,Montefrío/Raw/65822 (2).JPG,,,,,High,auto-matched
-65840,Montefrío,AXE,Montefrío/Raw/65840 (3).JPG,Montefrío/Raw/65840 (4).JPG,,,,,High,auto-matched
-66271,Montefrío,AXE,Montefrío/Raw/66271 (1).JPG,Montefrío/Raw/66271 (2).JPG,Montefrío/Raw/66271 (3).JPG,Montefrío/Raw/66271 (4).JPG,,,High,auto-matched
-66317,Montefrío,AXE,Montefrío/Raw/66317 (1).JPG,Montefrío/Raw/66317 (2).JPG,Montefrío/Raw/66317 (4).JPG,,,,High,auto-matched
-66435,Montefrío,AXE,Montefrío/Raw/66435 (1).JPG,Montefrío/Raw/66435 (2).JPG,,,,,High,auto-matched
-66480,Montefrío,AXE,Montefrío/Raw/66480 (1).JPG,Montefrío/Raw/66480 (2).JPG,,,,,High,auto-matched
-66500,Montefrío,AXE,Montefrío/Raw/66500 (1).JPG,Montefrío/Raw/66500 (2).JPG,Montefrío/Raw/66500 (3).JPG,,,,High,auto-matched
-66585,Montefrío,AXE,Montefrío/Raw/66585 (1).JPG,Montefrío/Raw/66585 (2).JPG,Montefrío/Raw/66585 (3).JPG,,,,High,auto-matched
-66631,Montefrío,AXE,Montefrío/Raw/66631 (1).JPG,Montefrío/Raw/66631 (2).JPG,Montefrío/Raw/66631 (3).JPG,,,,High,auto-matched
-66676,Montefrío,AXE,Montefrío/Raw/66676 (1).JPG,Montefrío/Raw/66676 (2).JPG,,,,,High,auto-matched
-66734,Montefrío,AXE,Montefrío/Raw/66734 (1).JPG,Montefrío/Raw/66734 (2).JPG,,,,,High,auto-matched
-66810,Montefrío,AXE,Montefrío/Raw/66810 (1).JPG,Montefrío/Raw/66810 (2).JPG,Montefrío/Raw/66810 (3).JPG,,,,High,auto-matched
-6692,Montefrío,AXE,Montefrío/Raw/6692 (1).JPG,Montefrío/Raw/6692 (2).JPG,Montefrío/Raw/6692 (3).JPG,,,,High,auto-matched
-67758,Montefrío,AXE,Montefrío/Raw/67758 (1).JPG,Montefrío/Raw/67758 (2).JPG,Montefrío/Raw/67758 (3).JPG,,,,High,auto-matched
-67767,Montefrío,AXE,Montefrío/Raw/67767 (1).JPG,Montefrío/Raw/67767 (2).JPG,Montefrío/Raw/67767 (3).JPG,,,,High,auto-matched
-67940,Montefrío,AXE,Montefrío/Raw/67940 (1).JPG,Montefrío/Raw/67940 (2).JPG,,,,,High,auto-matched
-67972,Montefrío,AXE,Montefrío/Raw/67972 (1).JPG,Montefrío/Raw/67972 (2).JPG,Montefrío/Raw/67972 (3).JPG,,,,High,auto-matched
-68074,Montefrío,AXE,Montefrío/Raw/68074 (1).JPG,Montefrío/Raw/68074 (2).JPG,,,,,High,auto-matched
-68113,Montefrío,AXE,Montefrío/Raw/68113 (1).JPG,Montefrío/Raw/68113 (2).JPG,,,,,High,auto-matched
-68121,Montefrío,AXE,Montefrío/Raw/68121 (1).JPG,Montefrío/Raw/68121 (2).JPG,Montefrío/Raw/68121 (3).JPG,,,,High,auto-matched
-68124,Montefrío,AXE,Montefrío/Raw/68124 (1).JPG,Montefrío/Raw/68124 (2).JPG,Montefrío/Raw/68124 (3).JPG,,,,High,auto-matched
-68138,Montefrío,AXE,Montefrío/Raw/68138 (1).JPG,Montefrío/Raw/68138 (2).JPG,Montefrío/Raw/68138 (3).JPG,,,,High,auto-matched
-68139,Montefrío,PPUL,Montefrío/Raw/68139 (1).JPG,Montefrío/Raw/68139 (2).JPG,Montefrío/Raw/68139 (3).JPG,,,,High,auto-matched
-68144,Montefrío,AXE,Montefrío/Raw/68144 (1).JPG,Montefrío/Raw/68144 (2).JPG,,,,,High,auto-matched
-68158,Montefrío,AXE,Montefrío/Raw/68158 (1).JPG,Montefrío/Raw/68158 (2).JPG,Montefrío/Raw/68158 (3).JPG,,,,High,auto-matched
-68180,Montefrío,AXE,Montefrío/Raw/68180 (1).JPG,Montefrío/Raw/68180 (2).JPG,,,,,High,auto-matched
-68214,Montefrío,AXE,Montefrío/Raw/68214 (1).JPG,Montefrío/Raw/68214 (2).JPG,,,,,High,auto-matched
-68251,Montefrío,AXE,Montefrío/Raw/68251 (1).JPG,Montefrío/Raw/68251 (2).JPG,,,,,High,auto-matched
-6829,Montefrío,AXE,Montefrío/Raw/6829 (1).JPG,Montefrío/Raw/6829 (2).JPG,Montefrío/Raw/6829 (3).JPG,,,,High,auto-matched
-68296,Montefrío,AXE,Montefrío/Raw/68296 (1).JPG,Montefrío/Raw/68296 (2).JPG,,,,,High,auto-matched
-68476,Montefrío,AXE,Montefrío/Raw/68476 (1).JPG,Montefrío/Raw/68476 (2).JPG,,,,,High,auto-matched
-69169,Montefrío,AXE,Montefrío/Raw/69169 (1).JPG,Montefrío/Raw/69169 (2).JPG,,,,,High,auto-matched
-69280,Montefrío,AXE,Montefrío/Raw/69280 (1).JPG,Montefrío/Raw/69280 (2).JPG,Montefrío/Raw/69280 (3).JPG,,,,High,auto-matched
-69432-2,Montefrío,AXE,Montefrío/Raw/69432-2 (1).JPG,Montefrío/Raw/69432-2 (2).JPG,Montefrío/Raw/69432-2 (3).JPG,,,,High,auto-matched
+63008,Montefrío,AXE,UGR assemblages/Montefrío/Raw/63008 (1).JPG,UGR assemblages/Montefrío/Raw/63008 (2).JPG,UGR assemblages/Montefrío/Raw/63008 (3).JPG,,,,High,auto-matched
+63450,Montefrío,AXE,UGR assemblages/Montefrío/Raw/63450 (1).JPG,UGR assemblages/Montefrío/Raw/63450 (2).JPG,UGR assemblages/Montefrío/Raw/63450 (3).JPG,,,,High,auto-matched
+63452,Montefrío,AXE,UGR assemblages/Montefrío/Raw/63452 (1).JPG,UGR assemblages/Montefrío/Raw/63452 (2).JPG,UGR assemblages/Montefrío/Raw/63452 (3).JPG,,,,High,auto-matched
+63482,Montefrío,AXE,UGR assemblages/Montefrío/Raw/63482 (1).JPG,UGR assemblages/Montefrío/Raw/63482 (2).JPG,UGR assemblages/Montefrío/Raw/63482 (3).JPG,,,,High,auto-matched
+63503,Montefrío,AXE,UGR assemblages/Montefrío/Raw/63503 (1).JPG,UGR assemblages/Montefrío/Raw/63503 (2).JPG,UGR assemblages/Montefrío/Raw/63503 (3).JPG,,,,High,auto-matched
+63592,Montefrío,AXE,UGR assemblages/Montefrío/Raw/63592 (1).JPG,UGR assemblages/Montefrío/Raw/63592 (2).JPG,UGR assemblages/Montefrío/Raw/63592 (3).JPG,,,,High,auto-matched
+63629,Montefrío,AXE,UGR assemblages/Montefrío/Raw/63629 (1).jpg,UGR assemblages/Montefrío/Raw/63629 (2).jpg,UGR assemblages/Montefrío/Raw/63629 (3).jpg,,,,High,sillimanite-auto
+63712,Montefrío,AXE,UGR assemblages/Montefrío/Raw/63712 (1).JPG,UGR assemblages/Montefrío/Raw/63712 (2).JPG,UGR assemblages/Montefrío/Raw/63712 (3).JPG,,,,High,auto-matched
+63752,Montefrío,AXE,UGR assemblages/Montefrío/Raw/63752 (1).JPG,UGR assemblages/Montefrío/Raw/63752 (2).JPG,UGR assemblages/Montefrío/Raw/63752 (3).JPG,,,,High,auto-matched
+638,Malagón,AXE,UGR assemblages/El Malagón/Raw/CB RPPUL-2 or 638 (1).JPG,UGR assemblages/El Malagón/Raw/CB RPPUL-2 or 638 (2).JPG,UGR assemblages/El Malagón/Raw/CB RPPUL-2 or 638 (3).JPG,UGR assemblages/El Malagón/Raw/CB RPPUL-2 or 638 (4).JPG,,,High,El Malagón/Raw
+63873,Montefrío,AXE,UGR assemblages/Montefrío/Raw/63873 (1).JPG,UGR assemblages/Montefrío/Raw/63873 (2).JPG,UGR assemblages/Montefrío/Raw/63873 (3).JPG,,,,High,auto-matched
+63968,Montefrío,AXE,UGR assemblages/Montefrío/Raw/63968 (1).JPG,UGR assemblages/Montefrío/Raw/63968 (2).JPG,UGR assemblages/Montefrío/Raw/63968 (3).JPG,,,,High,auto-matched
+64152,Montefrío,AXE,UGR assemblages/Montefrío/Raw/64152 (1).jpg,UGR assemblages/Montefrío/Raw/64152 (2).jpg,UGR assemblages/Montefrío/Raw/64152 (3).jpg,,,,High,sillimanite-auto
+64190-1,Montefrío,AXE,UGR assemblages/Montefrío/Raw/64190-1 (1).JPG,UGR assemblages/Montefrío/Raw/64190-1 (2).JPG,UGR assemblages/Montefrío/Raw/64190-1 (3).JPG,,,,High,auto-matched
+6454/1,Papauvas,AXE,Huelva museum pictures/6454-1 (1).jpg,Huelva museum pictures/6454-1 (2).jpg,Huelva museum pictures/6454-1 (3).jpg,,,,High,auto-matched Huelva Museum 02-03-2026
+6454/3,Papauvas,AXE,Huelva museum pictures/6454-3 (1).jpg,Huelva museum pictures/6454-3 (2).jpg,Huelva museum pictures/6454-3 (3).jpg,,,,High,auto-matched Huelva Museum 02-03-2026
+6454/4,Papauvas,AXE,Huelva museum pictures/6454-4 (1).jpg,Huelva museum pictures/6454-4 (2).jpg,Huelva museum pictures/6454-4 (3).jpg,,,,High,auto-matched Huelva Museum 02-03-2026
+64549,Montefrío,AXE,UGR assemblages/Montefrío/Raw/64549 (1).JPG,UGR assemblages/Montefrío/Raw/64549 (2).JPG,UGR assemblages/Montefrío/Raw/64549 (3).JPG,,,,High,auto-matched
+64574,Montefrío,AXE,UGR assemblages/Montefrío/Raw/64574 (1).JPG,UGR assemblages/Montefrío/Raw/64574 (2).JPG,UGR assemblages/Montefrío/Raw/64574 (3).JPG,,,,High,auto-matched
+64695,Montefrío,AXE,UGR assemblages/Montefrío/Raw/64695 (1).JPG,UGR assemblages/Montefrío/Raw/64695 (2).JPG,UGR assemblages/Montefrío/Raw/64695 (3).JPG,,,,High,auto-matched
+64711,Montefrío,AXE,UGR assemblages/Montefrío/Raw/64711 (1).JPG,UGR assemblages/Montefrío/Raw/64711 (2).JPG,UGR assemblages/Montefrío/Raw/64711 (3).JPG,,,,High,auto-matched
+64726,Montefrío,AXE,UGR assemblages/Montefrío/Raw/64726 (1).JPG,UGR assemblages/Montefrío/Raw/64726 (2).JPG,,,,,High,auto-matched
+64743,Montefrío,AXE,UGR assemblages/Montefrío/Raw/64743 (1).jpg,UGR assemblages/Montefrío/Raw/64743 (2).jpg,,,,,High,sillimanite-auto
+65340,Montefrío,AXE,UGR assemblages/Montefrío/Raw/65340 (1).JPG,UGR assemblages/Montefrío/Raw/65340 (2).JPG,UGR assemblages/Montefrío/Raw/65340 (3).JPG,,,,High,auto-matched
+65531,Montefrío,AXE,UGR assemblages/Descontextualizado/Raw/MF 65531 (1).jpg,UGR assemblages/Descontextualizado/Raw/MF 65531 (2).jpg,UGR assemblages/Descontextualizado/Raw/MF 65531 (3).jpg,,,,High,Descontextualizado/Raw
+65549,Montefrío,AXE,UGR assemblages/Montefrío/Raw/65549 (1).JPG,UGR assemblages/Montefrío/Raw/65549 (2).JPG,UGR assemblages/Montefrío/Raw/65549 (3).JPG,,,,High,auto-matched
+65740,Montefrío,AXE,UGR assemblages/Montefrío/Raw/65740 (1).JPG,UGR assemblages/Montefrío/Raw/65740 (2).JPG,UGR assemblages/Montefrío/Raw/65740 (3).JPG,,,,High,auto-matched
+65822,Montefrío,AXE,UGR assemblages/Montefrío/Raw/65822 (1).JPG,UGR assemblages/Montefrío/Raw/65822 (2).JPG,,,,,High,auto-matched
+65840,Montefrío,AXE,UGR assemblages/Montefrío/Raw/65840 (3).JPG,UGR assemblages/Montefrío/Raw/65840 (4).JPG,,,,,High,auto-matched
+66271,Montefrío,AXE,UGR assemblages/Montefrío/Raw/66271 (1).JPG,UGR assemblages/Montefrío/Raw/66271 (2).JPG,UGR assemblages/Montefrío/Raw/66271 (3).JPG,UGR assemblages/Montefrío/Raw/66271 (4).JPG,,,High,auto-matched
+66317,Montefrío,AXE,UGR assemblages/Montefrío/Raw/66317 (1).JPG,UGR assemblages/Montefrío/Raw/66317 (2).JPG,UGR assemblages/Montefrío/Raw/66317 (4).JPG,,,,High,auto-matched
+66435,Montefrío,AXE,UGR assemblages/Montefrío/Raw/66435 (1).JPG,UGR assemblages/Montefrío/Raw/66435 (2).JPG,,,,,High,auto-matched
+66480,Montefrío,AXE,UGR assemblages/Montefrío/Raw/66480 (1).JPG,UGR assemblages/Montefrío/Raw/66480 (2).JPG,,,,,High,auto-matched
+66500,Montefrío,AXE,UGR assemblages/Montefrío/Raw/66500 (1).JPG,UGR assemblages/Montefrío/Raw/66500 (2).JPG,UGR assemblages/Montefrío/Raw/66500 (3).JPG,,,,High,auto-matched
+66585,Montefrío,AXE,UGR assemblages/Montefrío/Raw/66585 (1).JPG,UGR assemblages/Montefrío/Raw/66585 (2).JPG,UGR assemblages/Montefrío/Raw/66585 (3).JPG,,,,High,auto-matched
+66631,Montefrío,AXE,UGR assemblages/Montefrío/Raw/66631 (1).JPG,UGR assemblages/Montefrío/Raw/66631 (2).JPG,UGR assemblages/Montefrío/Raw/66631 (3).JPG,,,,High,auto-matched
+66676,Montefrío,AXE,UGR assemblages/Montefrío/Raw/66676 (1).JPG,UGR assemblages/Montefrío/Raw/66676 (2).JPG,,,,,High,auto-matched
+66734,Montefrío,AXE,UGR assemblages/Montefrío/Raw/66734 (1).JPG,UGR assemblages/Montefrío/Raw/66734 (2).JPG,,,,,High,auto-matched
+66810,Montefrío,AXE,UGR assemblages/Montefrío/Raw/66810 (1).JPG,UGR assemblages/Montefrío/Raw/66810 (2).JPG,UGR assemblages/Montefrío/Raw/66810 (3).JPG,,,,High,auto-matched
+6692,Montefrío,AXE,UGR assemblages/Montefrío/Raw/6692 (1).JPG,UGR assemblages/Montefrío/Raw/6692 (2).JPG,UGR assemblages/Montefrío/Raw/6692 (3).JPG,,,,High,auto-matched
+67758,Montefrío,AXE,UGR assemblages/Montefrío/Raw/67758 (1).JPG,UGR assemblages/Montefrío/Raw/67758 (2).JPG,UGR assemblages/Montefrío/Raw/67758 (3).JPG,,,,High,auto-matched
+67767,Montefrío,AXE,UGR assemblages/Montefrío/Raw/67767 (1).JPG,UGR assemblages/Montefrío/Raw/67767 (2).JPG,UGR assemblages/Montefrío/Raw/67767 (3).JPG,,,,High,auto-matched
+67940,Montefrío,AXE,UGR assemblages/Montefrío/Raw/67940 (1).JPG,UGR assemblages/Montefrío/Raw/67940 (2).JPG,,,,,High,auto-matched
+67948-2,Montefrío,AXE,UGR assemblages/Descontextualizado/Raw/MF 67948-2 (1).jpg,UGR assemblages/Descontextualizado/Raw/MF 67948-2 (2).jpg,UGR assemblages/Descontextualizado/Raw/MF 67948-2 (3).jpg,,,,High,sillimanite-MF-prefix
+67972,Montefrío,AXE,UGR assemblages/Montefrío/Raw/67972 (1).JPG,UGR assemblages/Montefrío/Raw/67972 (2).JPG,UGR assemblages/Montefrío/Raw/67972 (3).JPG,,,,High,auto-matched
+68074,Montefrío,AXE,UGR assemblages/Montefrío/Raw/68074 (1).JPG,UGR assemblages/Montefrío/Raw/68074 (2).JPG,,,,,High,auto-matched
+68113,Montefrío,AXE,UGR assemblages/Montefrío/Raw/68113 (1).JPG,UGR assemblages/Montefrío/Raw/68113 (2).JPG,,,,,High,auto-matched
+68121,Montefrío,AXE,UGR assemblages/Montefrío/Raw/68121 (1).JPG,UGR assemblages/Montefrío/Raw/68121 (2).JPG,UGR assemblages/Montefrío/Raw/68121 (3).JPG,,,,High,auto-matched
+68124,Montefrío,AXE,UGR assemblages/Montefrío/Raw/68124 (1).JPG,UGR assemblages/Montefrío/Raw/68124 (2).JPG,UGR assemblages/Montefrío/Raw/68124 (3).JPG,,,,High,auto-matched
+68138,Montefrío,AXE,UGR assemblages/Montefrío/Raw/68138 (1).JPG,UGR assemblages/Montefrío/Raw/68138 (2).JPG,UGR assemblages/Montefrío/Raw/68138 (3).JPG,,,,High,auto-matched
+68139,Montefrío,PPUL,UGR assemblages/Montefrío/Raw/68139 (1).JPG,UGR assemblages/Montefrío/Raw/68139 (2).JPG,UGR assemblages/Montefrío/Raw/68139 (3).JPG,,,,High,auto-matched
+68144,Montefrío,AXE,UGR assemblages/Montefrío/Raw/68144 (1).JPG,UGR assemblages/Montefrío/Raw/68144 (2).JPG,,,,,High,auto-matched
+68158,Montefrío,AXE,UGR assemblages/Montefrío/Raw/68158 (1).JPG,UGR assemblages/Montefrío/Raw/68158 (2).JPG,UGR assemblages/Montefrío/Raw/68158 (3).JPG,,,,High,auto-matched
+68180,Montefrío,AXE,UGR assemblages/Montefrío/Raw/68180 (1).JPG,UGR assemblages/Montefrío/Raw/68180 (2).JPG,,,,,High,auto-matched
+68214,Montefrío,AXE,UGR assemblages/Montefrío/Raw/68214 (1).JPG,UGR assemblages/Montefrío/Raw/68214 (2).JPG,,,,,High,auto-matched
+68251,Montefrío,AXE,UGR assemblages/Montefrío/Raw/68251 (1).JPG,UGR assemblages/Montefrío/Raw/68251 (2).JPG,,,,,High,auto-matched
+6829,Montefrío,AXE,UGR assemblages/Montefrío/Raw/6829 (1).JPG,UGR assemblages/Montefrío/Raw/6829 (2).JPG,UGR assemblages/Montefrío/Raw/6829 (3).JPG,,,,High,auto-matched
+68296,Montefrío,AXE,UGR assemblages/Montefrío/Raw/68296 (1).JPG,UGR assemblages/Montefrío/Raw/68296 (2).JPG,,,,,High,auto-matched
+68476,Montefrío,AXE,UGR assemblages/Montefrío/Raw/68476 (1).JPG,UGR assemblages/Montefrío/Raw/68476 (2).JPG,,,,,High,auto-matched
+68516,Montefrío,AXE,UGR assemblages/Montefrío/Raw/68516 (1).jpg,UGR assemblages/Montefrío/Raw/68516 (2).jpg,UGR assemblages/Montefrío/Raw/68516 (3).jpg,,,,High,sillimanite-auto
+68835,Montefrío,AXE,UGR assemblages/Montefrío/Raw/68835 (1).jpg,UGR assemblages/Montefrío/Raw/68835 (2).jpg,UGR assemblages/Montefrío/Raw/68835 (3).jpg,,,,High,sillimanite-auto
+69169,Montefrío,AXE,UGR assemblages/Montefrío/Raw/69169 (1).JPG,UGR assemblages/Montefrío/Raw/69169 (2).JPG,,,,,High,auto-matched
+69280,Montefrío,AXE,UGR assemblages/Montefrío/Raw/69280 (1).JPG,UGR assemblages/Montefrío/Raw/69280 (2).JPG,UGR assemblages/Montefrío/Raw/69280 (3).JPG,,,,High,auto-matched
+69432-2,Montefrío,AXE,UGR assemblages/Montefrío/Raw/69432-2 (1).JPG,UGR assemblages/Montefrío/Raw/69432-2 (2).JPG,UGR assemblages/Montefrío/Raw/69432-2 (3).JPG,,,,High,auto-matched
 6951,Hinojares,AXE,Jaén Museum/6951 (1).jpg,Jaén Museum/6951 (2).jpg,Jaén Museum/6951 (3).jpg,Jaén Museum/6951 (4).jpg,,,High,auto-matched
-69601,Montefrío,AXE,Montefrío/Raw/69601 (1).JPG,Montefrío/Raw/69601 (2).JPG,,,,,High,auto-matched
+69601,Montefrío,AXE,UGR assemblages/Montefrío/Raw/69601 (1).JPG,UGR assemblages/Montefrío/Raw/69601 (2).JPG,,,,,High,auto-matched
+7/16,Valencina,AXE,Valencina Museum/7-16 (1).jpg,Valencina Museum/7-16 (2).jpg,Valencina Museum/7-16 (3).jpg,,,,High,Valencina Museum (Feb 2026)
+7/17,Valencina,AXE,Valencina Museum/7-17 (1).jpg,Valencina Museum/7-17 (2).jpg,Valencina Museum/7-17 (3).jpg,,,,High,Valencina Museum (Feb 2026)
+7/32,Valencina,AXE,Valencina Museum/7-32 (1).jpg,Valencina Museum/7-32 (2).jpg,Valencina Museum/7-32 (3).jpg,,,,High,Valencina Museum (Feb 2026)
 71,MLin DEC,AXE,Linares Museum/MLin 71 (1).jpg,Linares Museum/MLin 71 (2).jpg,Linares Museum/MLin 71 (3).jpg,Linares Museum/MLin 71 (4).jpg,,,High,structured
+74,MLin DEC,AXE,Linares Museum/MLin 74 (1).jpg,Linares Museum/MLin 74 (2).jpg,Linares Museum/MLin 74 (3).jpg,Linares Museum/MLin 74 (4).jpg,,,High,sillimanite-MLin
 7591,Cástulo,AXE,Jaén Museum/7591 (1).jpg,Jaén Museum/7591 (2).jpg,Jaén Museum/7591 (3).jpg,Jaén Museum/7591 (4).jpg,,,High,auto-matched
 7592,Cástulo,AXE,Jaén Museum/7592 (1).jpg,Jaén Museum/7592 (2).jpg,Jaén Museum/7592 (3).jpg,Jaén Museum/7592 (4).jpg,,,High,auto-matched
 7593,Quesada,AXE,Jaén Museum/7593 (1).jpg,Jaén Museum/7593 (2).jpg,Jaén Museum/7593 (3).jpg,Jaén Museum/7593 (4).jpg,,,High,auto-matched
@@ -378,117 +496,131 @@ Accession #,Site,Type,Image_1,Image_2,Image_3,Image_4,Image_5,Image_6,Match_Conf
 7595,Quesada,AXE,Jaén Museum/7595 (1).jpg,Jaén Museum/7595 (2).jpg,Jaén Museum/7595 (3).jpg,Jaén Museum/7595 (4).jpg,,,High,auto-matched
 7596,Santa Elena,AXE,Jaén Museum/7596 (1).jpg,Jaén Museum/7596 (2).jpg,Jaén Museum/7596 (3).jpg,Jaén Museum/7596 (4).jpg,,,High,auto-matched
 7597,Santa Elena,AXE,Jaén Museum/7597 (1).jpg,Jaén Museum/7597 (2).jpg,Jaén Museum/7597 (3).jpg,Jaén Museum/7597 (4).jpg,,,High,auto-matched
+76,MLin DEC,AXE,Linares Museum/MLin 76 (1).jpg,Linares Museum/MLin 76 (2).jpg,Linares Museum/MLin 76 (3).jpg,Linares Museum/MLin 76 (4).jpg,,,High,sillimanite-MLin
 77,MLin DEC,AXE,Linares Museum/MLin 77 (1).jpg,Linares Museum/MLin 77 (2).jpg,Linares Museum/MLin 77 (3).jpg,Linares Museum/MLin 77 (4).jpg,,,High,structured
 7732,Mengíbar,AXE,Jaén Museum/7732 (1).jpg,Jaén Museum/7732 (2).jpg,Jaén Museum/7732 (3).jpg,Jaén Museum/7732 (4).jpg,,,High,auto-matched
+78,MLin DEC,AXE,Linares Museum/MLin 78 (1).jpg,Linares Museum/MLin 78 (2).jpg,Linares Museum/MLin 78 (3).jpg,Linares Museum/MLin 78 (4).jpg,,,High,sillimanite-MLin
 7862,Marroquíes Bajos,AXE,Jaén Museum/7862 (1).jpg,Jaén Museum/7862 (2).jpg,Jaén Museum/7862 (3).jpg,Jaén Museum/7862 (4).jpg,,,High,auto-matched
 79,MLin DEC,AXE,Linares Museum/MLin 79 (1).jpg,Linares Museum/MLin 79 (2).jpg,Linares Museum/MLin 79 (3).jpg,Linares Museum/MLin 79 (4).jpg,,,High,structured
+8/39,Valencina,AXE,Valencina Museum/8-39 (1).jpg,Valencina Museum/8-39 (2).jpg,Valencina Museum/8-39 (3).jpg,,,,High,Valencina Museum (Feb 2026)
 81,MLin DEC,AXE,Linares Museum/MLin 81 (1).jpg,Linares Museum/MLin 81 (2).jpg,Linares Museum/MLin 81 (3).jpg,Linares Museum/MLin 81 (4).jpg,,,High,structured
-83914,Terrera Ventura,AXE,Museo Almería/TV 83914.jpg,Museo Almería/TV 83914 (2).jpg,Museo Almería/TV 83914 (3).jpg,,,,High,auto-matched
-83915,Terrera Ventura,AXE,Museo Almería/TV 83915.jpg,Museo Almería/TV 83915 (2).jpg,Museo Almería/TV 83915 (3).jpg,,,,High,auto-matched
-83916,Terrera Ventura,AXE,Museo Almería/TV 83916.jpg,Museo Almería/TV 83916 (2).jpg,Museo Almería/TV 83916 (3).jpg,,,,High,auto-matched
-83917,Terrera Ventura,AXE,Museo Almería/TV 83917.jpg,Museo Almería/TV 83917 (2).jpg,Museo Almería/TV 83917 (3).jpg,,,,High,auto-matched
-83918,Terrera Ventura,AXE,Museo Almería/TV 83918.jpg,Museo Almería/TV 83918 (2).jpg,Museo Almería/TV 83918 (3).jpg,,,,High,auto-matched
-83919,Terrera Ventura,AXE,Museo Almería/TV 83919.jpg,Museo Almería/TV 83919 (2).jpg,Museo Almería/TV 83919 (3).jpg,,,,High,auto-matched
-83920,Terrera Ventura,AXE,Museo Almería/TV 83920.jpg,Museo Almería/TV 83920 (2).jpg,Museo Almería/TV 83920 (3).jpg,,,,High,auto-matched
-83921,Terrera Ventura,AXE,Museo Almería/TV 83921.jpg,Museo Almería/TV 83921 (2).jpg,Museo Almería/TV 83921 (3).jpg,,,,High,auto-matched
-83923,Terrera Ventura,AXE,Museo Almería/TV 83923.jpg,Museo Almería/TV 83923 (2).jpg,Museo Almería/TV 83923 (3).jpg,,,,High,auto-matched
-83924,Terrera Ventura,AXE,Museo Almería/TV 83924.jpg,Museo Almería/TV 83924 (2).jpg,Museo Almería/TV 83924 (3).jpg,,,,High,auto-matched
-83925,Terrera Ventura,AXE,Museo Almería/TV 83925.jpg,Museo Almería/TV 83925 (2).jpg,Museo Almería/TV 83925 (3).jpg,,,,High,auto-matched
-83926,Terrera Ventura,AXE,Museo Almería/TV 83926.jpg,Museo Almería/TV 83926 (2).jpg,Museo Almería/TV 83926 (3).jpg,,,,High,auto-matched
-83927,Terrera Ventura,AXE,Museo Almería/TV 83927.jpg,Museo Almería/TV 83927 (2).jpg,Museo Almería/TV 83927 (3).jpg,,,,High,auto-matched
-83928,Terrera Ventura,AXE,Museo Almería/TV 83928.jpg,Museo Almería/TV 83928 (2).jpg,Museo Almería/TV 83928 (3).jpg,,,,High,auto-matched
-83929,Terrera Ventura,AXE,Museo Almería/TV 83929.jpg,Museo Almería/TV 83929 (2).jpg,Museo Almería/TV 83929 (3).jpg,,,,High,auto-matched
-83930,Terrera Ventura,AXE,Museo Almería/TV 83930.jpg,Museo Almería/TV 83930 (2).jpg,Museo Almería/TV 83930 (3).jpg,,,,High,auto-matched
-83931,Terrera Ventura,AXE,Museo Almería/TV 83931.jpg,Museo Almería/TV 83931 (2).jpg,Museo Almería/TV 83931 (3).jpg,,,,High,auto-matched
-83932,Terrera Ventura,AXE,Museo Almería/TV 83932.jpg,Museo Almería/TV 83932 (2).jpg,Museo Almería/TV 83932 (3).jpg,,,,High,auto-matched
-83933,Terrera Ventura,AXE,Museo Almería/TV 83933.jpg,Museo Almería/TV 83933 (2).jpg,Museo Almería/TV 83933 (3).jpg,,,,High,auto-matched
-83935,Terrera Ventura,AXE,Museo Almería/TV 83935.jpg,Museo Almería/TV 83935 (2).jpg,Museo Almería/TV 83935 (3).jpg,,,,High,auto-matched
-83936,Terrera Ventura,AXE,Museo Almería/TV 83936.jpg,Museo Almería/TV 83936 (2).jpg,Museo Almería/TV 83936 (3).jpg,,,,High,auto-matched
-83937,Terrera Ventura,AXE,Museo Almería/TV 83937.jpg,Museo Almería/TV 83937 (2).jpg,Museo Almería/TV 83937 (3).jpg,,,,High,auto-matched
-83938,Terrera Ventura,AXE,Museo Almería/TV 83938.jpg,Museo Almería/TV 83938 (2).jpg,Museo Almería/TV 83938 (3).jpg,,,,High,auto-matched
-83939,Terrera Ventura,AXE,Museo Almería/TV 83939.jpg,Museo Almería/TV 83939 (2).jpg,Museo Almería/TV 83939 (3).jpg,,,,High,auto-matched
-83940,Terrera Ventura,AXE,Museo Almería/TV 83940.jpg,Museo Almería/TV 83940 (2).jpg,Museo Almería/TV 83940 (3).jpg,,,,High,auto-matched
-83941,Terrera Ventura,AXE,Museo Almería/TV 83941.jpg,Museo Almería/TV 83941 (2).jpg,Museo Almería/TV 83941 (3).jpg,,,,High,auto-matched
-83943,Terrera Ventura,AXE,Museo Almería/TV 83943.jpg,Museo Almería/TV 83943 (2).jpg,Museo Almería/TV 83943 (3).jpg,,,,High,auto-matched
-83944,Terrera Ventura,AXE,Museo Almería/TV 83944.jpg,Museo Almería/TV 83944 (2).jpg,Museo Almería/TV 83944 (3).jpg,,,,High,auto-matched
-83945,Terrera Ventura,AXE,Museo Almería/TV 83945.jpg,Museo Almería/TV 83945 (2).jpg,Museo Almería/TV 83945 (3).jpg,,,,High,auto-matched
-83946,Terrera Ventura,AXE,Museo Almería/TV 83946.jpg,Museo Almería/TV 83946 (2).jpg,Museo Almería/TV 83946 (3).jpg,,,,High,auto-matched
-83947,Terrera Ventura,AXE,Museo Almería/TV 83947.jpg,Museo Almería/TV 83947 (2).jpg,Museo Almería/TV 83947 (3).jpg,,,,High,auto-matched
-83948,Terrera Ventura,AXE,Museo Almería/TV 83948.jpg,Museo Almería/TV 83948 (2).jpg,Museo Almería/TV 83948 (3).jpg,,,,High,auto-matched
-83949,Terrera Ventura,AXE,Museo Almería/TV 83949.jpg,Museo Almería/TV 83949 (2).jpg,Museo Almería/TV 83949 (3).jpg,,,,High,auto-matched
-83950,Terrera Ventura,AXE,Museo Almería/TV 83950.jpg,Museo Almería/TV 83950 (2).jpg,Museo Almería/TV 83950 (3).jpg,,,,High,auto-matched
-83951,Terrera Ventura,AXE,Museo Almería/TV 83951.jpg,Museo Almería/TV 83951 (2).jpg,Museo Almería/TV 83951 (3).jpg,,,,High,auto-matched
-83952,Terrera Ventura,AXE,Museo Almería/TV 83952.jpg,Museo Almería/TV 83952 (2).jpg,Museo Almería/TV 83952 (3).jpg,,,,High,auto-matched
-83953,Terrera Ventura,AXE,Museo Almería/TV 83953.jpg,Museo Almería/TV 83953 (2).jpg,Museo Almería/TV 83953 (3).jpg,,,,High,auto-matched
-83955,Terrera Ventura,AXE,Museo Almería/TV 83955.jpg,Museo Almería/TV 83955 (2).jpg,Museo Almería/TV 83955 (3).jpg,,,,High,auto-matched
-83956,Terrera Ventura,AXE,Museo Almería/TV 83956.jpg,Museo Almería/TV 83956 (2).jpg,Museo Almería/TV 83956 (3).jpg,,,,High,auto-matched
-83958,Terrera Ventura,AXE,Museo Almería/TV 83958.jpg,Museo Almería/TV 83958 (2).jpg,Museo Almería/TV 83958 (3).jpg,,,,High,auto-matched
-83959,Terrera Ventura,AXE,Museo Almería/TV 83959.jpg,Museo Almería/TV 83959 (2).jpg,Museo Almería/TV 83959 (3).jpg,,,,High,auto-matched
-83960,Terrera Ventura,AXE,Museo Almería/TV 83960.jpg,Museo Almería/TV 83960 (2).jpg,Museo Almería/TV 83960 (3).jpg,,,,High,auto-matched
-83961,Terrera Ventura,AXE,Museo Almería/TV 83961.jpg,Museo Almería/TV 83961 (2).jpg,Museo Almería/TV 83961 (3).jpg,,,,High,auto-matched
-83962,Terrera Ventura,AXE,Museo Almería/TV 83962.jpg,Museo Almería/TV 83962 (2).jpg,Museo Almería/TV 83962 (3).jpg,,,,High,auto-matched
-83963,Terrera Ventura,AXE,Museo Almería/TV 83963.jpg,Museo Almería/TV 83963 (2).jpg,Museo Almería/TV 83963 (3).jpg,,,,High,auto-matched
-83964,Terrera Ventura,AXE,Museo Almería/TV 83964.jpg,Museo Almería/TV 83964 (2).jpg,Museo Almería/TV 83964 (3).jpg,,,,High,auto-matched
-83965,Terrera Ventura,AXE,Museo Almería/TV 83965.jpg,Museo Almería/TV 83965 (2).jpg,Museo Almería/TV 83965 (3).jpg,,,,High,auto-matched
-83966,Terrera Ventura,AXE,Museo Almería/TV 83966.jpg,Museo Almería/TV 83966 (2).jpg,Museo Almería/TV 83966 (3).jpg,,,,High,auto-matched
-83967,Terrera Ventura,AXE,Museo Almería/TV 83967.jpg,Museo Almería/TV 83967 (2).jpg,Museo Almería/TV 83967 (3).jpg,,,,High,auto-matched
-83968,Terrera Ventura,AXE,Museo Almería/TV 83968.jpg,Museo Almería/TV 83968 (2).jpg,Museo Almería/TV 83968 (3).jpg,,,,High,auto-matched
-83970,Terrera Ventura,AXE,Museo Almería/TV 83970.jpg,Museo Almería/TV 83970 (2).jpg,Museo Almería/TV 83970 (3).jpg,,,,High,auto-matched
-83971,Terrera Ventura,AXE,Museo Almería/TV 83971.jpg,Museo Almería/TV 83971 (2).jpg,Museo Almería/TV 83971 (3).jpg,,,,High,auto-matched
-83972,Terrera Ventura,AXE,Museo Almería/TV 83972.jpg,Museo Almería/TV 83972 (2).jpg,Museo Almería/TV 83972 (3).jpg,,,,High,auto-matched
-83973,Terrera Ventura,AXE,Museo Almería/TV 83973.jpg,Museo Almería/TV 83973 (2).jpg,Museo Almería/TV 83973 (3).jpg,,,,High,auto-matched
-83983,Terrera Ventura,AXE,Museo Almería/TV 83983.jpg,Museo Almería/TV 83983 (2).jpg,Museo Almería/TV 83983 (3).jpg,,,,High,auto-matched
-83984,Terrera Ventura,AXE,Museo Almería/TV 83984.jpg,Museo Almería/TV 83984 (2).jpg,Museo Almería/TV 83984 (3).jpg,,,,High,auto-matched
-83985,Terrera Ventura,AXE,Museo Almería/TV 83985.jpg,Museo Almería/TV 83985 (2).jpg,Museo Almería/TV 83985 (3).jpg,,,,High,auto-matched
-83986,Terrera Ventura,AXE,Museo Almería/TV 83986.jpg,Museo Almería/TV 83986 (2).jpg,Museo Almería/TV 83986 (3).jpg,,,,High,auto-matched
-83987,Terrera Ventura,AXE,Museo Almería/TV 83987.jpg,Museo Almería/TV 83987 (2).jpg,Museo Almería/TV 83987 (3).jpg,,,,High,auto-matched
-83988,Terrera Ventura,AXE,Museo Almería/TV 83988.jpg,Museo Almería/TV 83988 (2).jpg,Museo Almería/TV 83988 (3).jpg,,,,High,auto-matched
-83989,Terrera Ventura,AXE,Museo Almería/TV 83989.jpg,Museo Almería/TV 83989 (2).jpg,Museo Almería/TV 83989 (3).jpg,,,,High,auto-matched
+82,MLin DEC,AXE,Linares Museum/MLin 82 (1).jpg,Linares Museum/MLin 82 (2).jpg,Linares Museum/MLin 82 (3).jpg,Linares Museum/MLin 82 (4).jpg,,,High,sillimanite-MLin
+83914,Terrera Ventura,AXE,Museo Almería pictures/TV 83914.jpg,Museo Almería pictures/TV 83914 (2).jpg,Museo Almería pictures/TV 83914 (3).jpg,,,,High,auto-matched
+83915,Terrera Ventura,AXE,Museo Almería pictures/TV 83915.jpg,Museo Almería pictures/TV 83915 (2).jpg,Museo Almería pictures/TV 83915 (3).jpg,,,,High,auto-matched
+83916,Terrera Ventura,AXE,Museo Almería pictures/TV 83916.jpg,Museo Almería pictures/TV 83916 (2).jpg,Museo Almería pictures/TV 83916 (3).jpg,,,,High,auto-matched
+83917,Terrera Ventura,AXE,Museo Almería pictures/TV 83917.jpg,Museo Almería pictures/TV 83917 (2).jpg,Museo Almería pictures/TV 83917 (3).jpg,,,,High,auto-matched
+83918,Terrera Ventura,AXE,Museo Almería pictures/TV 83918.jpg,Museo Almería pictures/TV 83918 (2).jpg,Museo Almería pictures/TV 83918 (3).jpg,,,,High,auto-matched
+83919,Terrera Ventura,AXE,Museo Almería pictures/TV 83919.jpg,Museo Almería pictures/TV 83919 (2).jpg,Museo Almería pictures/TV 83919 (3).jpg,,,,High,auto-matched
+83920,Terrera Ventura,AXE,Museo Almería pictures/TV 83920.jpg,Museo Almería pictures/TV 83920 (2).jpg,Museo Almería pictures/TV 83920 (3).jpg,,,,High,auto-matched
+83921,Terrera Ventura,AXE,Museo Almería pictures/TV 83921.jpg,Museo Almería pictures/TV 83921 (2).jpg,Museo Almería pictures/TV 83921 (3).jpg,,,,High,auto-matched
+83923,Terrera Ventura,AXE,Museo Almería pictures/TV 83923.jpg,Museo Almería pictures/TV 83923 (2).jpg,Museo Almería pictures/TV 83923 (3).jpg,,,,High,auto-matched
+83924,Terrera Ventura,AXE,Museo Almería pictures/TV 83924.jpg,Museo Almería pictures/TV 83924 (2).jpg,Museo Almería pictures/TV 83924 (3).jpg,,,,High,auto-matched
+83925,Terrera Ventura,AXE,Museo Almería pictures/TV 83925.jpg,Museo Almería pictures/TV 83925 (2).jpg,Museo Almería pictures/TV 83925 (3).jpg,,,,High,auto-matched
+83926,Terrera Ventura,AXE,Museo Almería pictures/TV 83926.jpg,Museo Almería pictures/TV 83926 (2).jpg,Museo Almería pictures/TV 83926 (3).jpg,,,,High,auto-matched
+83927,Terrera Ventura,AXE,Museo Almería pictures/TV 83927.jpg,Museo Almería pictures/TV 83927 (2).jpg,Museo Almería pictures/TV 83927 (3).jpg,,,,High,auto-matched
+83928,Terrera Ventura,AXE,Museo Almería pictures/TV 83928.jpg,Museo Almería pictures/TV 83928 (2).jpg,Museo Almería pictures/TV 83928 (3).jpg,,,,High,auto-matched
+83929,Terrera Ventura,AXE,Museo Almería pictures/TV 83929.jpg,Museo Almería pictures/TV 83929 (2).jpg,Museo Almería pictures/TV 83929 (3).jpg,,,,High,auto-matched
+83930,Terrera Ventura,AXE,Museo Almería pictures/TV 83930.jpg,Museo Almería pictures/TV 83930 (2).jpg,Museo Almería pictures/TV 83930 (3).jpg,,,,High,auto-matched
+83931,Terrera Ventura,AXE,Museo Almería pictures/TV 83931.jpg,Museo Almería pictures/TV 83931 (2).jpg,Museo Almería pictures/TV 83931 (3).jpg,,,,High,auto-matched
+83932,Terrera Ventura,AXE,Museo Almería pictures/TV 83932.jpg,Museo Almería pictures/TV 83932 (2).jpg,Museo Almería pictures/TV 83932 (3).jpg,,,,High,auto-matched
+83933,Terrera Ventura,AXE,Museo Almería pictures/TV 83933.jpg,Museo Almería pictures/TV 83933 (2).jpg,Museo Almería pictures/TV 83933 (3).jpg,,,,High,auto-matched
+83935,Terrera Ventura,AXE,Museo Almería pictures/TV 83935.jpg,Museo Almería pictures/TV 83935 (2).jpg,Museo Almería pictures/TV 83935 (3).jpg,,,,High,auto-matched
+83936,Terrera Ventura,AXE,Museo Almería pictures/TV 83936.jpg,Museo Almería pictures/TV 83936 (2).jpg,Museo Almería pictures/TV 83936 (3).jpg,,,,High,auto-matched
+83937,Terrera Ventura,AXE,Museo Almería pictures/TV 83937.jpg,Museo Almería pictures/TV 83937 (2).jpg,Museo Almería pictures/TV 83937 (3).jpg,,,,High,auto-matched
+83938,Terrera Ventura,AXE,Museo Almería pictures/TV 83938.jpg,Museo Almería pictures/TV 83938 (2).jpg,Museo Almería pictures/TV 83938 (3).jpg,,,,High,auto-matched
+83939,Terrera Ventura,AXE,Museo Almería pictures/TV 83939.jpg,Museo Almería pictures/TV 83939 (2).jpg,Museo Almería pictures/TV 83939 (3).jpg,,,,High,auto-matched
+83940,Terrera Ventura,AXE,Museo Almería pictures/TV 83940.jpg,Museo Almería pictures/TV 83940 (2).jpg,Museo Almería pictures/TV 83940 (3).jpg,,,,High,auto-matched
+83941,Terrera Ventura,AXE,Museo Almería pictures/TV 83941.jpg,Museo Almería pictures/TV 83941 (2).jpg,Museo Almería pictures/TV 83941 (3).jpg,,,,High,auto-matched
+83943,Terrera Ventura,AXE,Museo Almería pictures/TV 83943.jpg,Museo Almería pictures/TV 83943 (2).jpg,Museo Almería pictures/TV 83943 (3).jpg,,,,High,auto-matched
+83944,Terrera Ventura,AXE,Museo Almería pictures/TV 83944.jpg,Museo Almería pictures/TV 83944 (2).jpg,Museo Almería pictures/TV 83944 (3).jpg,,,,High,auto-matched
+83945,Terrera Ventura,AXE,Museo Almería pictures/TV 83945.jpg,Museo Almería pictures/TV 83945 (2).jpg,Museo Almería pictures/TV 83945 (3).jpg,,,,High,auto-matched
+83946,Terrera Ventura,AXE,Museo Almería pictures/TV 83946.jpg,Museo Almería pictures/TV 83946 (2).jpg,Museo Almería pictures/TV 83946 (3).jpg,,,,High,auto-matched
+83947,Terrera Ventura,AXE,Museo Almería pictures/TV 83947.jpg,Museo Almería pictures/TV 83947 (2).jpg,Museo Almería pictures/TV 83947 (3).jpg,,,,High,auto-matched
+83948,Terrera Ventura,AXE,Museo Almería pictures/TV 83948.jpg,Museo Almería pictures/TV 83948 (2).jpg,Museo Almería pictures/TV 83948 (3).jpg,,,,High,auto-matched
+83949,Terrera Ventura,AXE,Museo Almería pictures/TV 83949.jpg,Museo Almería pictures/TV 83949 (2).jpg,Museo Almería pictures/TV 83949 (3).jpg,,,,High,auto-matched
+83950,Terrera Ventura,AXE,Museo Almería pictures/TV 83950.jpg,Museo Almería pictures/TV 83950 (2).jpg,Museo Almería pictures/TV 83950 (3).jpg,,,,High,auto-matched
+83951,Terrera Ventura,AXE,Museo Almería pictures/TV 83951.jpg,Museo Almería pictures/TV 83951 (2).jpg,Museo Almería pictures/TV 83951 (3).jpg,,,,High,auto-matched
+83952,Terrera Ventura,AXE,Museo Almería pictures/TV 83952.jpg,Museo Almería pictures/TV 83952 (2).jpg,Museo Almería pictures/TV 83952 (3).jpg,,,,High,auto-matched
+83953,Terrera Ventura,AXE,Museo Almería pictures/TV 83953.jpg,Museo Almería pictures/TV 83953 (2).jpg,Museo Almería pictures/TV 83953 (3).jpg,,,,High,auto-matched
+83955,Terrera Ventura,AXE,Museo Almería pictures/TV 83955.jpg,Museo Almería pictures/TV 83955 (2).jpg,Museo Almería pictures/TV 83955 (3).jpg,,,,High,auto-matched
+83956,Terrera Ventura,AXE,Museo Almería pictures/TV 83956.jpg,Museo Almería pictures/TV 83956 (2).jpg,Museo Almería pictures/TV 83956 (3).jpg,,,,High,auto-matched
+83958,Terrera Ventura,AXE,Museo Almería pictures/TV 83958.jpg,Museo Almería pictures/TV 83958 (2).jpg,Museo Almería pictures/TV 83958 (3).jpg,,,,High,auto-matched
+83959,Terrera Ventura,AXE,Museo Almería pictures/TV 83959.jpg,Museo Almería pictures/TV 83959 (2).jpg,Museo Almería pictures/TV 83959 (3).jpg,,,,High,auto-matched
+83960,Terrera Ventura,AXE,Museo Almería pictures/TV 83960.jpg,Museo Almería pictures/TV 83960 (2).jpg,Museo Almería pictures/TV 83960 (3).jpg,,,,High,auto-matched
+83961,Terrera Ventura,AXE,Museo Almería pictures/TV 83961.jpg,Museo Almería pictures/TV 83961 (2).jpg,Museo Almería pictures/TV 83961 (3).jpg,,,,High,auto-matched
+83962,Terrera Ventura,AXE,Museo Almería pictures/TV 83962.jpg,Museo Almería pictures/TV 83962 (2).jpg,Museo Almería pictures/TV 83962 (3).jpg,,,,High,auto-matched
+83963,Terrera Ventura,AXE,Museo Almería pictures/TV 83963.jpg,Museo Almería pictures/TV 83963 (2).jpg,Museo Almería pictures/TV 83963 (3).jpg,,,,High,auto-matched
+83964,Terrera Ventura,AXE,Museo Almería pictures/TV 83964.jpg,Museo Almería pictures/TV 83964 (2).jpg,Museo Almería pictures/TV 83964 (3).jpg,,,,High,auto-matched
+83965,Terrera Ventura,AXE,Museo Almería pictures/TV 83965.jpg,Museo Almería pictures/TV 83965 (2).jpg,Museo Almería pictures/TV 83965 (3).jpg,,,,High,auto-matched
+83966,Terrera Ventura,AXE,Museo Almería pictures/TV 83966.jpg,Museo Almería pictures/TV 83966 (2).jpg,Museo Almería pictures/TV 83966 (3).jpg,,,,High,auto-matched
+83967,Terrera Ventura,AXE,Museo Almería pictures/TV 83967.jpg,Museo Almería pictures/TV 83967 (2).jpg,Museo Almería pictures/TV 83967 (3).jpg,,,,High,auto-matched
+83968,Terrera Ventura,AXE,Museo Almería pictures/TV 83968.jpg,Museo Almería pictures/TV 83968 (2).jpg,Museo Almería pictures/TV 83968 (3).jpg,,,,High,auto-matched
+83970,Terrera Ventura,AXE,Museo Almería pictures/TV 83970.jpg,Museo Almería pictures/TV 83970 (2).jpg,Museo Almería pictures/TV 83970 (3).jpg,,,,High,auto-matched
+83971,Terrera Ventura,AXE,Museo Almería pictures/TV 83971.jpg,Museo Almería pictures/TV 83971 (2).jpg,Museo Almería pictures/TV 83971 (3).jpg,,,,High,auto-matched
+83972,Terrera Ventura,AXE,Museo Almería pictures/TV 83972.jpg,Museo Almería pictures/TV 83972 (2).jpg,Museo Almería pictures/TV 83972 (3).jpg,,,,High,auto-matched
+83973,Terrera Ventura,AXE,Museo Almería pictures/TV 83973.jpg,Museo Almería pictures/TV 83973 (2).jpg,Museo Almería pictures/TV 83973 (3).jpg,,,,High,auto-matched
+83983,Terrera Ventura,AXE,Museo Almería pictures/TV 83983.jpg,Museo Almería pictures/TV 83983 (2).jpg,Museo Almería pictures/TV 83983 (3).jpg,,,,High,auto-matched
+83984,Terrera Ventura,AXE,Museo Almería pictures/TV 83984.jpg,Museo Almería pictures/TV 83984 (2).jpg,Museo Almería pictures/TV 83984 (3).jpg,,,,High,auto-matched
+83985,Terrera Ventura,AXE,Museo Almería pictures/TV 83985.jpg,Museo Almería pictures/TV 83985 (2).jpg,Museo Almería pictures/TV 83985 (3).jpg,,,,High,auto-matched
+83986,Terrera Ventura,AXE,Museo Almería pictures/TV 83986.jpg,Museo Almería pictures/TV 83986 (2).jpg,Museo Almería pictures/TV 83986 (3).jpg,,,,High,auto-matched
+83987,Terrera Ventura,AXE,Museo Almería pictures/TV 83987.jpg,Museo Almería pictures/TV 83987 (2).jpg,Museo Almería pictures/TV 83987 (3).jpg,,,,High,auto-matched
+83988,Terrera Ventura,AXE,Museo Almería pictures/TV 83988.jpg,Museo Almería pictures/TV 83988 (2).jpg,Museo Almería pictures/TV 83988 (3).jpg,,,,High,auto-matched
+83989,Terrera Ventura,AXE,Museo Almería pictures/TV 83989.jpg,Museo Almería pictures/TV 83989 (2).jpg,Museo Almería pictures/TV 83989 (3).jpg,,,,High,auto-matched
+8491-11,Pozuelo,AXE,Huelva museum pictures/8491-11 (1).jpg,Huelva museum pictures/8491-11 (2).jpg,Huelva museum pictures/8491-11 (3).jpg,,,,High,auto-matched Huelva Museum 02-03-2026
 8491-35,Los Gabrieles,AXE,Huelva museum pictures/8491-35 (1).jpg,Huelva museum pictures/8491-35 (2).jpg,Huelva museum pictures/8491-35 (3).jpg,,,,High,Huelva Museum
-8491-36,Los Gabrieles,AXE,Huelva museum pictures/8491-36 (1).jpg,Huelva museum pictures/8491-36 (2).jpg,Huelva museum pictures/8491-36 (3).jpg,Huelva museum pictures/8491-36 (4).jpg,,,High,Huelva Museum
-85710,Raja de Ortega,AXE,Museo Almería/Raja Ortega 85710.jpg,Museo Almería/Raja Ortega 85710 (2).jpg,Museo Almería/Raja Ortega 85710 (3).jpg,,,,Medium,auto-matched
-85711,Raja de Ortega,AXE,Museo Almería/Raja Ortega 85711.jpg,Museo Almería/Raja Ortega 85711 (2).jpg,Museo Almería/Raja Ortega 85711 (3).jpg,,,,Medium,auto-matched
-85712,Raja de Ortega,PPUL,Museo Almería/Raja Ortega 85712.jpg,Museo Almería/Raja Ortega 85712 (2).jpg,Museo Almería/Raja Ortega 85712 (3).jpg,,,,Medium,auto-matched
-85989,Cerro Moros Alcántara,AXE,Museo Almería/Cerro Moros 85989.jpg,Museo Almería/Cerro Moros 85989 (2).jpg,Museo Almería/Cerro Moros 85989 (3).jpg,,,,Medium,auto-matched
-88024,MAlm DEC,AXE,Museo Almería/DEC 88024.jpg,Museo Almería/DEC 88024 (2).jpg,Museo Almería/DEC 88024 (3).jpg,,,,High,auto-matched
-88256,Blanquizares,AXE,Museo Almería/Blanquizares 88256.jpg,Museo Almería/Blanquizares 88256 (2).jpg,Museo Almería/Blanquizares 88256 (3).jpg,,,,High,auto-matched
-88257,Blanquizares,AXE,Museo Almería/Blanquizares 88257.jpg,Museo Almería/Blanquizares 88257 (2).jpg,Museo Almería/Blanquizares 88257 (3).jpg,,,,High,auto-matched
-88258,Blanquizares,AXE,Museo Almería/Blanquizares 88258.jpg,Museo Almería/Blanquizares 88258 (2).jpg,Museo Almería/Blanquizares 88258 (3).jpg,,,,High,auto-matched
-88259,Blanquizares,AXE,Museo Almería/Blanquizares 88259.jpg,Museo Almería/Blanquizares 88259 (2).jpg,Museo Almería/Blanquizares 88259 (3).jpg,,,,High,auto-matched
-88261,Blanquizares,AXE,Museo Almería/Blanquizares 88261.jpg,Museo Almería/Blanquizares 88261 (2).jpg,Museo Almería/Blanquizares 88261 (3).jpg,,,,High,auto-matched
-88264,Blanquizares,AXE,Museo Almería/Blanquizares 88264.jpg,Museo Almería/Blanquizares 88264 (2).jpg,Museo Almería/Blanquizares 88264 (3).jpg,,,,High,auto-matched
-88265,Blanquizares,AXE,Museo Almería/Blanquizares 88265.jpg,Museo Almería/Blanquizares 88265 (2).jpg,Museo Almería/Blanquizares 88265 (3).jpg,,,,High,auto-matched
-88266,Blanquizares,AXE,Museo Almería/Blanquizares 88266.jpg,Museo Almería/Blanquizares 88266 (2).jpg,Museo Almería/Blanquizares 88266 (3).jpg,,,,High,auto-matched
-88267,Blanquizares,AXE,Museo Almería/Blanquizares 88267.jpg,Museo Almería/Blanquizares 88267 (2).jpg,Museo Almería/Blanquizares 88267 (3).jpg,,,,High,auto-matched
-88268,Blanquizares,AXE,Museo Almería/Blanquizares 88268.jpg,Museo Almería/Blanquizares 88268 (2).jpg,Museo Almería/Blanquizares 88268 (3).jpg,,,,High,auto-matched
-88270,Blanquizares,AXE,Museo Almería/Blanquizares 88270.jpg,Museo Almería/Blanquizares 88270 (2).jpg,Museo Almería/Blanquizares 88270 (3).jpg,,,,High,auto-matched
-88271,Blanquizares,AXE,Museo Almería/Blanquizares 88271.jpg,Museo Almería/Blanquizares 88271 (2).jpg,Museo Almería/Blanquizares 88271 (3).jpg,,,,High,auto-matched
-88272,Blanquizares,AXE,Museo Almería/Blanquizares 88272.jpg,Museo Almería/Blanquizares 88272 (2).jpg,Museo Almería/Blanquizares 88272 (3).jpg,,,,High,auto-matched
-88273,Blanquizares,AXE,Museo Almería/Blanquizares 88273.jpg,Museo Almería/Blanquizares 88273 (2).jpg,Museo Almería/Blanquizares 88273 (3).jpg,,,,High,auto-matched
-88274,Blanquizares,AXE,Museo Almería/Blanquizares 88274.jpg,Museo Almería/Blanquizares 88274 (2).jpg,Museo Almería/Blanquizares 88274 (3).jpg,,,,High,auto-matched
-88275,Blanquizares,AXE,Museo Almería/Blanquizares 88275.jpg,Museo Almería/Blanquizares 88275 (2).jpg,Museo Almería/Blanquizares 88275 (3).jpg,,,,High,auto-matched
-88276,Blanquizares,AXE,Museo Almería/Blanquizares 88276.jpg,Museo Almería/Blanquizares 88276 (2).jpg,Museo Almería/Blanquizares 88276 (3).jpg,,,,High,auto-matched
-88277,Blanquizares,AXE,Museo Almería/Blanquizares 88277.jpg,Museo Almería/Blanquizares 88277 (2).jpg,Museo Almería/Blanquizares 88277 (3).jpg,,,,High,auto-matched
-88278,Blanquizares,AXE,Museo Almería/Blanquizares 88278.jpg,Museo Almería/Blanquizares 88278 (2).jpg,Museo Almería/Blanquizares 88278 (3).jpg,,,,High,auto-matched
-88279,Blanquizares,AXE,Museo Almería/Blanquizares 88279.jpg,Museo Almería/Blanquizares 88279 (2).jpg,Museo Almería/Blanquizares 88279 (3).jpg,,,,High,auto-matched
-88280,Blanquizares,AXE,Museo Almería/Blanquizares 88280.jpg,Museo Almería/Blanquizares 88280 (2).jpg,Museo Almería/Blanquizares 88280 (3).jpg,,,,High,auto-matched
-88281,Blanquizares,AXE,Museo Almería/Blanquizares 88281.jpg,Museo Almería/Blanquizares 88281 (2).jpg,Museo Almería/Blanquizares 88281 (3).jpg,,,,High,auto-matched
-88282,Blanquizares,AXE,Museo Almería/Blanquizares 88282.jpg,Museo Almería/Blanquizares 88282 (2).jpg,Museo Almería/Blanquizares 88282 (3).jpg,,,,High,auto-matched
-88283,Blanquizares,AXE,Museo Almería/Blanquizares 88283.jpg,Museo Almería/Blanquizares 88283 (2).jpg,Museo Almería/Blanquizares 88283 (3).jpg,,,,High,auto-matched
-88284,Blanquizares,AXE,Museo Almería/Blanquizares 88284.jpg,Museo Almería/Blanquizares 88284 (2).jpg,Museo Almería/Blanquizares 88284 (3).jpg,,,,High,auto-matched
-88285,Blanquizares,AXE,Museo Almería/Blanquizares 88285.jpg,Museo Almería/Blanquizares 88285 (2).jpg,Museo Almería/Blanquizares 88285 (3).jpg,,,,High,auto-matched
-88286,Blanquizares,AXE,Museo Almería/Blanquizares 88286.jpg,Museo Almería/Blanquizares 88286 (2).jpg,Museo Almería/Blanquizares 88286 (3).jpg,,,,High,auto-matched
-88287,Blanquizares,AXE,Museo Almería/Blanquizares 88287.jpg,Museo Almería/Blanquizares 88287 (2).jpg,Museo Almería/Blanquizares 88287 (3).jpg,,,,High,auto-matched
-88291,Blanquizares,AXE,Museo Almería/Blanquizares 88291.jpg,Museo Almería/Blanquizares 88291 (2).jpg,Museo Almería/Blanquizares 88291 (3).jpg,,,,High,auto-matched
-88292,Blanquizares,AXE,Museo Almería/Blanquizares 88292.jpg,Museo Almería/Blanquizares 88292 (2).jpg,Museo Almería/Blanquizares 88292 (3).jpg,,,,High,auto-matched
-88293,Blanquizares,AXE,Museo Almería/Blanquizares 88293.jpg,Museo Almería/Blanquizares 88293 (2).jpg,Museo Almería/Blanquizares 88293 (3).jpg,,,,High,auto-matched
-88294,Blanquizares,AXE,Museo Almería/Blanquizares 88294.jpg,Museo Almería/Blanquizares 88294 (2).jpg,Museo Almería/Blanquizares 88294 (3).jpg,,,,High,auto-matched
-88296,Blanquizares,AXE,Museo Almería/Blanquizares 88296.jpg,Museo Almería/Blanquizares 88296 (2).jpg,Museo Almería/Blanquizares 88296 (3).jpg,,,,High,auto-matched
-88297,Blanquizares,AXE,Museo Almería/Blanquizares 88297.jpg,Museo Almería/Blanquizares 88297 (2).jpg,Museo Almería/Blanquizares 88297 (3).jpg,,,,High,auto-matched
-88298,Blanquizares,AXE,Museo Almería/Blanquizares 88298.jpg,Museo Almería/Blanquizares 88298 (2).jpg,Museo Almería/Blanquizares 88298 (3).jpg,,,,High,auto-matched
-9019,Montefrío,AXE,Descontextualizado/Raw/MF 9019 (1).jpg,Descontextualizado/Raw/MF 9019 (2).jpg,Descontextualizado/Raw/MF 9019 (3).jpg,,,,High,Descontextualizado/Raw
+8491-36,Los Gabrieles,AXE,Huelva museum pictures/8491-36 (1).jpg,Huelva museum pictures/8491-36 (2).jpg,Huelva museum pictures/8491-36 (4).jpg,,,,High,Huelva Museum
+85710,Raja de Ortega,AXE,Museo Almería pictures/Raja Ortega 85710.jpg,Museo Almería pictures/Raja Ortega 85710 (2).jpg,Museo Almería pictures/Raja Ortega 85710 (3).jpg,,,,Medium,auto-matched
+85711,Raja de Ortega,AXE,Museo Almería pictures/Raja Ortega 85711.jpg,Museo Almería pictures/Raja Ortega 85711 (2).jpg,Museo Almería pictures/Raja Ortega 85711 (3).jpg,,,,Medium,auto-matched
+85712,Raja de Ortega,PPUL,Museo Almería pictures/Raja Ortega 85712.jpg,Museo Almería pictures/Raja Ortega 85712 (2).jpg,Museo Almería pictures/Raja Ortega 85712 (3).jpg,,,,Medium,auto-matched
+85989,Cerro Moros Alcántara,AXE,Museo Almería pictures/Cerro Moros 85989.jpg,Museo Almería pictures/Cerro Moros 85989 (2).jpg,Museo Almería pictures/Cerro Moros 85989 (3).jpg,,,,Medium,auto-matched
+88,Valencina,AXE,Valencina Museum/88 (1).jpg,,,,,,High,Valencina Museum (Feb 2026)
+88024,MAlm DEC,AXE,Museo Almería pictures/DEC 88024.jpg,Museo Almería pictures/DEC 88024 (2).jpg,Museo Almería pictures/DEC 88024 (3).jpg,,,,High,auto-matched
+88256,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88256.jpg,Museo Almería pictures/Blanquizares 88256 (2).jpg,Museo Almería pictures/Blanquizares 88256 (3).jpg,,,,High,auto-matched
+88257,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88257.jpg,Museo Almería pictures/Blanquizares 88257 (2).jpg,Museo Almería pictures/Blanquizares 88257 (3).jpg,,,,High,auto-matched
+88258,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88258.jpg,Museo Almería pictures/Blanquizares 88258 (2).jpg,Museo Almería pictures/Blanquizares 88258 (3).jpg,,,,High,auto-matched
+88259,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88259.jpg,Museo Almería pictures/Blanquizares 88259 (2).jpg,Museo Almería pictures/Blanquizares 88259 (3).jpg,,,,High,auto-matched
+88260,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88260.jpg,Museo Almería pictures/Blanquizares 88260 (2).jpg,Museo Almería pictures/Blanquizares 88260 (3).jpg,,,,High,sillimanite-Blanquizares
+88261,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88261.jpg,Museo Almería pictures/Blanquizares 88261 (2).jpg,Museo Almería pictures/Blanquizares 88261 (3).jpg,,,,High,auto-matched
+88262,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88262.jpg,Museo Almería pictures/Blanquizares 88262 (2).jpg,Museo Almería pictures/Blanquizares 88262 (3).jpg,,,,High,sillimanite-Blanquizares
+88264,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88264.jpg,Museo Almería pictures/Blanquizares 88264 (2).jpg,Museo Almería pictures/Blanquizares 88264 (3).jpg,,,,High,auto-matched
+88265,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88265.jpg,Museo Almería pictures/Blanquizares 88265 (2).jpg,Museo Almería pictures/Blanquizares 88265 (3).jpg,,,,High,auto-matched
+88266,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88266.jpg,Museo Almería pictures/Blanquizares 88266 (2).jpg,Museo Almería pictures/Blanquizares 88266 (3).jpg,,,,High,auto-matched
+88267,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88267.jpg,Museo Almería pictures/Blanquizares 88267 (2).jpg,Museo Almería pictures/Blanquizares 88267 (3).jpg,,,,High,auto-matched
+88268,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88268.jpg,Museo Almería pictures/Blanquizares 88268 (2).jpg,Museo Almería pictures/Blanquizares 88268 (3).jpg,,,,High,auto-matched
+88269,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88269.jpg,Museo Almería pictures/Blanquizares 88269 (2).jpg,Museo Almería pictures/Blanquizares 88269 (3).jpg,,,,High,sillimanite-Blanquizares
+88270,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88270.jpg,Museo Almería pictures/Blanquizares 88270 (2).jpg,Museo Almería pictures/Blanquizares 88270 (3).jpg,,,,High,auto-matched
+88271,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88271.jpg,Museo Almería pictures/Blanquizares 88271 (2).jpg,Museo Almería pictures/Blanquizares 88271 (3).jpg,,,,High,auto-matched
+88272,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88272.jpg,Museo Almería pictures/Blanquizares 88272 (2).jpg,Museo Almería pictures/Blanquizares 88272 (3).jpg,,,,High,auto-matched
+88273,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88273.jpg,Museo Almería pictures/Blanquizares 88273 (2).jpg,Museo Almería pictures/Blanquizares 88273 (3).jpg,,,,High,auto-matched
+88274,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88274.jpg,Museo Almería pictures/Blanquizares 88274 (2).jpg,Museo Almería pictures/Blanquizares 88274 (3).jpg,,,,High,auto-matched
+88275,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88275.jpg,Museo Almería pictures/Blanquizares 88275 (2).jpg,Museo Almería pictures/Blanquizares 88275 (3).jpg,,,,High,auto-matched
+88276,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88276.jpg,Museo Almería pictures/Blanquizares 88276 (2).jpg,Museo Almería pictures/Blanquizares 88276 (3).jpg,,,,High,auto-matched
+88277,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88277.jpg,Museo Almería pictures/Blanquizares 88277 (2).jpg,Museo Almería pictures/Blanquizares 88277 (3).jpg,,,,High,auto-matched
+88278,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88278.jpg,Museo Almería pictures/Blanquizares 88278 (2).jpg,Museo Almería pictures/Blanquizares 88278 (3).jpg,,,,High,auto-matched
+88279,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88279.jpg,Museo Almería pictures/Blanquizares 88279 (2).jpg,Museo Almería pictures/Blanquizares 88279 (3).jpg,,,,High,auto-matched
+88280,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88280.jpg,Museo Almería pictures/Blanquizares 88280 (2).jpg,Museo Almería pictures/Blanquizares 88280 (3).jpg,,,,High,auto-matched
+88281,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88281.jpg,Museo Almería pictures/Blanquizares 88281 (2).jpg,Museo Almería pictures/Blanquizares 88281 (3).jpg,,,,High,auto-matched
+88282,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88282.jpg,Museo Almería pictures/Blanquizares 88282 (2).jpg,Museo Almería pictures/Blanquizares 88282 (3).jpg,,,,High,auto-matched
+88283,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88283.jpg,Museo Almería pictures/Blanquizares 88283 (2).jpg,Museo Almería pictures/Blanquizares 88283 (3).jpg,,,,High,auto-matched
+88284,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88284.jpg,Museo Almería pictures/Blanquizares 88284 (2).jpg,Museo Almería pictures/Blanquizares 88284 (3).jpg,,,,High,auto-matched
+88285,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88285.jpg,Museo Almería pictures/Blanquizares 88285 (2).jpg,Museo Almería pictures/Blanquizares 88285 (3).jpg,,,,High,auto-matched
+88286,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88286.jpg,Museo Almería pictures/Blanquizares 88286 (2).jpg,Museo Almería pictures/Blanquizares 88286 (3).jpg,,,,High,auto-matched
+88287,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88287.jpg,Museo Almería pictures/Blanquizares 88287 (2).jpg,Museo Almería pictures/Blanquizares 88287 (3).jpg,,,,High,auto-matched
+88291,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88291.jpg,Museo Almería pictures/Blanquizares 88291 (2).jpg,Museo Almería pictures/Blanquizares 88291 (3).jpg,,,,High,auto-matched
+88292,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88292.jpg,Museo Almería pictures/Blanquizares 88292 (2).jpg,Museo Almería pictures/Blanquizares 88292 (3).jpg,,,,High,auto-matched
+88293,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88293.jpg,Museo Almería pictures/Blanquizares 88293 (2).jpg,Museo Almería pictures/Blanquizares 88293 (3).jpg,,,,High,auto-matched
+88294,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88294.jpg,Museo Almería pictures/Blanquizares 88294 (2).jpg,Museo Almería pictures/Blanquizares 88294 (3).jpg,,,,High,auto-matched
+88296,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88296.jpg,Museo Almería pictures/Blanquizares 88296 (2).jpg,Museo Almería pictures/Blanquizares 88296 (3).jpg,,,,High,auto-matched
+88297,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88297.jpg,Museo Almería pictures/Blanquizares 88297 (2).jpg,Museo Almería pictures/Blanquizares 88297 (3).jpg,,,,High,auto-matched
+88298,Blanquizares,AXE,Museo Almería pictures/Blanquizares 88298.jpg,Museo Almería pictures/Blanquizares 88298 (2).jpg,Museo Almería pictures/Blanquizares 88298 (3).jpg,,,,High,auto-matched
+89,Valencina,AXE,Valencina Museum/89 (1).jpg,,,,,,High,Valencina Museum (Feb 2026)
+90,Valencina,AXE,Valencina Museum/90 (1).jpg,,,,,,High,Valencina Museum (Feb 2026)
+9019,Montefrío,AXE,UGR assemblages/Descontextualizado/Raw/MF 9019 (1).jpg,UGR assemblages/Descontextualizado/Raw/MF 9019 (2).jpg,UGR assemblages/Descontextualizado/Raw/MF 9019 (3).jpg,,,,High,Descontextualizado/Raw
+907 (206),Los Millares,AXE,Museo Almería pictures/LM 206.jpg,Museo Almería pictures/LM 206 (2).jpg,Museo Almería pictures/LM 206 (3).jpg,,,,High,sillimanite-LM-alt-acc
 912,Quesada,AXE,Jaén Museum/912 (1).jpg,Jaén Museum/912 (2).jpg,Jaén Museum/912 (3).jpg,Jaén Museum/912 (4).jpg,,,High,auto-matched
-9456,Malagón,PPUL,El Malagón/Raw/CB 9456 (1).JPG,El Malagón/Raw/CB 9456 (2).JPG,El Malagón/Raw/CB 9456 (3).JPG,,,,High,El Malagón/Raw
+92,Valencina,AXE,Valencina Museum/92 (1).jpg,,,,,,High,Valencina Museum (Feb 2026)
+9456,Malagón,PPUL,UGR assemblages/El Malagón/Raw/CB 9456 (1).JPG,UGR assemblages/El Malagón/Raw/CB 9456 (2).JPG,UGR assemblages/El Malagón/Raw/CB 9456 (3).JPG,,,,High,El Malagón/Raw
+A/AJ12027,Cabezo de los Vientos,AXE,Huelva museum pictures/A-AJ12027 (1).jpg,Huelva museum pictures/A-AJ12027 (2).jpg,Huelva museum pictures/A-AJ12027 (3).jpg,,,,High,auto-matched Huelva Museum 02-03-2026
 A/CE/01374,San Bartolomé de la Torre,AXE,Huelva museum pictures/A-CE-01374 (1).jpg,Huelva museum pictures/A-CE-01374 (2).jpg,Huelva museum pictures/A-CE-01374 (3).jpg,,,,High,Huelva Museum
 A/CE/01844,Los Gabrieles,AXE,Huelva museum pictures/A-CE-01844 (1).jpg,Huelva museum pictures/A-CE-01844 (2).jpg,Huelva museum pictures/A-CE-01844 (3).jpg,Huelva museum pictures/A-CE-01844 (4).jpg,,,High,Huelva Museum
 A/CE/0257,La Zarcita?,AXE,Huelva museum pictures/A-CE-0257 (1).jpg,Huelva museum pictures/A-CE-0257 (2).jpg,Huelva museum pictures/A-CE-0257 (3).jpg,,,,High,Huelva Museum
@@ -505,123 +637,10 @@ A/CE/1379,San Bartolomé de la Torre,AXE,Huelva museum pictures/A-CE-1379 (1).jp
 A/CE/1857,Los Gabrieles,AXE,Huelva museum pictures/A-CE-1857 (1).jpg,Huelva museum pictures/A-CE-1857 (2).jpg,Huelva museum pictures/A-CE-1857 (3).jpg,,,,High,Huelva Museum
 A/CE/489,Pozuelo,AXE,Huelva museum pictures/A-CE-489 (1).jpg,Huelva museum pictures/A-CE-489 (2).jpg,Huelva museum pictures/A-CE-489 (3).jpg,,,,High,Huelva Museum
 A/DJ/06073-5,Papauvas,AXE,Huelva museum pictures/A-DJ-06073-5 (1).jpg,Huelva museum pictures/A-DJ-06073-5 (2).jpg,Huelva museum pictures/A-DJ-06073-5 (3).jpg,,,,High,Huelva Museum
-CE 30324/5,El Cañaveralejo,AXE,Córdoba Museum/Cañaveralejo 30324-5 (1).jpg,Córdoba Museum/Cañaveralejo 30324-5 (2).jpg,Córdoba Museum/Cañaveralejo 30324-5 (3).jpg,Córdoba Museum/Cañaveralejo 30324-5 (4).jpg,,,High,structured
-IG1112,Pozuelo,AXE,Huelva museum pictures/IG1112 (1).jpg,Huelva museum pictures/IG1112 (2).jpg,Huelva museum pictures/IG1112 (3).jpg,,,,High,Huelva Museum
-IG1115,Pozuelo,AXE,Huelva museum pictures/IG1115 (1).jpg,Huelva museum pictures/IG1115 (2).jpg,Huelva museum pictures/IG1115 (3).jpg,,,,High,Huelva Museum
-IG494,Pozuelo,AXE,Huelva museum pictures/IG494 (1).jpg,Huelva museum pictures/IG494 (2).jpg,Huelva museum pictures/IG494 (3).jpg,,,,High,Huelva Museum
-IG858,Los Gabrieles,AXE,Huelva museum pictures/IG858 (1).jpg,Huelva museum pictures/IG858 (2).jpg,Huelva museum pictures/IG858 (3).jpg,,,,High,Huelva Museum
-IG941,Pozuelo,AXE,Huelva museum pictures/IG941 (1).jpg,Huelva museum pictures/IG941 (2).jpg,Huelva museum pictures/IG941 (3).jpg,,,,High,Huelva Museum
-RPPUL-1,Malagón,AXE,Montefrío/Raw/RPPUL-1 (1).JPG,Montefrío/Raw/RPPUL-1 (2).JPG,Montefrío/Raw/RPPUL-1 (3).JPG,El Malagón/Raw/CB RPPUL-1 or 10160 (1).JPG,El Malagón/Raw/CB RPPUL-1 or 10160 (2).JPG,El Malagón/Raw/CB RPPUL-1 or 10160 (3).JPG,Medium,auto-matched
-RPPUL-10,Montefrío,AXE,El Malagón/Raw/CB RPPUL-10 (1).JPG,El Malagón/Raw/CB RPPUL-10 (2).JPG,El Malagón/Raw/CB RPPUL-10 (3).JPG,Descontextualizado/Raw/MF RPPUL-10 (1).jpg,Descontextualizado/Raw/MF RPPUL-10 (2).jpg,Descontextualizado/Raw/MF RPPUL-10 (3).jpg,High,El Malagón/Raw
-RPPUL-3,Malagón,AXE,Montefrío/Raw/RPPUL-3 (1).JPG,Montefrío/Raw/RPPUL-3 (2).JPG,Montefrío/Raw/RPPUL-3 (3).JPG,El Malagón/Raw/CB RPPUL-3 or 10061 (1).JPG,El Malagón/Raw/CB RPPUL-3 or 10061 (2).JPG,El Malagón/Raw/CB RPPUL-3 or 10061 (3).JPG,Medium,auto-matched
-RPPUL-6,Malagón,AXE,El Malagón/Raw/CB RPPUL-6 (1).JPG,El Malagón/Raw/CB RPPUL-6 (2).JPG,El Malagón/Raw/CB RPPUL-6 (3).JPG,El Malagón/Raw/CB RPPUL-6 (4).JPG,,,High,El Malagón/Raw
-RPPUL-7,Malagón,AXE,El Malagón/Raw/CB RPPUL-7 (1).JPG,El Malagón/Raw/CB RPPUL-7 (2).JPG,El Malagón/Raw/CB RPPUL-7 (3).JPG,,,,High,El Malagón/Raw
-RPPUL-8,Malagón,AXE,El Malagón/Raw/CB RPPUL-8 (1).JPG,El Malagón/Raw/CB RPPUL-8 (2).JPG,El Malagón/Raw/CB RPPUL-8 (3).JPG,,,,High,El Malagón/Raw
-RPPUL-9,Malagón,AXE,El Malagón/Raw/CB RPPUL-9 (1).JPG,El Malagón/Raw/CB RPPUL-9 (2).JPG,El Malagón/Raw/CB RPPUL-9 (3).JPG,,,,High,El Malagón/Raw
-UGR Dep DEC1,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 1 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 1 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 1 (3).jpg,UGR assemblages/UGR trip January 2022/DEC 1.png,Descontextualizado/Raw/DEC 1 (1).jpg,Descontextualizado/Raw/DEC 1 (2).jpg,High,structured; Descontextualizado/Raw/DEC 1 (3).jpg
-UGR Dep DEC10,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 10 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 10 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 10 (3).jpg,UGR assemblages/UGR trip January 2022/DEC 10.png,Descontextualizado/Raw/DEC 10 (1).jpg,Descontextualizado/Raw/DEC 10 (2).jpg,High,structured; Descontextualizado/Raw/DEC 10 (3).jpg
-UGR Dep DEC11,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 11 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 11 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 11 (3).jpg,UGR assemblages/UGR trip January 2022/DEC 11.png,Descontextualizado/Raw/DEC 11 (1).jpg,Descontextualizado/Raw/DEC 11 (2).jpg,High,structured; Descontextualizado/Raw/DEC 11 (3).jpg
-UGR Dep DEC12,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 12 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 12 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 12 (3).jpg,UGR assemblages/UGR trip January 2022/DEC 12.png,Descontextualizado/Raw/DEC 12 (1).jpg,Descontextualizado/Raw/DEC 12 (2).jpg,High,structured; Descontextualizado/Raw/DEC 12 (3).jpg
-UGR Dep DEC13,Millares,AXE,Descontextualizado/Raw/LM 35020 or DEC 13 (1).jpg,Descontextualizado/Raw/LM 35020 or DEC 13 (2).jpg,Descontextualizado/Raw/LM 35020 or DEC 13 (3).jpg,,,,High,Descontextualizado/Raw
-UGR Dep DEC14,Millares,AXE,Descontextualizado/Raw/DEC 14 (1).jpg,Descontextualizado/Raw/DEC 14 (2).jpg,Descontextualizado/Raw/DEC 14 (3).jpg,,,,High,Descontextualizado/Raw
-UGR Dep DEC15,Millares,AXE,Descontextualizado/Raw/DEC 15 (1).jpg,Descontextualizado/Raw/DEC 15 (2).jpg,Descontextualizado/Raw/DEC 15 (3).jpg,,,,High,Descontextualizado/Raw
-UGR Dep DEC17,Millares,AXE,Descontextualizado/Raw/DEC 17 (1).jpg,Descontextualizado/Raw/DEC 17 (2).jpg,Descontextualizado/Raw/DEC 17 (3).jpg,,,,High,Descontextualizado/Raw
-UGR Dep DEC18,Millares,AXE,Descontextualizado/Raw/DEC 18 (1).jpg,Descontextualizado/Raw/DEC 18 (2).jpg,Descontextualizado/Raw/DEC 18 (3).jpg,,,,High,Descontextualizado/Raw
-UGR Dep DEC19,Millares,AXE,Descontextualizado/Raw/DEC 19 (1).jpg,Descontextualizado/Raw/DEC 19 (2).jpg,Descontextualizado/Raw/DEC 19 (3).jpg,,,,High,Descontextualizado/Raw
-UGR Dep DEC2,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 2 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 2 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 2 (3).jpg,UGR assemblages/UGR trip January 2022/DEC 2.png,Descontextualizado/Raw/DEC 2 (1).jpg,Descontextualizado/Raw/DEC 2 (2).jpg,High,structured; Descontextualizado/Raw/DEC 2 (3).jpg
-UGR Dep DEC20,Millares,AXE,Descontextualizado/Raw/DEC 20 (1).jpg,Descontextualizado/Raw/DEC 20 (2).jpg,Descontextualizado/Raw/DEC 20 (3).jpg,,,,High,Descontextualizado/Raw
-UGR Dep DEC21,Millares,AXE,Descontextualizado/Raw/DEC 21 (1).jpg,Descontextualizado/Raw/DEC 21 (2).jpg,Descontextualizado/Raw/DEC 21 (3).jpg,,,,High,Descontextualizado/Raw
-UGR Dep DEC22,Millares,AXE,Descontextualizado/Raw/DEC 22 (1).jpg,Descontextualizado/Raw/DEC 22 (2).jpg,Descontextualizado/Raw/DEC 22 (3).jpg,,,,High,Descontextualizado/Raw
-UGR Dep DEC23,Millares,AXE,Descontextualizado/Raw/DEC 23 (1).jpg,Descontextualizado/Raw/DEC 23 (2).jpg,Descontextualizado/Raw/DEC 23 (3).jpg,,,,High,Descontextualizado/Raw
-UGR Dep DEC24,Millares,AXE,Descontextualizado/Raw/DEC 24 (1).jpg,Descontextualizado/Raw/DEC 24 (2).jpg,Descontextualizado/Raw/DEC 24 (3).jpg,,,,High,Descontextualizado/Raw
-UGR Dep DEC25,Millares,AXE,Descontextualizado/Raw/DEC 25 (1).jpg,Descontextualizado/Raw/DEC 25 (2).jpg,Descontextualizado/Raw/DEC 25 (3).jpg,,,,High,Descontextualizado/Raw
-UGR Dep DEC26,Millares,AXE,Descontextualizado/Raw/DEC 26 (1).jpg,Descontextualizado/Raw/DEC 26 (2).jpg,Descontextualizado/Raw/DEC 26 (3).jpg,,,,High,Descontextualizado/Raw
-UGR Dep DEC27,Millares,AXE,Descontextualizado/Raw/DEC 27 (1).jpg,Descontextualizado/Raw/DEC 27 (2).jpg,Descontextualizado/Raw/DEC 27 (3).jpg,,,,High,Descontextualizado/Raw
-UGR Dep DEC28,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 28 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 28 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 28 (3).jpg,Descontextualizado/Raw/DEC 28 (1).jpg,Descontextualizado/Raw/DEC 28 (2).jpg,Descontextualizado/Raw/DEC 28 (3).jpg,High,structured
-UGR Dep DEC29,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 29 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 29 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 29 (3).jpg,Descontextualizado/Raw/DEC 29 (1).jpg,Descontextualizado/Raw/DEC 29 (2).jpg,Descontextualizado/Raw/DEC 29 (3).jpg,High,structured
-UGR Dep DEC3,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 3 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 3 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 3 (3).jpg,UGR assemblages/UGR trip January 2022/DEC 3.png,Descontextualizado/Raw/DEC 3 (1).jpg,Descontextualizado/Raw/DEC 3 (2).jpg,High,structured; Descontextualizado/Raw/DEC 3 (3).jpg
-UGR Dep DEC31,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 31 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 31 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 31 (3).jpg,UGR assemblages/Descontextualizado/Raw/DEC 31 (4).jpg,UGR assemblages/Descontextualizado/Sheets/DEC 31.png,Descontextualizado/Raw/DEC 31 (1).jpg,High,structured; Descontextualizado/Raw/DEC 31 (2).jpg; Descontextualizado/Raw/DEC 31 (3).jpg; Descontextualizado/Raw/DEC 31 (4).jpg
-UGR Dep DEC32,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 32 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 32 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 32 (3).jpg,UGR assemblages/Descontextualizado/Sheets/DEC 32.png,Descontextualizado/Raw/DEC 32 (1).jpg,Descontextualizado/Raw/DEC 32 (2).jpg,High,structured; Descontextualizado/Raw/DEC 32 (3).jpg
-UGR Dep DEC33,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 33 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 33 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 33 (3).jpg,Descontextualizado/Raw/DEC 33 (1).jpg,Descontextualizado/Raw/DEC 33 (2).jpg,Descontextualizado/Raw/DEC 33 (3).jpg,High,structured
-UGR Dep DEC36,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 36 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 36 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 36 (3).jpg,UGR assemblages/Descontextualizado/Sheets/DEC 36.png,Descontextualizado/Raw/DEC 36 (1).jpg,Descontextualizado/Raw/DEC 36 (2).jpg,High,structured; Descontextualizado/Raw/DEC 36 (3).jpg
-UGR Dep DEC40,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 40 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 40 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 40 (3).jpg,Descontextualizado/Raw/DEC 40 (1).jpg,Descontextualizado/Raw/DEC 40 (2).jpg,Descontextualizado/Raw/DEC 40 (3).jpg,High,structured
-UGR Dep DEC41,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 41 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 41 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 41 (3).jpg,Descontextualizado/Raw/DEC 41 (1).jpg,Descontextualizado/Raw/DEC 41 (2).jpg,Descontextualizado/Raw/DEC 41 (3).jpg,High,structured
-UGR Dep DEC42,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 42 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 42 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 42 (3).jpg,Descontextualizado/Raw/DEC 42 (1).jpg,Descontextualizado/Raw/DEC 42 (2).jpg,Descontextualizado/Raw/DEC 42 (3).jpg,High,structured
-UGR Dep DEC43,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 43 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 43 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 43 (3).jpg,Descontextualizado/Raw/DEC 43 (1).jpg,Descontextualizado/Raw/DEC 43 (2).jpg,Descontextualizado/Raw/DEC 43 (3).jpg,High,structured
-UGR Dep DEC44,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 44 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 44 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 44 (3).jpg,Descontextualizado/Raw/DEC 44 (1).jpg,Descontextualizado/Raw/DEC 44 (2).jpg,Descontextualizado/Raw/DEC 44 (3).jpg,High,structured
-UGR Dep DEC6,UGR Department DEC,MAC,UGR assemblages/Descontextualizado/Raw/DEC 6 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 6 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 6 (3).jpg,UGR assemblages/UGR trip January 2022/DEC 6.png,Descontextualizado/Raw/DEC 6 (1).jpg,Descontextualizado/Raw/DEC 6 (2).jpg,High,structured; Descontextualizado/Raw/DEC 6 (3).jpg
-UGR Dep DEC7,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 7 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 7 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 7 (3).jpg,UGR assemblages/UGR trip January 2022/DEC 7.png,Descontextualizado/Raw/DEC 7 (1).jpg,Descontextualizado/Raw/DEC 7 (2).jpg,High,structured; Descontextualizado/Raw/DEC 7 (3).jpg
-UGR Dep DEC8,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 8 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 8 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 8 (3).jpg,UGR assemblages/UGR trip January 2022/DEC 8.png,Descontextualizado/Raw/DEC 8 (1).jpg,Descontextualizado/Raw/DEC 8 (2).jpg,High,structured; Descontextualizado/Raw/DEC 8 (3).jpg
-UGR Dep DEC9,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 9 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 9 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 9 (3).jpg,UGR assemblages/UGR trip January 2022/DEC 9.png,Descontextualizado/Raw/DEC 9 (1).jpg,Descontextualizado/Raw/DEC 9 (2).jpg,High,structured; Descontextualizado/Raw/DEC 9 (3).jpg
-1-165,Valencina,AXE,Valencina Museum/VDC 1-165 (1).jpg,Valencina Museum/VDC 1-165 (2).jpg,Valencina Museum/VDC 1-165 (3).jpg,Valencina Museum/VDC 1-165 (4).jpg,,,High,Valencina Museum (Apr 2024)
-1-166,Valencina,AXE,Valencina Museum/VDC 1-166 (1).jpg,Valencina Museum/VDC 1-166 (2).jpg,Valencina Museum/VDC 1-166 (3).jpg,Valencina Museum/VDC 1-166 (4).jpg,,,High,Valencina Museum (Apr 2024)
-1-167,Valencina,AXE,Valencina Museum/VDC 1-167 (1).jpg,Valencina Museum/VDC 1-167 (2).jpg,Valencina Museum/VDC 1-167 (3).jpg,Valencina Museum/VDC 1-167 (4).jpg,,,High,Valencina Museum (Apr 2024)
-1-79,Valencina,AXE,Valencina Museum/VDC 1-79 (1).jpg,Valencina Museum/VDC 1-79 (2).jpg,Valencina Museum/VDC 1-79 (3).jpg,Valencina Museum/VDC 1-79 (4).jpg,,,High,Valencina Museum (Apr 2024)
-1-81,Valencina,AXE,Valencina Museum/VDC 1-81 (1).jpg,Valencina Museum/VDC 1-81 (2).jpg,Valencina Museum/VDC 1-81 (3).jpg,Valencina Museum/VDC 1-81 (4).jpg,,,High,Valencina Museum (Apr 2024)
-1-85,Valencina,AXE,Valencina Museum/VDC 1-85 (1).jpg,Valencina Museum/VDC 1-85 (2).jpg,Valencina Museum/VDC 1-85 (3).jpg,Valencina Museum/VDC 1-85 (4).jpg,,,High,Valencina Museum (Apr 2024)
-1-86,Valencina,AXE,Valencina Museum/VDC 1-86 (1).jpg,Valencina Museum/VDC 1-86 (2).jpg,Valencina Museum/VDC 1-86 (3).jpg,Valencina Museum/VDC 1-86 (4).jpg,,,High,Valencina Museum (Apr 2024)
-1-87,Valencina,AXE,Valencina Museum/VDC 1-87 (1).jpg,Valencina Museum/VDC 1-87 (2).jpg,Valencina Museum/VDC 1-87 (3).jpg,Valencina Museum/VDC 1-87 (4).jpg,,,High,Valencina Museum (Apr 2024)
-1-88,Valencina,AXE,Valencina Museum/VDC 1-88 (1).jpg,Valencina Museum/VDC 1-88 (2).jpg,Valencina Museum/VDC 1-88 (3).jpg,,,,High,Valencina Museum (Apr 2024)
-1-89,Valencina,AXE,Valencina Museum/VDC 1-89 (1).jpg,Valencina Museum/VDC 1-89 (2).jpg,Valencina Museum/VDC 1-89 (3).jpg,Valencina Museum/VDC 1-89 (4).jpg,,,High,Valencina Museum (Apr 2024)
-1-90,Valencina,AXE,Valencina Museum/VDC 1-90 (1).jpg,Valencina Museum/VDC 1-90 (2).jpg,Valencina Museum/VDC 1-90 (3).jpg,Valencina Museum/VDC 1-90 (4).jpg,,,High,Valencina Museum (Apr 2024)
-1-91,Valencina,AXE,Valencina Museum/VDC 1-91 (1).jpg,Valencina Museum/VDC 1-91 (2).jpg,Valencina Museum/VDC 1-91 (3).jpg,Valencina Museum/VDC 1-91 (4).jpg,,,High,Valencina Museum (Apr 2024)
-1-92,Valencina,AXE,Valencina Museum/VDC 1-92 (1).jpg,Valencina Museum/VDC 1-92 (2).jpg,Valencina Museum/VDC 1-92 (3).jpg,Valencina Museum/VDC 1-92 (4).jpg,,,High,Valencina Museum (Apr 2024)
-1-93,Valencina,AXE,Valencina Museum/VDC 1-93 (1).jpg,Valencina Museum/VDC 1-93 (2).jpg,Valencina Museum/VDC 1-93 (3).jpg,Valencina Museum/VDC 1-93 (4).jpg,,,High,Valencina Museum (Apr 2024)
-1-94,Valencina,AXE,Valencina Museum/VDC 1-94 (1).jpg,Valencina Museum/VDC 1-94 (2).jpg,Valencina Museum/VDC 1-94 (3).jpg,Valencina Museum/VDC 1-94 (4).jpg,,,High,Valencina Museum (Apr 2024)
-1-95,Valencina,AXE,Valencina Museum/VDC 1-95 (1).jpg,Valencina Museum/VDC 1-95 (2).jpg,Valencina Museum/VDC 1-95 (3).jpg,Valencina Museum/VDC 1-95 (4).jpg,,,High,Valencina Museum (Apr 2024)
-1-96,Valencina,AXE,Valencina Museum/VDC 1-96 (1).jpg,Valencina Museum/VDC 1-96 (2).jpg,Valencina Museum/VDC 1-96 (3).jpg,Valencina Museum/VDC 1-96 (4).jpg,,,High,Valencina Museum (Apr 2024)
-1-97,Valencina,AXE,Valencina Museum/VDC 1-97 (1).jpg,Valencina Museum/VDC 1-97 (2).jpg,Valencina Museum/VDC 1-97 (3).jpg,Valencina Museum/VDC 1-97 (4).jpg,,,High,Valencina Museum (Apr 2024)
-2-2,Valencina,AXE,Valencina Museum/VDC 2-2 (1).jpg,Valencina Museum/VDC 2-2 (2).jpg,Valencina Museum/VDC 2-2 (3).jpg,Valencina Museum/VDC 2-2 (4).jpg,,,High,Valencina Museum (Apr 2024)
-12/4,Valencina,AXE,Valencina Museum/12-4 (1).jpg,Valencina Museum/12-4 (2).jpg,Valencina Museum/12-4 (3).jpg,Valencina Museum/12-4 (4).jpg,,,High,Valencina Museum (Feb 2026)
-120,Valencina,AXE,Valencina Museum/120 (1).jpg,Valencina Museum/120 (2).jpg,Valencina Museum/120 (3).jpg,,,,High,Valencina Museum (Feb 2026)
-126,Valencina,AXE,Valencina Museum/126 (1).jpg,,,,,,High,Valencina Museum (Feb 2026)
-13/9,Valencina,AXE,Valencina Museum/13-9 (1).jpg,Valencina Museum/13-9 (2).jpg,Valencina Museum/13-9 (3).jpg,,,,High,Valencina Museum (Feb 2026)
-133,Valencina,AXE,Valencina Museum/133 (1).jpg,Valencina Museum/133 (2).jpg,Valencina Museum/133 (3).jpg,,,,High,Valencina Museum (Feb 2026)
-134,Valencina,AXE,Valencina Museum/134 (1).jpg,Valencina Museum/134 (2).jpg,Valencina Museum/134 (3).jpg,,,,High,Valencina Museum (Feb 2026)
-14/472,Valencina,AXE,Valencina Museum/14-472 (1).jpg,Valencina Museum/14-472 (2).jpg,Valencina Museum/14-472 (3).jpg,,,,High,Valencina Museum (Feb 2026)
-14/579,Valencina,AXE,Valencina Museum/14-579 (1).jpg,Valencina Museum/14-579 (2).jpg,Valencina Museum/14-579 (3).jpg,,,,High,Valencina Museum (Feb 2026)
-15,Valencina,AXE,Valencina Museum/15 (1).jpg,Valencina Museum/15 (2).jpg,Valencina Museum/15 (3).jpg,,,,High,Valencina Museum (Feb 2026)
-16,Valencina,AXE,Valencina Museum/16 (1).jpg,Valencina Museum/16 (2).jpg,,,,,High,Valencina Museum (Feb 2026)
-17/186,Valencina,AXE,Valencina Museum/17-186 (1).jpg,Valencina Museum/17-186 (2).jpg,Valencina Museum/17-186 (3).jpg,,,,High,Valencina Museum (Feb 2026)
-17/807,Valencina,AXE,Valencina Museum/17-807 (1).jpg,Valencina Museum/17-807 (2).jpg,Valencina Museum/17-807 (3).jpg,,,,High,Valencina Museum (Feb 2026)
-17/808,Valencina,AXE,Valencina Museum/17-808 (1).jpg,Valencina Museum/17-808 (2).jpg,Valencina Museum/17-808 (3).jpg,,,,High,Valencina Museum (Feb 2026)
-18/326,Valencina,AXE,Valencina Museum/18-326 (1).jpg,Valencina Museum/18-326 (2).jpg,Valencina Museum/18-326 (3).jpg,,,,High,Valencina Museum (Feb 2026)
-18/379,Valencina,AXE,Valencina Museum/18-379 (1).jpg,Valencina Museum/18-379 (2).jpg,Valencina Museum/18-379 (3).jpg,,,,High,Valencina Museum (Feb 2026)
-2/16,Valencina,AXE,Valencina Museum/2-16 (1).jpg,Valencina Museum/2-16 (2).jpg,Valencina Museum/2-16 (3).jpg,,,,High,Valencina Museum (Feb 2026)
-207,Valencina,AXE,Valencina Museum/207 (1).jpg,,,,,,High,Valencina Museum (Feb 2026)
-21,Valencina,AXE,Valencina Museum/21 (1).jpg,Valencina Museum/21 (2).jpg,Valencina Museum/21 (3).jpg,Valencina Museum/21 (4).jpg,,,High,Valencina Museum (Feb 2026)
-212,Valencina,AXE,Valencina Museum/212 (1).jpg,Valencina Museum/212 (2).jpg,,,,,High,Valencina Museum (Feb 2026)
-214,Valencina,AXE,Valencina Museum/214 (1).jpg,,,,,,High,Valencina Museum (Feb 2026)
-22,Valencina,AXE,Valencina Museum/22 (1).jpg,Valencina Museum/22 (2).jpg,Valencina Museum/22 (3).jpg,,,,High,Valencina Museum (Feb 2026)
-229,Valencina,AXE,Valencina Museum/229 (1).jpg,Valencina Museum/229 (2).jpg,Valencina Museum/229 (3).jpg,,,,High,Valencina Museum (Feb 2026)
-35,Valencina,AXE,Valencina Museum/35 (1).jpg,Valencina Museum/35 (2).jpg,Valencina Museum/35 (3).jpg,,,,High,Valencina Museum (Feb 2026)
-7/16,Valencina,AXE,Valencina Museum/7-16 (1).jpg,Valencina Museum/7-16 (2).jpg,Valencina Museum/7-16 (3).jpg,,,,High,Valencina Museum (Feb 2026)
-7/17,Valencina,AXE,Valencina Museum/7-17 (1).jpg,Valencina Museum/7-17 (2).jpg,Valencina Museum/7-17 (3).jpg,,,,High,Valencina Museum (Feb 2026)
-7/32,Valencina,AXE,Valencina Museum/7-32 (1).jpg,Valencina Museum/7-32 (2).jpg,Valencina Museum/7-32 (3).jpg,,,,High,Valencina Museum (Feb 2026)
-8/39,Valencina,AXE,Valencina Museum/8-39 (1).jpg,Valencina Museum/8-39 (2).jpg,Valencina Museum/8-39 (3).jpg,,,,High,Valencina Museum (Feb 2026)
-88,Valencina,AXE,Valencina Museum/88 (1).jpg,,,,,,High,Valencina Museum (Feb 2026)
-89,Valencina,AXE,Valencina Museum/89 (1).jpg,,,,,,High,Valencina Museum (Feb 2026)
-90,Valencina,AXE,Valencina Museum/90 (1).jpg,,,,,,High,Valencina Museum (Feb 2026)
-92,Valencina,AXE,Valencina Museum/92 (1).jpg,,,,,,High,Valencina Museum (Feb 2026)
-jade,Valencina,AXE,Valencina Museum/jade (1).jpg,Valencina Museum/jade (2).jpg,Valencina Museum/jade (3).jpg,,,,High,Valencina Museum (Feb 2026)
-131,Valencina,AXE,,,,,,,,Valencina Museum - no photo taken
-2/26,Valencina,AXE,,,,,,,,Valencina Museum - no photo taken
-4436/4,Papauvas,AXE,Huelva museum pictures/4436-4 (1).jpg,Huelva museum pictures/4436-4 (2).jpg,Huelva museum pictures/4436-4 (3).jpg,,,,High,auto-matched Huelva Museum 02-03-2026
-6073/2,Papauvas,AXE,Huelva museum pictures/6073-2 (1).jpg,Huelva museum pictures/6073-2 (2).jpg,,,,,High,auto-matched Huelva Museum 02-03-2026
-6454/1,Papauvas,AXE,Huelva museum pictures/6454-1 (1).jpg,Huelva museum pictures/6454-1 (2).jpg,Huelva museum pictures/6454-1 (3).jpg,,,,High,auto-matched Huelva Museum 02-03-2026
-6454/3,Papauvas,AXE,Huelva museum pictures/6454-3 (1).jpg,Huelva museum pictures/6454-3 (2).jpg,Huelva museum pictures/6454-3 (3).jpg,,,,High,auto-matched Huelva Museum 02-03-2026
-6454/4,Papauvas,AXE,Huelva museum pictures/6454-4 (1).jpg,Huelva museum pictures/6454-4 (2).jpg,Huelva museum pictures/6454-4 (3).jpg,,,,High,auto-matched Huelva Museum 02-03-2026
-8491-11,Pozuelo,AXE,Huelva museum pictures/8491-11 (1).jpg,Huelva museum pictures/8491-11 (2).jpg,Huelva museum pictures/8491-11 (3).jpg,,,,High,auto-matched Huelva Museum 02-03-2026
-A/AJ12027,Cabezo de los Vientos,AXE,Huelva museum pictures/A-AJ12027 (1).jpg,Huelva museum pictures/A-AJ12027 (2).jpg,Huelva museum pictures/A-AJ12027 (3).jpg,,,,High,auto-matched Huelva Museum 02-03-2026
 A/DJ12028,Cabezo de los Vientos,AXE,Huelva museum pictures/A-DJ12028 (1).jpg,Huelva museum pictures/A-DJ12028 (2).jpg,Huelva museum pictures/A-DJ12028 (3).jpg,,,,High,auto-matched Huelva Museum 02-03-2026
 A/DJ12029,Cabezo de los Vientos,AXE,Huelva museum pictures/A-DJ12029 (1).jpg,Huelva museum pictures/A-DJ12029 (2).jpg,Huelva museum pictures/A-DJ12029 (3).jpg,,,,High,auto-matched Huelva Museum 02-03-2026
 A/DJ12033,Cabezo de los Vientos,BEAD,Huelva museum pictures/A-DJ12033 (1).jpg,Huelva museum pictures/A-DJ12033 (2).jpg,Huelva museum pictures/A-DJ12033 (3).jpg,Huelva museum pictures/A-DJ12033 (4).jpg,,,High,auto-matched Huelva Museum 02-03-2026
-IG1109,Pozuelo,AXE,Huelva museum pictures/IG1109 (1).jpg,Huelva museum pictures/IG1109 (2).jpg,Huelva museum pictures/IG1109 (3).jpg,,,,High,auto-matched Huelva Museum 02-03-2026
-IG253,Cabezo del Tesoro,AXE,Huelva museum pictures/IG253 (1).jpg,Huelva museum pictures/IG253 (2).jpg,Huelva museum pictures/IG253 (3).jpg,,,,High,auto-matched Huelva Museum 02-03-2026
-IG254,Cabezo del Tesoro,AXE,Huelva museum pictures/IG254 (1).jpg,Huelva museum pictures/IG254 (2).jpg,Huelva museum pictures/IG254 (3).jpg,,,,High,auto-matched Huelva Museum 02-03-2026
-IG756,Pozuelo,AXE,Huelva museum pictures/IG756 (1).jpg,Huelva museum pictures/IG756 (2).jpg,Huelva museum pictures/IG756 (3).jpg,,,,High,auto-matched Huelva Museum 02-03-2026
-IG942,Pozuelo,AXE,Huelva museum pictures/IG942 (1).jpg,Huelva museum pictures/IG942 (2).jpg,Huelva museum pictures/IG942 (3).jpg,,,,High,auto-matched Huelva Museum 02-03-2026
-rg 607?,Papauvas,AXE,Huelva museum pictures/rg 607 (1).jpg,Huelva museum pictures/rg 607 (2).jpg,Huelva museum pictures/rg 607 (3).jpg,,,,High,auto-matched Huelva Museum 02-03-2026
+CE 30324/5,El Cañaveralejo,AXE,Córdoba Museum/Cañaveralejo 30324-5 (1).jpg,Córdoba Museum/Cañaveralejo 30324-5 (2).jpg,Córdoba Museum/Cañaveralejo 30324-5 (3).jpg,Córdoba Museum/Cañaveralejo 30324-5 (4).jpg,,,High,structured
 CE04915,,,Sevilla Museum pictures/CE04915 (1).jpg,Sevilla Museum pictures/CE04915 (2).jpg,Sevilla Museum pictures/CE04915 (3).jpg,,,,High,auto-matched Sevilla Museum 02-03-2026
 CE15300,El Coronil,,Sevilla Museum pictures/CE15300 (1).jpg,Sevilla Museum pictures/CE15300 (2).jpg,Sevilla Museum pictures/CE15300 (3).jpg,Sevilla Museum pictures/CE15300 (4).jpg,,,High,auto-matched Sevilla Museum 02-03-2026
 CE15335,El Coronil,,Sevilla Museum pictures/CE15335 (1).jpg,Sevilla Museum pictures/CE15335 (2).jpg,Sevilla Museum pictures/CE15335 (3).jpg,Sevilla Museum pictures/CE15335 (4).jpg,,,High,auto-matched Sevilla Museum 02-03-2026
@@ -629,7 +648,68 @@ CE24145,Constantina,,Sevilla Museum pictures/CE24145 (1).jpg,Sevilla Museum pict
 CE4938,Cueva de la Mora,AXE,Sevilla Museum pictures/CE4938 (1).jpg,Sevilla Museum pictures/CE4938 (2).jpg,Sevilla Museum pictures/CE4938 (3).jpg,Sevilla Museum pictures/CE4938 (4).jpg,,,High,auto-matched Sevilla Museum 02-03-2026
 CE4944,Cueva de la Mora,AXE,Sevilla Museum pictures/CE4944 (1).jpg,Sevilla Museum pictures/CE4944 (2).jpg,Sevilla Museum pictures/CE4944 (3).jpg,,,,High,auto-matched Sevilla Museum 02-03-2026
 CE4947,Cueva de la Mora,AXE,Sevilla Museum pictures/CE4947 (1).jpg,Sevilla Museum pictures/CE4947 (2).jpg,Sevilla Museum pictures/CE4947 (3).jpg,,,,High,auto-matched Sevilla Museum 02-03-2026
-DO00076,,,Sevilla Museum pictures/DO00076 (1).jpg,Sevilla Museum pictures/DO00076 (2).jpg,Sevilla Museum pictures/DO00076 (3).jpg,Sevilla Museum pictures/DO00076 (4).jpg,,,High,auto-matched Sevilla Museum 02-03-2026
-DO00077,,,Sevilla Museum pictures/DO00077 (1).jpg,Sevilla Museum pictures/DO00077 (2).jpg,Sevilla Museum pictures/DO00077 (3).jpg,Sevilla Museum pictures/DO00077 (4).jpg,,,High,auto-matched Sevilla Museum 02-03-2026
+D00076,Carmona,,Sevilla Museum pictures/DO00076 (1).jpg,Sevilla Museum pictures/DO00076 (2).jpg,Sevilla Museum pictures/DO00076 (3).jpg,Sevilla Museum pictures/DO00076 (4).jpg,,,High,auto-matched Sevilla Museum 02-03-2026
+D00077,Carmona,,Sevilla Museum pictures/DO00077 (1).jpg,Sevilla Museum pictures/DO00077 (2).jpg,Sevilla Museum pictures/DO00077 (3).jpg,Sevilla Museum pictures/DO00077 (4).jpg,,,High,auto-matched Sevilla Museum 02-03-2026
+DJ-EA134,Úbeda,AXE,Úbeda Museum/DJ-EA134 (1).jpg,Úbeda Museum/DJ-EA134 (2).jpg,Úbeda Museum/DJ-EA134 (3).jpg,Úbeda Museum/DJ-EA134 (4).jpg,,,High,auto-matched
+IG1109,Pozuelo,AXE,Huelva museum pictures/IG1109 (1).jpg,Huelva museum pictures/IG1109 (2).jpg,Huelva museum pictures/IG1109 (3).jpg,,,,High,auto-matched Huelva Museum 02-03-2026
+IG1112,Pozuelo,AXE,Huelva museum pictures/IG1112 (1).jpg,Huelva museum pictures/IG1112 (2).jpg,Huelva museum pictures/IG1112 (3).jpg,,,,High,Huelva Museum
+IG1115,Pozuelo,AXE,Huelva museum pictures/IG1115 (1).jpg,Huelva museum pictures/IG1115 (2).jpg,Huelva museum pictures/IG1115 (3).jpg,,,,High,Huelva Museum
+IG253,Cabezo del Tesoro,AXE,Huelva museum pictures/IG253 (1).jpg,Huelva museum pictures/IG253 (2).jpg,Huelva museum pictures/IG253 (3).jpg,,,,High,auto-matched Huelva Museum 02-03-2026
+IG254,Cabezo del Tesoro,AXE,Huelva museum pictures/IG254 (1).jpg,Huelva museum pictures/IG254 (2).jpg,Huelva museum pictures/IG254 (3).jpg,,,,High,auto-matched Huelva Museum 02-03-2026
+IG494,Pozuelo,AXE,Huelva museum pictures/IG494 (1).jpg,Huelva museum pictures/IG494 (2).jpg,Huelva museum pictures/IG494 (3).jpg,,,,High,Huelva Museum
+IG756,Pozuelo,AXE,,,,,,,Low,Photos not found on disk - may need re-photographing
+IG858,Los Gabrieles,AXE,Huelva museum pictures/IG858 (1).jpg,Huelva museum pictures/IG858 (2).jpg,Huelva museum pictures/IG858 (3).jpg,,,,High,Huelva Museum
+IG941,Pozuelo,AXE,Huelva museum pictures/IG941 (1).jpg,Huelva museum pictures/IG941 (2).jpg,Huelva museum pictures/IG941 (3).jpg,,,,High,Huelva Museum
+IG942,Pozuelo,AXE,Huelva museum pictures/IG942 (1).jpg,Huelva museum pictures/IG942 (2).jpg,Huelva museum pictures/IG942 (3).jpg,,,,High,auto-matched Huelva Museum 02-03-2026
+MCor DEC1,Zuheros,IDOL,Córdoba Museum/MCor DEC1 (1).jpg,Córdoba Museum/MCor DEC1 (2).jpg,Córdoba Museum/MCor DEC1 (3).jpg,Córdoba Museum/MCor DEC1 (4).jpg,Córdoba Museum/MCor DEC1 (5).jpg,Córdoba Museum/MCor DEC1 (6).jpg,High,auto-matched
+MCor DEC2,Zuheros,AXE,Córdoba Museum/Zuheros DEC2 (2).jpg,Córdoba Museum/Zuheros DEC2 (3).jpg,Córdoba Museum/Zuheros DEC2 (4).jpg,Córdoba Museum/Zuheros DEC2(1).jpg,,,High,auto-matched
 REP4939,Cueva de la Mora,AXE,Sevilla Museum pictures/REP4939 (1).jpg,Sevilla Museum pictures/REP4939 (2).jpg,Sevilla Museum pictures/REP4939 (3).jpg,,,,High,auto-matched Sevilla Museum 02-03-2026
-6071/2,Papauvas,AXE,Huelva museum pictures/6071-2 (1).jpg,Huelva museum pictures/6071-2 (2).jpg,Huelva museum pictures/6071-2 (3).jpg,Huelva museum pictures/6071-2 (4).jpg,,,High,manual-add: slash-to-dash filename convention
+RPPUL-1,Malagón,AXE,UGR assemblages/Montefrío/Raw/RPPUL-1 (1).JPG,UGR assemblages/Montefrío/Raw/RPPUL-1 (2).JPG,UGR assemblages/Montefrío/Raw/RPPUL-1 (3).JPG,UGR assemblages/El Malagón/Raw/CB RPPUL-1 or 10160 (1).JPG,UGR assemblages/El Malagón/Raw/CB RPPUL-1 or 10160 (2).JPG,UGR assemblages/El Malagón/Raw/CB RPPUL-1 or 10160 (3).JPG,Medium,auto-matched
+RPPUL-10,Montefrío,AXE,UGR assemblages/El Malagón/Raw/CB RPPUL-10 (1).JPG,UGR assemblages/El Malagón/Raw/CB RPPUL-10 (2).JPG,UGR assemblages/El Malagón/Raw/CB RPPUL-10 (3).JPG,UGR assemblages/Descontextualizado/Raw/MF RPPUL-10 (1).jpg,UGR assemblages/Descontextualizado/Raw/MF RPPUL-10 (2).jpg,UGR assemblages/Descontextualizado/Raw/MF RPPUL-10 (3).jpg,High,El Malagón/Raw
+RPPUL-3,Malagón,AXE,UGR assemblages/Montefrío/Raw/RPPUL-3 (1).JPG,UGR assemblages/Montefrío/Raw/RPPUL-3 (2).JPG,UGR assemblages/Montefrío/Raw/RPPUL-3 (3).JPG,UGR assemblages/El Malagón/Raw/CB RPPUL-3 or 10061 (1).JPG,UGR assemblages/El Malagón/Raw/CB RPPUL-3 or 10061 (2).JPG,UGR assemblages/El Malagón/Raw/CB RPPUL-3 or 10061 (3).JPG,Medium,auto-matched
+RPPUL-6,Malagón,AXE,UGR assemblages/El Malagón/Raw/CB RPPUL-6 (1).JPG,UGR assemblages/El Malagón/Raw/CB RPPUL-6 (2).JPG,UGR assemblages/El Malagón/Raw/CB RPPUL-6 (3).JPG,UGR assemblages/El Malagón/Raw/CB RPPUL-6 (4).JPG,,,High,El Malagón/Raw
+RPPUL-7,Malagón,AXE,UGR assemblages/El Malagón/Raw/CB RPPUL-7 (1).JPG,UGR assemblages/El Malagón/Raw/CB RPPUL-7 (2).JPG,UGR assemblages/El Malagón/Raw/CB RPPUL-7 (3).JPG,,,,High,El Malagón/Raw
+RPPUL-8,Malagón,AXE,UGR assemblages/El Malagón/Raw/CB RPPUL-8 (1).JPG,UGR assemblages/El Malagón/Raw/CB RPPUL-8 (2).JPG,UGR assemblages/El Malagón/Raw/CB RPPUL-8 (3).JPG,,,,High,El Malagón/Raw
+RPPUL-9,Malagón,AXE,UGR assemblages/El Malagón/Raw/CB RPPUL-9 (1).JPG,UGR assemblages/El Malagón/Raw/CB RPPUL-9 (2).JPG,UGR assemblages/El Malagón/Raw/CB RPPUL-9 (3).JPG,,,,High,El Malagón/Raw
+UGR Dep DEC1,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 1 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 1 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 1 (3).jpg,UGR assemblages/UGR trip January 2022/DEC 1.png,UGR assemblages/Descontextualizado/Raw/DEC 1 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 1 (2).jpg,High,structured; Descontextualizado/Raw/DEC 1 (3).jpg
+UGR Dep DEC10,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 10 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 10 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 10 (3).jpg,UGR assemblages/UGR trip January 2022/DEC 10.png,UGR assemblages/Descontextualizado/Raw/DEC 10 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 10 (2).jpg,High,structured; Descontextualizado/Raw/DEC 10 (3).jpg
+UGR Dep DEC11,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 11 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 11 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 11 (3).jpg,UGR assemblages/UGR trip January 2022/DEC 11.png,UGR assemblages/Descontextualizado/Raw/DEC 11 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 11 (2).jpg,High,structured; Descontextualizado/Raw/DEC 11 (3).jpg
+UGR Dep DEC12,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 12 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 12 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 12 (3).jpg,UGR assemblages/UGR trip January 2022/DEC 12.png,UGR assemblages/Descontextualizado/Raw/DEC 12 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 12 (2).jpg,High,structured; Descontextualizado/Raw/DEC 12 (3).jpg
+UGR Dep DEC13,Millares,AXE,UGR assemblages/Descontextualizado/Raw/LM 35020 or DEC 13 (1).jpg,UGR assemblages/Descontextualizado/Raw/LM 35020 or DEC 13 (2).jpg,UGR assemblages/Descontextualizado/Raw/LM 35020 or DEC 13 (3).jpg,,,,High,Descontextualizado/Raw
+UGR Dep DEC14,Millares,AXE,UGR assemblages/Descontextualizado/Raw/DEC 14 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 14 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 14 (3).jpg,,,,High,Descontextualizado/Raw
+UGR Dep DEC15,Millares,AXE,UGR assemblages/Descontextualizado/Raw/DEC 15 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 15 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 15 (3).jpg,,,,High,Descontextualizado/Raw
+UGR Dep DEC17,Millares,AXE,UGR assemblages/Descontextualizado/Raw/DEC 17 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 17 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 17 (3).jpg,,,,High,Descontextualizado/Raw
+UGR Dep DEC18,Millares,AXE,UGR assemblages/Descontextualizado/Raw/DEC 18 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 18 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 18 (3).jpg,,,,High,Descontextualizado/Raw
+UGR Dep DEC19,Millares,AXE,UGR assemblages/Descontextualizado/Raw/DEC 19 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 19 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 19 (3).jpg,,,,High,Descontextualizado/Raw
+UGR Dep DEC2,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 2 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 2 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 2 (3).jpg,UGR assemblages/UGR trip January 2022/DEC 2.png,UGR assemblages/Descontextualizado/Raw/DEC 2 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 2 (2).jpg,High,structured; Descontextualizado/Raw/DEC 2 (3).jpg
+UGR Dep DEC20,Millares,AXE,UGR assemblages/Descontextualizado/Raw/DEC 20 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 20 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 20 (3).jpg,,,,High,Descontextualizado/Raw
+UGR Dep DEC21,Millares,AXE,UGR assemblages/Descontextualizado/Raw/DEC 21 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 21 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 21 (3).jpg,,,,High,Descontextualizado/Raw
+UGR Dep DEC22,Millares,AXE,UGR assemblages/Descontextualizado/Raw/DEC 22 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 22 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 22 (3).jpg,,,,High,Descontextualizado/Raw
+UGR Dep DEC23,Millares,AXE,UGR assemblages/Descontextualizado/Raw/DEC 23 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 23 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 23 (3).jpg,,,,High,Descontextualizado/Raw
+UGR Dep DEC24,Millares,AXE,UGR assemblages/Descontextualizado/Raw/DEC 24 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 24 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 24 (3).jpg,,,,High,Descontextualizado/Raw
+UGR Dep DEC25,Millares,AXE,UGR assemblages/Descontextualizado/Raw/DEC 25 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 25 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 25 (3).jpg,,,,High,Descontextualizado/Raw
+UGR Dep DEC26,Millares,AXE,UGR assemblages/Descontextualizado/Raw/DEC 26 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 26 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 26 (3).jpg,,,,High,Descontextualizado/Raw
+UGR Dep DEC27,Millares,AXE,UGR assemblages/Descontextualizado/Raw/DEC 27 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 27 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 27 (3).jpg,,,,High,Descontextualizado/Raw
+UGR Dep DEC28,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 28 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 28 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 28 (3).jpg,UGR assemblages/Descontextualizado/Raw/DEC 28 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 28 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 28 (3).jpg,High,structured
+UGR Dep DEC29,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 29 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 29 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 29 (3).jpg,UGR assemblages/Descontextualizado/Raw/DEC 29 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 29 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 29 (3).jpg,High,structured
+UGR Dep DEC3,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 3 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 3 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 3 (3).jpg,UGR assemblages/UGR trip January 2022/DEC 3.png,UGR assemblages/Descontextualizado/Raw/DEC 3 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 3 (2).jpg,High,structured; Descontextualizado/Raw/DEC 3 (3).jpg
+UGR Dep DEC30,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 30 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 30 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 30 (3).jpg,,,,High,sillimanite-DEC
+UGR Dep DEC31,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 31 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 31 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 31 (3).jpg,UGR assemblages/Descontextualizado/Raw/DEC 31 (4).jpg,UGR assemblages/Descontextualizado/Sheets/DEC 31.png,UGR assemblages/Descontextualizado/Raw/DEC 31 (1).jpg,High,structured; Descontextualizado/Raw/DEC 31 (2).jpg; Descontextualizado/Raw/DEC 31 (3).jpg; Descontextualizado/Raw/DEC 31 (4).jpg
+UGR Dep DEC32,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 32 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 32 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 32 (3).jpg,UGR assemblages/Descontextualizado/Sheets/DEC 32.png,UGR assemblages/Descontextualizado/Raw/DEC 32 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 32 (2).jpg,High,structured; Descontextualizado/Raw/DEC 32 (3).jpg
+UGR Dep DEC33,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 33 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 33 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 33 (3).jpg,UGR assemblages/Descontextualizado/Raw/DEC 33 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 33 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 33 (3).jpg,High,structured
+UGR Dep DEC34,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 34 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 34 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 34 (3).jpg,,,,High,sillimanite-DEC
+UGR Dep DEC35,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 35 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 35 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 35 (3).jpg,,,,High,sillimanite-DEC
+UGR Dep DEC36,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 36 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 36 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 36 (3).jpg,UGR assemblages/Descontextualizado/Sheets/DEC 36.png,UGR assemblages/Descontextualizado/Raw/DEC 36 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 36 (2).jpg,High,structured; Descontextualizado/Raw/DEC 36 (3).jpg
+UGR Dep DEC38,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 38 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 38 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 38 (3).jpg,,,,High,sillimanite-DEC
+UGR Dep DEC39,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 39 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 39 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 39 (3).jpg,,,,High,sillimanite-DEC
+UGR Dep DEC40,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 40 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 40 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 40 (3).jpg,UGR assemblages/Descontextualizado/Raw/DEC 40 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 40 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 40 (3).jpg,High,structured
+UGR Dep DEC41,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 41 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 41 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 41 (3).jpg,UGR assemblages/Descontextualizado/Raw/DEC 41 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 41 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 41 (3).jpg,High,structured
+UGR Dep DEC42,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 42 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 42 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 42 (3).jpg,UGR assemblages/Descontextualizado/Raw/DEC 42 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 42 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 42 (3).jpg,High,structured
+UGR Dep DEC43,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 43 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 43 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 43 (3).jpg,UGR assemblages/Descontextualizado/Raw/DEC 43 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 43 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 43 (3).jpg,High,structured
+UGR Dep DEC44,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 44 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 44 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 44 (3).jpg,UGR assemblages/Descontextualizado/Raw/DEC 44 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 44 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 44 (3).jpg,High,structured
+UGR Dep DEC45,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 45 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 45 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 45 (3).jpg,,,,High,sillimanite-DEC
+UGR Dep DEC6,UGR Department DEC,MAC,UGR assemblages/Descontextualizado/Raw/DEC 6 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 6 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 6 (3).jpg,UGR assemblages/UGR trip January 2022/DEC 6.png,UGR assemblages/Descontextualizado/Raw/DEC 6 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 6 (2).jpg,High,structured; Descontextualizado/Raw/DEC 6 (3).jpg
+UGR Dep DEC7,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 7 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 7 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 7 (3).jpg,UGR assemblages/UGR trip January 2022/DEC 7.png,UGR assemblages/Descontextualizado/Raw/DEC 7 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 7 (2).jpg,High,structured; Descontextualizado/Raw/DEC 7 (3).jpg
+UGR Dep DEC8,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 8 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 8 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 8 (3).jpg,UGR assemblages/UGR trip January 2022/DEC 8.png,UGR assemblages/Descontextualizado/Raw/DEC 8 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 8 (2).jpg,High,structured; Descontextualizado/Raw/DEC 8 (3).jpg
+UGR Dep DEC9,UGR Department DEC,AXE,UGR assemblages/Descontextualizado/Raw/DEC 9 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 9 (2).jpg,UGR assemblages/Descontextualizado/Raw/DEC 9 (3).jpg,UGR assemblages/UGR trip January 2022/DEC 9.png,UGR assemblages/Descontextualizado/Raw/DEC 9 (1).jpg,UGR assemblages/Descontextualizado/Raw/DEC 9 (2).jpg,High,structured; Descontextualizado/Raw/DEC 9 (3).jpg
+jade,Valencina,AXE,Valencina Museum/jade (1).jpg,Valencina Museum/jade (2).jpg,Valencina Museum/jade (3).jpg,,,,High,Valencina Museum (Feb 2026)

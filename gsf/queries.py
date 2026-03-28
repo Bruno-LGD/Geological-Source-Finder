@@ -116,19 +116,43 @@ def execute_query(
         label_prefix = "geology sample"
         region_col = "Artefact Region"
 
-    # Resolve query sample in sort mode for header info
-    sort_art_df, sort_geo_df = mode_datasets[sort_mode]
-    if direction == "artefact_to_geology":
-        source_df = sort_art_df
-    else:
-        source_df = sort_geo_df
+    # Resolve query sample — try sort_mode first, fall back
+    # to the next enabled mode that has valid ratio data.
+    effective_sort = sort_mode
+    sample = None
+    source_df = None
+    for try_mode in [sort_mode] + [
+        m for m in enabled_modes if m != sort_mode
+    ]:
+        art_df, geo_df = mode_datasets[try_mode]
+        src = art_df if direction == "artefact_to_geology" else geo_df
+        candidate = _resolve_sample(
+            accession_number, src,
+            label_prefix, key_suffix="single",
+        )
+        if candidate is not None:
+            ratio_cols = get_ratio_columns(candidate)
+            if ratio_cols:
+                effective_sort = try_mode
+                sample = candidate
+                source_df = src
+                break
+            # Sample exists but has no valid ratios in this mode;
+            # keep it as a fallback for header display.
+            if sample is None:
+                sample = candidate
+                source_df = src
 
-    sample = _resolve_sample(
-        accession_number, source_df,
-        label_prefix, key_suffix="single",
-    )
     if sample is None:
         return
+
+    if effective_sort != sort_mode:
+        st.info(
+            f"Sorted by **{MODE_LABELS[effective_sort]}** "
+            f"(no valid data for "
+            f"{MODE_LABELS[sort_mode]})."
+        )
+        sort_mode = effective_sort
 
     # Start photo downloads early (runs in background)
     if (
@@ -399,16 +423,31 @@ def execute_batch_query(
                 query_samples[mode] = m.iloc[0]
                 target_dfs[mode] = tgt
 
+        # Determine effective sort mode for this sample:
+        # fall back if sort_mode has no valid ratio data.
+        eff_sort = sort_mode
         if sort_mode not in query_samples:
             errors.append(acc)
             continue
+        if not get_ratio_columns(query_samples[sort_mode]):
+            fallback = next(
+                (m for m in enabled_modes
+                 if m != sort_mode
+                 and m in query_samples
+                 and get_ratio_columns(query_samples[m])),
+                None,
+            )
+            if fallback is None:
+                errors.append(acc)
+                continue
+            eff_sort = fallback
 
         result = get_top_matches_multimode(
             query_samples, target_dfs,
             query_coords_df_b, target_coords_df,
             top_n, direction,
             enabled_modes=enabled_modes,
-            sort_mode=sort_mode,
+            sort_mode=eff_sort,
         )
         if not result.empty:
             result.insert(0, "Query Acc #", acc)
