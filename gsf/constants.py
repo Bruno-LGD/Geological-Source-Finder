@@ -87,6 +87,7 @@ LITHOLOGY_COLOR_MAP: dict[str, str] = {
     "Gabbro-CALC": "#B8B0A2",   # Warm light gray
     "Gabbro-ALK": "#6B6460",    # Warm dark gray
     "Metagabbro": "#7AAD7D",    # Light sage
+    "Sillimanite": "#D4A03C",   # Golden amber
 }
 
 # Region color map for scatter plots

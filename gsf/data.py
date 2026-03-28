@@ -107,18 +107,23 @@ def load_data(
     if element_mode == "all":
         filenames = {
             "artefact": "AXEs metabasite data (All Elements).xlsx",
+            "artefact_sill": "AXEs sillimanite data (All Elements).xlsx",
             "geology": "Geology samples data (All Elements).xlsx",
             "coords": "Coordinates sheet.xlsx",
         }
     else:
         filenames = {
             "artefact": "AXEs metabasite data (Trace Elements).xlsx",
+            "artefact_sill": "AXEs sillimanite data (Trace Elements).xlsx",
             "geology": "Geology samples data (Trace Elements).xlsx",
             "coords": "Coordinates sheet.xlsx",
         }
 
     # Resolve each file independently across search dirs
     # (PhD folder splits files: Main database/ vs Data/)
+    # Sillimanite artefact file is optional — not all
+    # deployments will have it.
+    optional_keys = {"artefact_sill"}
     resolved: dict[str, str] = {}
     for key, fname in filenames.items():
         for d in search_dirs:
@@ -131,7 +136,8 @@ def load_data(
                 break
 
     missing = [
-        filenames[k] for k in filenames if k not in resolved
+        filenames[k] for k in filenames
+        if k not in resolved and k not in optional_keys
     ]
     if missing:
         raise FileNotFoundError(
@@ -147,6 +153,13 @@ def load_data(
             artefact_df = _load_alr5_df(
                 resolved["artefact"], "AXEs ppm data",
             )
+            if "artefact_sill" in resolved:
+                sill_df = _load_alr5_df(
+                    resolved["artefact_sill"], "AXEs ppm data",
+                )
+                artefact_df = pd.concat(
+                    [artefact_df, sill_df], ignore_index=True,
+                )
             geology_df = _load_alr5_df(
                 resolved["geology"], "Geology ppm data",
             )
@@ -155,6 +168,14 @@ def load_data(
                 resolved["artefact"],
                 sheet_name="AXEs Ratios",
             )
+            if "artefact_sill" in resolved:
+                sill_df = pd.read_excel(
+                    resolved["artefact_sill"],
+                    sheet_name="AXEs Ratios",
+                )
+                artefact_df = pd.concat(
+                    [artefact_df, sill_df], ignore_index=True,
+                )
             geology_df = pd.read_excel(
                 resolved["geology"],
                 sheet_name="Geology ratios",
